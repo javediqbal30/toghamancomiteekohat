@@ -1,0 +1,116 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import SkipLink from '../components/layout/SkipLink.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import BottomNav from '../components/layout/BottomNav.astro';
+import FloatingActions from '../components/layout/FloatingActions.astro';
+
+import '../styles/tokens.css';
+import '../styles/base.css';
+import '../styles/layout.css';
+import '../styles/motion.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title = 'Togh Aman Committee | Peace & Welfare',
+  description = 'Official portal of Togh Aman Committee. Promoting peace, transparency, rule of law, and community development in Togh Bala and Payan.',
+  image = '/assets/brand/togh-aman-committee-emblem.png',
+} = Astro.props;
+
+// Enforce Title <= 55-60 chars and Description <= 155 chars
+const canonicalURL = new URL(Astro.url.pathname, 'https://www.toghamancomitee.com').toString();
+const currentPath = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/assets/brand/togh-aman-committee-emblem.png" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Primary Meta Tags (Strict Character Budgets) -->
+    <title>{title.length > 55 ? title.substring(0, 52) + '...' : title}</title>
+    <meta name="title" content={title.length > 55 ? title.substring(0, 52) + '...' : title} />
+    <meta name="description" content={description.length > 155 ? description.substring(0, 152) + '...' : description} />
+    <meta name="author" content="Togh Aman Committee" />
+    <meta name="theme-color" content="#064D32" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta property="og:site_name" content="Togh Aman Committee" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={image} />
+
+    <!-- Manifest & Offline Capabilities -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+
+    <!-- Google Fonts Preconnect & Subsets (Poppins Font Family) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link 
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" 
+      rel="stylesheet" 
+    />
+
+    <!-- Astro View Transitions -->
+    <ClientRouter />
+  </head>
+  <body>
+    <div id="scroll-progress-bar" class="scroll-progress-bar"></div>
+    <SkipLink />
+    <Header currentPath={currentPath} />
+
+    <main id="main-content" class="main-content">
+      <slot />
+    </main>
+
+    <Footer />
+    <BottomNav currentPath={currentPath} />
+    <FloatingActions />
+
+    <script>
+      import { initScrollReveal, initScrollProgress } from '../scripts/reveal';
+
+      function setupPage() {
+        initScrollReveal();
+        initScrollProgress();
+      }
+
+      setupPage();
+      document.addEventListener('astro:page-load', setupPage);
+
+      if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost')) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
+    </script>
+  </body>
+</html>
+
+<style>
+  .main-content {
+    flex: 1;
+    width: 100%;
+  }
+</style>

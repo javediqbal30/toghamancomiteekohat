@@ -1,0 +1,184 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Badge from '../../components/ui/Badge.astro';
+import Button from '../../components/ui/Button.astro';
+import Icon from '../../components/ui/Icon.astro';
+
+export async function getStaticPaths() {
+  const newsEntries = await getCollection('news');
+  return newsEntries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const formattedDate = new Intl.DateTimeFormat('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+}).format(entry.data.pubDate);
+---
+
+<BaseLayout
+  title={`${entry.data.title.substring(0, 40)} | Togh Aman`}
+  description={entry.data.description}
+  image={entry.data.image}
+>
+  <article class="article-page section">
+    <div class="container article-container">
+      <div class="article-header text-center">
+        <div class="article-badges">
+          <Badge variant="gold">{entry.data.category}</Badge>
+          <time datetime={entry.data.pubDate.toISOString()} class="article-date">{formattedDate}</time>
+        </div>
+
+        <h1 class="article-title">{entry.data.title}</h1>
+        <p class="article-lead">{entry.data.description}</p>
+
+        <div class="article-author-bar">
+          <span><strong>Issued by:</strong> {entry.data.author}</span>
+        </div>
+      </div>
+
+      {entry.data.image && (
+        <div class="article-featured-image card">
+          <img src={entry.data.image} alt={entry.data.title} class="featured-img" />
+        </div>
+      )}
+
+      <div class="article-content card">
+        <div class="prose-body">
+          <Content />
+        </div>
+
+        <div class="article-footer-nav">
+          <Button variant="outline" size="sm" href="/news">
+            <Icon name="arrow-right" size={14} class="rotate-180" />
+            <span>Back to All Announcements</span>
+          </Button>
+
+          <Button variant="accent" size="sm" href="/complaints">
+            <Icon name="alert" size={14} />
+            <span>Report an Issue</span>
+          </Button>
+        </div>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .article-container {
+    max-width: 820px;
+    margin: 0 auto;
+  }
+
+  .article-header {
+    margin-bottom: var(--space-8);
+  }
+
+  .article-badges {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+  }
+
+  .article-date {
+    font-size: var(--text-xs);
+    color: var(--color-text-subtle);
+  }
+
+  .article-title {
+    font-size: var(--text-3xl);
+    color: var(--color-primary);
+    margin-bottom: var(--space-4);
+    line-height: var(--leading-tight);
+  }
+
+  .article-lead {
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+    line-height: var(--leading-normal);
+    margin-bottom: var(--space-4);
+  }
+
+  .article-author-bar {
+    font-size: var(--text-xs);
+    color: var(--color-green);
+  }
+
+  .article-featured-image {
+    padding: 0;
+    overflow: hidden;
+    margin-bottom: var(--space-8);
+    max-height: 420px;
+  }
+
+  .featured-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .article-content {
+    padding: var(--space-8);
+  }
+
+  .prose-body :global(h2) {
+    font-size: var(--text-xl);
+    color: var(--color-primary);
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-3);
+  }
+
+  .prose-body :global(h3) {
+    font-size: var(--text-lg);
+    color: var(--color-green);
+    margin-top: var(--space-4);
+    margin-bottom: var(--space-2);
+  }
+
+  .prose-body :global(p) {
+    font-size: var(--text-base);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text);
+    margin-bottom: var(--space-4);
+  }
+
+  .prose-body :global(ol), .prose-body :global(ul) {
+    margin-left: var(--space-6);
+    margin-bottom: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .prose-body :global(li) {
+    font-size: var(--text-base);
+    color: var(--color-text);
+    line-height: var(--leading-normal);
+  }
+
+  .article-footer-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .rotate-180 {
+    transform: rotate(180deg);
+  }
+
+  .text-center { text-align: center; }
+</style>

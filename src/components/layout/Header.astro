@@ -1,0 +1,275 @@
+---
+import Icon from '../ui/Icon.astro';
+import Button from '../ui/Button.astro';
+
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = '/' } = Astro.props;
+
+const navLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/about', label: 'About Us' },
+  { href: '/our-work', label: 'Our Work' },
+  { href: '/transparency', label: 'Transparency' },
+  { href: '/news', label: 'News' },
+  { href: '/contact', label: 'Contact' },
+];
+---
+
+<header class="site-header" id="site-header">
+  <div class="container nav-container">
+    <a href="/" class="brand-link" aria-label="Togh Aman Committee Home">
+      <div class="logo-box">
+        <img 
+          src="/assets/brand/togh-aman-committee-emblem.png" 
+          alt="Togh Aman Committee Peace Emblem" 
+          width="44" 
+          height="44"
+          class="brand-logo-img"
+          loading="eager"
+        />
+      </div>
+      <div class="brand-titles">
+        <span class="brand-name">Togh Aman Committee</span>
+        <span class="brand-tagline">Togh Bala & Payan, Kohat</span>
+      </div>
+    </a>
+
+    <!-- Desktop Navigation Links -->
+    <nav class="nav-links" aria-label="Main Navigation">
+      {navLinks.map((link) => (
+        <a 
+          href={link.href} 
+          class={`nav-link ${currentPath === link.href ? 'active' : ''}`}
+          aria-current={currentPath === link.href ? 'page' : undefined}
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <!-- Header CTA Button -->
+    <div class="header-actions">
+      <Button variant="accent" size="sm" href="/complaints" class="header-cta-btn">
+        <Icon name="alert" size={16} />
+        <span>Report an Issue</span>
+      </Button>
+
+      <!-- Mobile Hamburger Toggle -->
+      <button 
+        type="button" 
+        class="mobile-menu-toggle" 
+        id="mobile-menu-toggle" 
+        aria-label="Open Navigation Menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu-drawer"
+      >
+        <Icon name="menu" size={24} />
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Drawer Backdrop & Drawer -->
+<div class="mobile-drawer-backdrop" id="mobile-backdrop"></div>
+<div class="mobile-drawer" id="mobile-menu-drawer" aria-hidden="true">
+  <div class="mobile-drawer-header">
+    <div class="brand-titles">
+      <span class="brand-name">Togh Aman Committee</span>
+      <span class="brand-tagline">Togh Bala & Payan</span>
+    </div>
+    <button type="button" class="mobile-drawer-close" id="mobile-drawer-close" aria-label="Close Navigation Menu">
+      <Icon name="close" size={24} />
+    </button>
+  </div>
+  <nav class="mobile-drawer-nav">
+    {navLinks.map((link) => (
+      <a 
+        href={link.href} 
+        class={`mobile-drawer-link ${currentPath === link.href ? 'active' : ''}`}
+      >
+        {link.label}
+      </a>
+    ))}
+  </nav>
+  <div class="mobile-drawer-footer">
+    <Button variant="accent" size="md" href="/complaints" class="w-full">
+      <Icon name="alert" size={18} />
+      <span>Report an Issue</span>
+    </Button>
+  </div>
+</div>
+
+<style>
+  .logo-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .brand-titles {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+  }
+
+  .brand-name {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-white);
+    letter-spacing: -0.01em;
+  }
+
+  .brand-tagline {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .header-cta-btn {
+    display: none;
+  }
+
+  @media (min-width: 640px) {
+    .header-cta-btn {
+      display: inline-flex;
+    }
+  }
+
+  .mobile-menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    color: var(--color-white);
+    border: none;
+    padding: var(--space-2);
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+  }
+
+  @media (min-width: 992px) {
+    .mobile-menu-toggle {
+      display: none;
+    }
+  }
+
+  /* Mobile Drawer Styles */
+  .mobile-drawer-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1050;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--duration-normal) ease;
+  }
+
+  .mobile-drawer-backdrop.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .mobile-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(320px, 85vw);
+    background: var(--color-primary);
+    color: var(--color-white);
+    z-index: 1060;
+    transform: translateX(100%);
+    transition: transform var(--duration-normal) var(--ease-spring);
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-6);
+    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.3);
+  }
+
+  .mobile-drawer.is-open {
+    transform: translateX(0);
+  }
+
+  .mobile-drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: var(--space-4);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .mobile-drawer-close {
+    background: transparent;
+    color: var(--color-white);
+    border: none;
+    cursor: pointer;
+  }
+
+  .mobile-drawer-nav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding-top: var(--space-6);
+    flex: 1;
+  }
+
+  .mobile-drawer-link {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    font-size: var(--text-base);
+    font-weight: 500;
+    transition: background var(--duration-fast);
+  }
+
+  .mobile-drawer-link:hover, .mobile-drawer-link.active {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--color-gold);
+  }
+
+  .mobile-drawer-footer {
+    padding-top: var(--space-4);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+  }
+</style>
+
+<script>
+  function setupMobileMenu() {
+    const toggle = document.getElementById('mobile-menu-toggle');
+    const closeBtn = document.getElementById('mobile-drawer-close');
+    const drawer = document.getElementById('mobile-menu-drawer');
+    const backdrop = document.getElementById('mobile-backdrop');
+
+    function openMenu() {
+      drawer?.classList.add('is-open');
+      backdrop?.classList.add('is-open');
+      drawer?.setAttribute('aria-hidden', 'false');
+      toggle?.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeMenu() {
+      drawer?.classList.remove('is-open');
+      backdrop?.classList.remove('is-open');
+      drawer?.setAttribute('aria-hidden', 'true');
+      toggle?.setAttribute('aria-expanded', 'false');
+    }
+
+    toggle?.addEventListener('click', openMenu);
+    closeBtn?.addEventListener('click', closeMenu);
+    backdrop?.addEventListener('click', closeMenu);
+  }
+
+  setupMobileMenu();
+  document.addEventListener('astro:page-load', setupMobileMenu);
+</script>

@@ -1,0 +1,351 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Badge from '../../../components/ui/Badge.astro';
+import Button from '../../../components/ui/Button.astro';
+import Icon from '../../../components/ui/Icon.astro';
+
+const allResolutions = await getCollection('resolutions');
+const sortedResolutions = allResolutions.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<BaseLayout
+  title="Public Resolutions Register | Togh Aman"
+  description="Inspect officially ratified resolutions of the Togh Aman Committee. Search by number, date, department, and completion deadline."
+>
+  <section class="page-header">
+    <div class="container text-center">
+      <Badge variant="gold">Chapter 7 Mandate</Badge>
+      <h1 class="page-title">Public Resolutions Register</h1>
+      <p class="page-subtitle">
+        "Every important decision should be made through a proper written resolution. Verbal decisions carry zero legal standing."
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <!-- Search and Filter Bar -->
+      <div class="filter-controls card">
+        <div class="search-input-wrap">
+          <Icon name="search" size={18} class="search-icon" />
+          <input 
+            type="search" 
+            id="resolution-search" 
+            placeholder="Search by resolution #, subject, or responsible officer..." 
+            class="form-input search-input"
+            aria-label="Search resolutions"
+          />
+        </div>
+        <div class="filter-tags" role="tablist">
+          <button type="button" class="filter-tab active" data-filter="all">All ({sortedResolutions.length})</button>
+          <button type="button" class="filter-tab" data-filter="In Progress">In Progress</button>
+          <button type="button" class="filter-tab" data-filter="Approved">Approved</button>
+          <button type="button" class="filter-tab" data-filter="Completed">Completed</button>
+        </div>
+      </div>
+
+      <!-- Resolutions List -->
+      <div class="resolutions-list" id="resolutions-container">
+        {sortedResolutions.map((res) => {
+          const formattedDate = new Intl.DateTimeFormat('en-GB', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric',
+          }).format(res.data.date);
+
+          const statusVariant = res.data.status === 'Completed' 
+            ? 'success' 
+            : res.data.status === 'In Progress' 
+              ? 'green' 
+              : res.data.status === 'Approved' 
+                ? 'gold' 
+                : 'neutral';
+
+          return (
+            <article 
+              class="resolution-card card reveal-on-scroll" 
+              data-status={res.data.status}
+              data-search={`${res.data.resolutionNo} ${res.data.subject} ${res.data.responsible} ${res.data.category}`.toLowerCase()}
+            >
+              <div class="res-card-header">
+                <div class="res-number-wrap">
+                  <span class="res-badge">Resolution #{res.data.resolutionNo}</span>
+                  <Badge variant={statusVariant} size="sm">{res.data.status}</Badge>
+                  {res.data.isSample && <Badge variant="neutral" size="sm">SAMPLE</Badge>}
+                </div>
+                <time datetime={res.data.date.toISOString()} class="res-date">{formattedDate}</time>
+              </div>
+
+              <h2 class="res-subject">
+                <a href={`/transparency/resolutions/${res.id}`}>{res.data.subject}</a>
+              </h2>
+
+              <p class="res-problem">
+                <strong>Problem:</strong> {res.data.problem}
+              </p>
+
+              <div class="res-meta-grid">
+                <div>
+                  <span class="meta-label">Decision</span>
+                  <span class="meta-val">{res.data.decision}</span>
+                </div>
+                <div>
+                  <span class="meta-label">Responsible</span>
+                  <span class="meta-val">{res.data.responsible}</span>
+                </div>
+                <div>
+                  <span class="meta-label">Deadline</span>
+                  <span class="meta-val">{res.data.deadline}</span>
+                </div>
+                <div>
+                  <span class="meta-label">Follow-up</span>
+                  <span class="meta-val">{res.data.followup}</span>
+                </div>
+              </div>
+
+              <div class="res-footer">
+                <span class="res-category">Category: {res.data.category}</span>
+                <Button variant="outline" size="sm" href={`/transparency/resolutions/${res.id}`}>
+                  <span>View Official Record</span>
+                  <Icon name="arrow-right" size={12} />
+                </Button>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-header {
+    background: linear-gradient(180deg, var(--color-surface-subtle) 0%, var(--color-background) 100%);
+    padding: var(--space-12) 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .page-title {
+    margin-top: var(--space-3);
+    margin-bottom: var(--space-2);
+  }
+
+  .page-subtitle {
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .filter-controls {
+    padding: var(--space-6);
+    margin-bottom: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .filter-controls {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .search-input-wrap {
+    position: relative;
+    flex: 1;
+    max-width: 480px;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: var(--space-4);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-text-subtle);
+  }
+
+  .search-input {
+    padding-left: var(--space-10);
+  }
+
+  .filter-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .filter-tab {
+    background: var(--color-surface-subtle);
+    border: 1px solid var(--color-border);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: all var(--duration-fast);
+  }
+
+  .filter-tab:hover, .filter-tab.active {
+    background: var(--color-primary);
+    color: var(--color-white);
+    border-color: var(--color-primary);
+  }
+
+  .resolutions-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .resolution-card {
+    padding: var(--space-8);
+    border-left: 4px solid var(--color-green);
+    transition: transform var(--duration-fast);
+  }
+
+  .resolution-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .res-card-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+  }
+
+  .res-number-wrap {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .res-badge {
+    font-family: monospace;
+    font-size: var(--text-sm);
+    font-weight: 800;
+    color: var(--color-primary);
+  }
+
+  .res-date {
+    font-size: var(--text-xs);
+    color: var(--color-text-subtle);
+  }
+
+  .res-subject {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-3);
+  }
+
+  .res-subject a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color var(--duration-fast);
+  }
+
+  .res-subject a:hover {
+    color: var(--color-gold);
+  }
+
+  .res-problem {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-4);
+    line-height: var(--leading-normal);
+  }
+
+  .res-meta-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+    background: var(--color-surface-subtle);
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-4);
+  }
+
+  @media (min-width: 640px) {
+    .res-meta-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .meta-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--color-green);
+    letter-spacing: 0.04em;
+    margin-bottom: 2px;
+  }
+
+  .meta-val {
+    font-size: var(--text-xs);
+    color: var(--color-text);
+  }
+
+  .res-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .res-category {
+    font-size: var(--text-xs);
+    color: var(--color-text-subtle);
+    font-weight: 500;
+  }
+
+  .text-center { text-align: center; }
+</style>
+
+<script>
+  function setupResolutionFilters() {
+    const searchInput = document.getElementById('resolution-search') as HTMLInputElement | null;
+    const filterTabs = document.querySelectorAll('.filter-tab');
+    const cards = document.querySelectorAll('.resolution-card');
+
+    let activeFilter = 'all';
+
+    function applyFilter() {
+      const query = searchInput?.value.toLowerCase().trim() || '';
+
+      cards.forEach((card) => {
+        const status = card.getAttribute('data-status') || '';
+        const searchData = card.getAttribute('data-search') || '';
+
+        const matchesStatus = activeFilter === 'all' || status === activeFilter;
+        const matchesQuery = query === '' || searchData.includes(query);
+
+        (card as HTMLElement).style.display = matchesStatus && matchesQuery ? 'block' : 'none';
+      });
+    }
+
+    searchInput?.addEventListener('input', applyFilter);
+
+    filterTabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        filterTabs.forEach((t) => t.classList.remove('active'));
+        tab.classList.add('active');
+        activeFilter = tab.getAttribute('data-filter') || 'all';
+        applyFilter();
+      });
+    });
+  }
+
+  setupResolutionFilters();
+  document.addEventListener('astro:page-load', setupResolutionFilters);
+</script>

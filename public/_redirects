@@ -1,0 +1,6 @@
+# Redirect root domain to www canonical
+https://toghamancomitee.com/* https://www.toghamancomitee.com/:splat 301!
+
+# Redirect typo twin domain to canonical
+https://toghamancommittee.com/* https://www.toghamancomitee.com/:splat 301!
+http://toghamancommittee.com/* https://www.toghamancomitee.com/:splat 301!

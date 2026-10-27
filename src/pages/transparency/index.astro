@@ -1,0 +1,1651 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Badge from '../../components/ui/Badge.astro';
+import Button from '../../components/ui/Button.astro';
+import Icon from '../../components/ui/Icon.astro';
+
+// Fetch live resolutions and projects to show live transparency snapshot
+const allResolutions = await getCollection('resolutions');
+const publicResolutions = allResolutions
+  .filter((r) => r.data.visibility === 'Public')
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .slice(0, 3);
+
+const allProjects = await getCollection('projects');
+const activeProjects = allProjects.slice(0, 3);
+---
+
+<BaseLayout
+  title="Transparency & Public Accountability Centre | Togh Aman Committee"
+  description="Inspect official public records, the 18-chapter codified constitution, approved resolutions register, active development projects, and financial audit standards of Togh Aman Committee."
+>
+  <!-- Hero Section with Interactive Spotlight & Rising Particles -->
+  <section class="trans-hero-section" id="trans-hero">
+    <!-- Interactive Mouse Spotlight Glow -->
+    <div class="hero-mouse-spotlight" id="hero-mouse-glow" aria-hidden="true"></div>
+
+    <!-- Geometric Matrix Dot Grid -->
+    <div class="hero-matrix-grid" aria-hidden="true"></div>
+
+    <!-- Rising Subtle Glowing Orbs -->
+    <div class="floating-orbs-layer" aria-hidden="true">
+      <span class="rising-orb orb-1"></span>
+      <span class="rising-orb orb-2"></span>
+      <span class="rising-orb orb-3"></span>
+      <span class="rising-orb orb-4"></span>
+      <span class="rising-orb orb-5"></span>
+      <span class="rising-orb orb-6"></span>
+      <span class="rising-orb orb-7"></span>
+      <span class="rising-orb orb-8"></span>
+      <span class="rising-orb orb-9"></span>
+      <span class="rising-orb orb-10"></span>
+    </div>
+
+    <!-- Wave Contour Transition -->
+    <div class="hero-wave-transition" aria-hidden="true">
+      <svg viewBox="0 0 1440 140" fill="none" preserveAspectRatio="none" class="wave-svg">
+        <path d="M0,140 L0,90 Q360,35 720,80 Q1080,125 1440,70 L1440,140 Z" fill="rgba(6, 77, 50, 0.04)" />
+        <path d="M0,140 L0,110 Q360,70 720,105 Q1080,138 1440,95 L1440,140 Z" fill="rgba(212, 160, 23, 0.05)" />
+      </svg>
+    </div>
+
+    <div class="container hero-content-container text-center">
+      <div class="hero-badge-cluster">
+        <Badge variant="gold">Public Accountability &amp; Merit</Badge>
+        <span class="hero-status-pill">
+          <Icon name="shield" size={14} class="text-green" />
+          <span>Codified 18 Chapters &bull; باضابطہ عوامی احتساب</span>
+        </span>
+      </div>
+
+      <h1 class="page-title">Transparency &amp; Governance Centre</h1>
+      <span class="urdu-hero-title urdu-text" dir="rtl">توغ امن کمیٹی — شفافیت، میرٹ اور ہمہ وقتی عوامی احتساب</span>
+
+      <div class="hero-quote-box">
+        <p class="hero-quote-urdu urdu-text" dir="rtl">
+          "ہر روپیہ ریکارڈ پر، ہر فیصلہ تحریری، اور ہر عہدیدار عوام کے سامنے جوابدہ۔"
+        </p>
+        <p class="hero-quote-en">
+          "Every single rupee recorded, every community decision committed to writing, and every office holder accountable to the citizens of Togh Bala &amp; Payan."
+        </p>
+      </div>
+
+      <!-- Live Metrics Strip -->
+      <div class="hero-metrics-strip">
+        <div class="metric-pill">
+          <strong class="metric-num">18</strong>
+          <span class="metric-txt">Constitutional Chapters</span>
+        </div>
+        <div class="metric-divider"></div>
+        <div class="metric-pill">
+          <strong class="metric-num">100%</strong>
+          <span class="metric-txt">Audited Vouchers</span>
+        </div>
+        <div class="metric-divider"></div>
+        <div class="metric-pill">
+          <strong class="metric-num">0</strong>
+          <span class="metric-txt">Personal Accounts (Ch. 8)</span>
+        </div>
+        <div class="metric-divider"></div>
+        <div class="metric-pill">
+          <strong class="metric-num">24/7</strong>
+          <span class="metric-txt">Open Public Register</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="hero-cta-group">
+        <a href="#records-grid" class="btn-hero-explore">
+          <span>Explore Public Records</span>
+          <Icon name="arrow-right" size={15} />
+        </a>
+        <Button variant="outline" size="md" href="/complaints">
+          <Icon name="alert" size={16} />
+          <span>Submit Grievance / شکایت درج کریں</span>
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 Core Constitutional Safeguards -->
+  <section class="section section-safeguards">
+    <div class="container">
+      <div class="section-header text-center">
+        <Badge variant="green">Constitutional Guarantees</Badge>
+        <h2 class="section-title">4 Ironclad Pillars of Financial &amp; Legal Integrity</h2>
+        <p class="section-subtitle urdu-text" dir="rtl">
+          کمیٹی کے منظور شدہ آئین کے 4 ناقابلِ تنسیخ اصول جن کے ذریعے بدعنوانی، صوابدیدی اختیارات اور خفیہ فیصلوں کا مکمل خاتمہ کیا گیا ہے:
+        </p>
+      </div>
+
+      <div class="safeguards-grid">
+        <!-- 1. Zero Personal Accounts -->
+        <div class="safeguard-card card reveal-on-scroll">
+          <div class="safeguard-icon-wrap icon-green">
+            <Icon name="lock" size={26} />
+          </div>
+          <div class="safeguard-header">
+            <span class="safeguard-article">Chapter 8 &bull; Financial Integrity</span>
+            <h3>No Personal Accounts</h3>
+            <span class="urdu-safeguard-name urdu-text" dir="rtl">ذاتی بینک اکاؤنٹس پر مکمل پابندی</span>
+          </div>
+          <p>
+            Operating personal bank accounts for community collections is constitutionally prohibited. All donations pass exclusively through official designated accounts with verified receipts.
+          </p>
+          <div class="safeguard-badge">
+            <Icon name="check" size={14} class="text-green" />
+            <span>Strict Anti-Corruption Firewall</span>
+          </div>
+        </div>
+
+        <!-- 2. Dual Authorization Ledger -->
+        <div class="safeguard-card card reveal-on-scroll delay-1">
+          <div class="safeguard-icon-wrap icon-gold">
+            <Icon name="balance" size={26} />
+          </div>
+          <div class="safeguard-header">
+            <span class="safeguard-article">Chapter 5 &bull; Dual-Signatory Ledger</span>
+            <h3>Two-Signature Rule</h3>
+            <span class="urdu-safeguard-name urdu-text" dir="rtl">دوہری دستخطی توثیق کا لازمی نظام</span>
+          </div>
+          <p>
+            No single office holder can withdraw or disburse funds independently. Every expenditure mandates dual signatures from the President and Finance Secretary alongside supporting merchant vouchers.
+          </p>
+          <div class="safeguard-badge">
+            <Icon name="check" size={14} class="text-green" />
+            <span>100% Counter-Signed Vouchers</span>
+          </div>
+        </div>
+
+        <!-- 3. Mandatory Council Quorum -->
+        <div class="safeguard-card card reveal-on-scroll delay-2">
+          <div class="safeguard-icon-wrap icon-green">
+            <Icon name="users" size={26} />
+          </div>
+          <div class="safeguard-header">
+            <span class="safeguard-article">Chapter 11 &bull; Democratic Consensus</span>
+            <h3>Quorum Bound Decisions</h3>
+            <span class="urdu-safeguard-name urdu-text" dir="rtl">50%+1 کا لازمی جمہوری کورم</span>
+          </div>
+          <p>
+            Arbitrary solo decisions are strictly null and void. All collective policy resolutions require minimum 50%+1 quorum of the 21 council seats, fully documented in verified written minutes.
+          </p>
+          <div class="safeguard-badge">
+            <Icon name="check" size={14} class="text-green" />
+            <span>Zero Undocumented Decisions</span>
+          </div>
+        </div>
+
+        <!-- 4. Whistleblower Immunity -->
+        <div class="safeguard-card card reveal-on-scroll delay-3">
+          <div class="safeguard-icon-wrap icon-gold">
+            <Icon name="shield" size={26} />
+          </div>
+          <div class="safeguard-header">
+            <span class="safeguard-article">Chapter 12 &bull; Citizen Oversight</span>
+            <h3>Whistleblower Protection</h3>
+            <span class="urdu-safeguard-name urdu-text" dir="rtl">آزاد شکایات سیل اور مکمل تحفظ</span>
+          </div>
+          <p>
+            Under Complaints Cell In-Charge Mr. Shafiq-ur-Rehman (0333-8303485), citizens reporting irregularities enjoy full identity confidentiality and zero-retaliation constitutional protection.
+          </p>
+          <div class="safeguard-badge">
+            <Icon name="check" size={14} class="text-green" />
+            <span>Anonymous Filing Enabled</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The 6 Core Public Transparency Registers -->
+  <section class="section section-records" id="records-grid">
+    <div class="container">
+      <div class="section-header text-center">
+        <Badge variant="gold">Public Records Portal</Badge>
+        <h2 class="section-title">Official Registers &amp; Scrutiny Archives</h2>
+        <p class="section-subtitle urdu-text" dir="rtl">
+          عوام کی عدالت میں کھلے رجسٹر — آئین، قراردادیں، منصوبے، اخراجات اور سرکاری اعلانات کی تفصیلی دستاویزات
+        </p>
+      </div>
+
+      <div class="transparency-grid">
+        <!-- 1. The Constitution -->
+        <div class="card trans-card card-highlight reveal-on-scroll">
+          <div class="trans-card-top">
+            <div class="trans-icon icon-green">
+              <Icon name="document" size={30} />
+            </div>
+            <span class="trans-code-badge">CODIFIED LAW</span>
+          </div>
+          
+          <div class="trans-title-group">
+            <h3>Constitution &amp; By-Laws</h3>
+            <span class="urdu-trans-title urdu-text" dir="rtl">کمیٹی کا مکمل 18 ابواب پر مشتمل آئین</span>
+          </div>
+
+          <p class="trans-desc">
+            The foundational charter governing executive powers, general body consensus, 2-year terms, Shamilat land protection, and impeachment rules.
+          </p>
+
+          <ul class="trans-features-list">
+            <li><Icon name="check" size={14} class="text-green" /> 18 codified constitutional chapters</li>
+            <li><Icon name="check" size={14} class="text-green" /> Anti-defection &amp; code of conduct</li>
+            <li><Icon name="check" size={14} class="text-green" /> 50%+1 democratic voting quorum</li>
+          </ul>
+
+          <div class="trans-card-footer">
+            <Button variant="primary" size="sm" href="/transparency/constitution">
+              <span>Read Full Constitution</span>
+              <Icon name="arrow-right" size={14} />
+            </Button>
+          </div>
+        </div>
+
+        <!-- 2. Resolutions Register -->
+        <div class="card trans-card reveal-on-scroll delay-1">
+          <div class="trans-card-top">
+            <div class="trans-icon icon-gold">
+              <Icon name="shield" size={30} />
+            </div>
+            <span class="trans-code-badge">ACTION LOG</span>
+          </div>
+
+          <div class="trans-title-group">
+            <h3>Resolutions Register</h3>
+            <span class="urdu-trans-title urdu-text" dir="rtl">قراردادوں کا باضابطہ پبلک رجسٹر</span>
+          </div>
+
+          <p class="trans-desc">
+            Every community initiative follows a numbered legislative chain: Problem &rarr; Proposal &rarr; Democratic Decision &rarr; Target Deadline &rarr; Assigned Officer.
+          </p>
+
+          <ul class="trans-features-list">
+            <li><Icon name="check" size={14} class="text-green" /> Official resolution sequence numbers</li>
+            <li><Icon name="check" size={14} class="text-green" /> Deadlines &amp; assigned council leads</li>
+            <li><Icon name="check" size={14} class="text-green" /> Public execution logs &amp; minutes</li>
+          </ul>
+
+          <div class="trans-card-footer">
+            <Button variant="primary" size="sm" href="/transparency/resolutions">
+              <span>Browse Resolutions</span>
+              <Icon name="arrow-right" size={14} />
+            </Button>
+          </div>
+        </div>
+
+        <!-- 3. Projects Tracker -->
+        <div class="card trans-card reveal-on-scroll delay-2">
+          <div class="trans-card-top">
+            <div class="trans-icon icon-green">
+              <Icon name="mountains" size={30} />
+            </div>
+            <span class="trans-code-badge">DEVELOPMENT</span>
+          </div>
+
+          <div class="trans-title-group">
+            <h3>Projects &amp; Budgets Tracker</h3>
+            <span class="urdu-trans-title urdu-text" dir="rtl">عوامی ترقیاتی منصوبوں کی مانیٹرنگ</span>
+          </div>
+
+          <p class="trans-desc">
+            Live milestone tracking, verified budget breakdowns, contractor allocations, and completion reports for water pipelines, youth grounds, and civic upgrades.
+          </p>
+
+          <ul class="trans-features-list">
+            <li><Icon name="check" size={14} class="text-green" /> Real-time progress percentages</li>
+            <li><Icon name="check" size={14} class="text-green" /> PKR budget allocations &amp; spendings</li>
+            <li><Icon name="check" size={14} class="text-green" /> Verified completion audit reports</li>
+          </ul>
+
+          <div class="trans-card-footer">
+            <Button variant="primary" size="sm" href="/transparency/projects">
+              <span>Track Active Projects</span>
+              <Icon name="arrow-right" size={14} />
+            </Button>
+          </div>
+        </div>
+
+        <!-- 4. Financial Reports -->
+        <div class="card trans-card card-highlight reveal-on-scroll">
+          <div class="trans-card-top">
+            <div class="trans-icon icon-gold">
+              <Icon name="balance" size={30} />
+            </div>
+            <span class="trans-code-badge">AUDITED FINANCES</span>
+          </div>
+
+          <div class="trans-title-group">
+            <h3>Financial Reports &amp; Ledger</h3>
+            <span class="urdu-trans-title urdu-text" dir="rtl">مالیاتی حسابات و آڈٹ شدہ واؤچرز</span>
+          </div>
+
+          <p class="trans-desc">
+            Supervised by Finance Secretary Waheed-ur-Rehman. Verified Easypaisa account details, dual signatures, and complete prohibition of unrecorded cash.
+          </p>
+
+          <ul class="trans-features-list">
+            <li><Icon name="check" size={14} class="text-green" /> Official Easypaisa: 0334 8441095</li>
+            <li><Icon name="check" size={14} class="text-green" /> Dual-signed expenditure ledger</li>
+            <li><Icon name="check" size={14} class="text-green" /> Monthly income/expense statements</li>
+          </ul>
+
+          <div class="trans-card-footer">
+            <Button variant="primary" size="sm" href="/transparency/finances">
+              <span>Inspect Financial Ledger</span>
+              <Icon name="arrow-right" size={14} />
+            </Button>
+          </div>
+        </div>
+
+        <!-- 5. Statements Archive -->
+        <div class="card trans-card reveal-on-scroll delay-1">
+          <div class="trans-card-top">
+            <div class="trans-icon icon-green">
+              <Icon name="document" size={30} />
+            </div>
+            <span class="trans-code-badge">OFFICIAL MEDIA</span>
+          </div>
+
+          <div class="trans-title-group">
+            <h3>Official Statements Archive</h3>
+            <span class="urdu-trans-title urdu-text" dir="rtl">سرکاری پریس بیانات اور اعلانات</span>
+          </div>
+
+          <p class="trans-desc">
+            Certified declarations, press communiqués, and administrative announcements authorized under Chapter 13 official media and spokesperson protocol.
+          </p>
+
+          <ul class="trans-features-list">
+            <li><Icon name="check" size={14} class="text-green" /> Authorized press releases only</li>
+            <li><Icon name="check" size={14} class="text-green" /> Digital archive of civic alerts</li>
+            <li><Icon name="check" size={14} class="text-green" /> Verified secretariat dispatch seals</li>
+          </ul>
+
+          <div class="trans-card-footer">
+            <Button variant="primary" size="sm" href="/transparency/statements">
+              <span>View Statements Archive</span>
+              <Icon name="arrow-right" size={14} />
+            </Button>
+          </div>
+        </div>
+
+        <!-- 6. Whistleblower & Complaint System -->
+        <div class="card trans-card card-highlight reveal-on-scroll delay-2">
+          <div class="trans-card-top">
+            <div class="trans-icon icon-gold">
+              <Icon name="alert" size={30} />
+            </div>
+            <span class="trans-code-badge">INDEPENDENT CELL</span>
+          </div>
+
+          <div class="trans-title-group">
+            <h3>Complaints &amp; Grievance Cell</h3>
+            <span class="urdu-trans-title urdu-text" dir="rtl">شکایات سیل برائے عوامی احتساب</span>
+          </div>
+
+          <p class="trans-desc">
+            In-Charge Mr. Shafiq-ur-Rehman (0333-8303485). Full citizen protection against retribution. File complaints against any member or local issue with optional anonymity.
+          </p>
+
+          <ul class="trans-features-list">
+            <li><Icon name="check" size={14} class="text-green" /> Direct cell hotline: 0333-8303485</li>
+            <li><Icon name="check" size={14} class="text-green" /> EXIF metadata auto-stripping</li>
+            <li><Icon name="check" size={14} class="text-green" /> 100% confidential anonymous mode</li>
+          </ul>
+
+          <div class="trans-card-footer">
+            <Button variant="accent" size="sm" href="/complaints">
+              <span>Submit Issue / شکایت درج کریں</span>
+              <Icon name="arrow-right" size={14} />
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Snapshot Section: Recent Resolutions & Active Projects -->
+  <section class="section section-live-snapshot">
+    <div class="container">
+      <div class="section-header text-center">
+        <Badge variant="green">Live Transparency Feed</Badge>
+        <h2 class="section-title">Recent Resolutions &amp; Development Progress</h2>
+        <p class="section-subtitle urdu-text" dir="rtl">
+          کمیٹی کے تازہ ترین منظور شدہ فیصلے اور دیہہ میں جاری منصوبوں کی لمحہ بہ لمحہ پیش رفت
+        </p>
+      </div>
+
+      <div class="snapshot-columns-grid">
+        <!-- Column 1: Recent Resolutions -->
+        <div class="snapshot-column">
+          <div class="snapshot-col-header">
+            <div class="snapshot-header-title">
+              <Icon name="shield" size={20} class="text-green" />
+              <h3>Approved Council Resolutions</h3>
+            </div>
+            <a href="/transparency/resolutions" class="view-all-link">
+              <span>View All</span>
+              <Icon name="arrow-right" size={12} />
+            </a>
+          </div>
+
+          <div class="snapshot-cards-stack">
+            {publicResolutions.map((res) => (
+              <a href={`/transparency/resolutions/${res.id}`} class="snapshot-card card">
+                <div class="snapshot-card-top">
+                  <span class="res-num-tag">Res #{res.data.resolutionNo}</span>
+                  <span class={`status-pill status-${res.data.status.toLowerCase().replace(/\s+/g, '-')}`}>
+                    {res.data.status}
+                  </span>
+                </div>
+                <h4 class="snapshot-card-title">{res.data.subject}</h4>
+                <div class="snapshot-card-meta">
+                  <span><Icon name="calendar" size={12} /> {new Date(res.data.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+                  <span>&bull;</span>
+                  <span><Icon name="users" size={12} /> {res.data.responsible}</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <!-- Column 2: Active Development Projects -->
+        <div class="snapshot-column">
+          <div class="snapshot-col-header">
+            <div class="snapshot-header-title">
+              <Icon name="mountains" size={20} class="text-green" />
+              <h3>Tracked Development Projects</h3>
+            </div>
+            <a href="/transparency/projects" class="view-all-link">
+              <span>View All</span>
+              <Icon name="arrow-right" size={12} />
+            </a>
+          </div>
+
+          <div class="snapshot-cards-stack">
+            {activeProjects.map((proj) => (
+              <a href={`/transparency/projects/${proj.id}`} class="snapshot-card card">
+                <div class="snapshot-card-top">
+                  <span class="res-num-tag">{proj.data.category}</span>
+                  <span class="budget-tag">{proj.data.budget}</span>
+                </div>
+                <h4 class="snapshot-card-title">{proj.data.title}</h4>
+                
+                <!-- Progress Bar -->
+                <div class="project-mini-progress">
+                  <div class="progress-info-row">
+                    <span>Progress</span>
+                    <strong>{proj.data.progress}%</strong>
+                  </div>
+                  <div class="progress-track">
+                    <div class="progress-fill" style={`width: ${proj.data.progress}%;`}></div>
+                  </div>
+                </div>
+
+                <div class="snapshot-card-meta">
+                  <span><Icon name="users" size={12} /> {proj.data.responsible}</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Official Financial Governance & Verified Details Callout -->
+  <section class="section section-fin-highlight">
+    <div class="container">
+      <div class="finance-governance-box card">
+        <div class="fin-box-grid">
+          <!-- Left Info Column -->
+          <div class="fin-info-col">
+            <div class="fin-badge-row">
+              <span class="fin-security-badge">
+                <Icon name="shield" size={16} class="text-gold" />
+                <span>Verified Financial Governance</span>
+              </span>
+              <span class="fin-chapter-tag">Chapter 8 Enforced</span>
+            </div>
+
+            <h3 class="fin-box-heading">Official Easypaisa &amp; Donation Channel</h3>
+            <span class="urdu-fin-heading urdu-text" dir="rtl">توغ امن کمیٹی کا مستند مالیاتی نظام اور سرکاری اکاؤنٹ</span>
+
+            <p class="fin-box-desc">
+              All community contributions and welfare donations are received strictly through the authorized account of the Finance Secretary. 
+              Personal accounts or unrecorded hand-to-hand collections are strictly illegal under committee constitution.
+            </p>
+
+            <div class="fin-account-card">
+              <div class="account-header">
+                <div class="account-type-badge">Official Easypaisa Account</div>
+                <span class="account-status">Active &amp; Audited</span>
+              </div>
+              <div class="account-body">
+                <div class="account-holder">
+                  <span class="label">Designated Officer:</span>
+                  <strong>Waheed-ur-Rehman (Finance Secretary)</strong>
+                </div>
+                <div class="account-number-row">
+                  <span class="label">Easypaisa Number:</span>
+                  <span class="account-digits">0334 8441095</span>
+                </div>
+              </div>
+              <div class="account-footer">
+                <Icon name="check" size={14} class="text-green" />
+                <span>Always demand a counter-signed receipt for every donation.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Verification & Secretariat Column -->
+          <div class="fin-secretariat-col">
+            <div class="secretariat-card">
+              <h4 class="sec-title">Official Committee Secretariat</h4>
+              <span class="urdu-sec-title urdu-text" dir="rtl">مرکزی سیکرٹریٹ و رابطہ مرکز</span>
+
+              <div class="sec-item">
+                <Icon name="map-pin" size={18} class="text-green" />
+                <div>
+                  <strong>Physical Address:</strong>
+                  <p>Haji Rafiullah Khan Marhoom Market, Main Pindi Road, Kohat (Near National Bank of Pakistan)</p>
+                </div>
+              </div>
+
+              <div class="sec-item">
+                <Icon name="phone" size={18} class="text-green" />
+                <div>
+                  <strong>Official Hotlines:</strong>
+                  <div class="hotline-numbers">
+                    <a href="tel:+923339768022">+92 333 9768022</a>
+                    <a href="tel:+923339636226">+92 333 9636226</a>
+                    <a href="tel:+923369498887">+92 336 9498887</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sec-item">
+                <Icon name="alert" size={18} class="text-gold" />
+                <div>
+                  <strong>Complaints Cell In-Charge:</strong>
+                  <p>Mr. Shafiq-ur-Rehman &bull; <a href="tel:03338303485" class="cell-phone">0333-8303485</a></p>
+                </div>
+              </div>
+
+              <div class="sec-buttons-row">
+                <Button variant="primary" size="sm" href="/transparency/finances">
+                  <span>View Financial Ledger</span>
+                  <Icon name="arrow-right" size={14} />
+                </Button>
+                <Button variant="outline" size="sm" href="/contact">
+                  <span>Contact Secretariat</span>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Transparency FAQ Section -->
+  <section class="section section-faq">
+    <div class="container">
+      <div class="section-header text-center">
+        <Badge variant="gold">Public Inquiries</Badge>
+        <h2 class="section-title">Frequently Asked Questions on Transparency</h2>
+        <p class="section-subtitle urdu-text" dir="rtl">
+          شفافیت، فنڈز کی جانچ پڑتال اور کمیٹی کے احتسابی نظام سے متعلق اہم ترین سوالات کے جوابات
+        </p>
+      </div>
+
+      <div class="faq-grid">
+        <div class="faq-card card">
+          <h3 class="faq-q">Can any resident inspect the committee financial vouchers?</h3>
+          <span class="urdu-faq-q urdu-text" dir="rtl">کیا عام شہری یا دیہاتی کمیٹی کے مالیاتی واؤچرز دیکھ سکتے ہیں؟</span>
+          <p class="faq-a">
+            Yes. Under Chapter 8, Section 4 of the Constitution, every resident of Togh Bala and Payan has the constitutional right to inspect the committee ledger and physical audited vouchers upon notice to the Finance Secretary at the secretariat.
+          </p>
+        </div>
+
+        <div class="faq-card card">
+          <h3 class="faq-q">What happens if a complaint is filed against a committee member?</h3>
+          <span class="urdu-faq-q urdu-text" dir="rtl">اگر کمیٹی کے کسی عہدیدار یا رکن کے خلاف شکایت آئے تو کیا کارروائی ہوتی ہے؟</span>
+          <p class="faq-a">
+            Under Chapter 12, complaints are independently reviewed by Complaints Cell In-Charge Mr. Shafiq-ur-Rehman (0333-8303485). The accused member is legally barred from participating in the review panel, ensuring impartial inquiry and zero influence.
+          </p>
+        </div>
+
+        <div class="faq-card card">
+          <h3 class="faq-q">How are public donations recorded and tracked?</h3>
+          <span class="urdu-faq-q urdu-text" dir="rtl">عوامی عطیات اور فنڈز کو کس طرح ریکارڈ کیا جاتا ہے؟</span>
+          <p class="faq-a">
+            Every donation submitted via the designated Easypaisa (0334 8441095) or bank is immediately entered into the double-entry ledger with a serialized receipt. Cash collections without authorized numbered receipts are strictly prohibited.
+          </p>
+        </div>
+
+        <div class="faq-card card">
+          <h3 class="faq-q">How are development funds and government royalties monitored?</h3>
+          <span class="urdu-faq-q urdu-text" dir="rtl">سرکاری رائلٹی اور ترقیاتی فنڈز کی نگرانی کیسے ہوتی ہے؟</span>
+          <p class="faq-a">
+            Under Pillar 5 and Chapter 9, the committee conducts ground audits of government tenders and local royalties. All project expenditure, vendor vouchers, and completion inspections are posted openly on the Projects Tracker.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero Section with Interactive Spotlight & Rising Particles */
+  .trans-hero-section {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, #F3F7F4 0%, #FFFFFF 100%);
+    padding: var(--space-16) 0 var(--space-12);
+    border-bottom: 1px solid var(--color-border);
+    --mouse-x: 50%;
+    --mouse-y: 50%;
+  }
+
+  /* Interactive Mouse Spotlight Glow */
+  .hero-mouse-spotlight {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background: radial-gradient(
+      520px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(212, 160, 23, 0.22),
+      rgba(6, 77, 50, 0.12) 35%,
+      transparent 70%
+    );
+    transition: background 0.08s ease-out;
+  }
+
+  /* Dot Matrix Pattern */
+  .hero-matrix-grid {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.55;
+    background-image: radial-gradient(rgba(6, 77, 50, 0.15) 1.2px, transparent 1.2px);
+    background-size: 26px 26px;
+    mask-image: linear-gradient(180deg, #000 65%, transparent 100%);
+    -webkit-mask-image: linear-gradient(180deg, #000 65%, transparent 100%);
+  }
+
+  /* Rising Floating Orbs */
+  .floating-orbs-layer {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .rising-orb {
+    position: absolute;
+    bottom: -30px;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: floatUpward linear infinite;
+  }
+
+  @keyframes floatUpward {
+    0% {
+      bottom: -30px;
+      transform: translateX(0) scale(0.85);
+      opacity: 0;
+    }
+    20% {
+      opacity: 0.25;
+    }
+    50% {
+      transform: translateX(18px) scale(1.05);
+      opacity: 0.38;
+    }
+    80% {
+      opacity: 0.22;
+    }
+    100% {
+      bottom: 108%;
+      transform: translateX(-16px) scale(1.1);
+      opacity: 0;
+    }
+  }
+
+  /* 10 Floating Delicate Orbs */
+  .orb-1 { width: 8px; height: 8px; left: 8%; background: radial-gradient(circle at 35% 35%, #81C784, #064D32); animation-duration: 9s; animation-delay: 0s; }
+  .orb-2 { width: 12px; height: 12px; left: 20%; background: radial-gradient(circle at 35% 35%, #FDE047, #D4A017); animation-duration: 13s; animation-delay: 2s; }
+  .orb-3 { width: 6px; height: 6px; left: 34%; background: radial-gradient(circle at 35% 35%, #A7F3D0, #047857); animation-duration: 8s; animation-delay: 4.5s; }
+  .orb-4 { width: 10px; height: 10px; left: 48%; background: radial-gradient(circle at 35% 35%, #FCD34D, #B45309); animation-duration: 11s; animation-delay: 1.2s; }
+  .orb-5 { width: 7px; height: 7px; left: 62%; background: radial-gradient(circle at 35% 35%, #6EE7B7, #065F46); animation-duration: 9.5s; animation-delay: 3.8s; }
+  .orb-6 { width: 13px; height: 13px; left: 74%; background: radial-gradient(circle at 35% 35%, #FEF08A, #D97706); animation-duration: 14s; animation-delay: 5s; }
+  .orb-7 { width: 8px; height: 8px; left: 86%; background: radial-gradient(circle at 35% 35%, #86EFAC, #15803D); animation-duration: 10s; animation-delay: 2.7s; }
+  .orb-8 { width: 10px; height: 10px; left: 93%; background: radial-gradient(circle at 35% 35%, #FDE68A, #CA8A04); animation-duration: 12.5s; animation-delay: 4.1s; }
+  .orb-9 { width: 7px; height: 7px; left: 14%; background: radial-gradient(circle at 35% 35%, #A7F3D0, #064D32); animation-duration: 8.5s; animation-delay: 6s; }
+  .orb-10 { width: 9px; height: 9px; left: 55%; background: radial-gradient(circle at 35% 35%, #FDE047, #D4A017); animation-duration: 11.5s; animation-delay: 7s; }
+
+  /* Wave Transition */
+  .hero-wave-transition {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+    z-index: 1;
+    line-height: 0;
+  }
+
+  .wave-svg {
+    width: 100%;
+    height: 70px;
+    display: block;
+  }
+
+  .hero-content-container {
+    position: relative;
+    z-index: 2;
+    max-width: 960px;
+  }
+
+  .hero-badge-cluster {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: var(--space-4);
+  }
+
+  .hero-status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(6, 77, 50, 0.08);
+    color: var(--color-primary);
+    padding: 4px 14px;
+    border-radius: 9999px;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid rgba(6, 77, 50, 0.15);
+  }
+
+  .page-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    color: var(--color-primary);
+    margin-bottom: var(--space-2);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  .urdu-hero-title {
+    display: block;
+    font-size: clamp(1.4rem, 3vw, 2.1rem);
+    font-weight: 700;
+    color: var(--color-green);
+    line-height: 1.8;
+    margin-bottom: var(--space-4);
+  }
+
+  .hero-quote-box {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(6, 77, 50, 0.12);
+    border-left: 4px solid var(--color-gold);
+    border-right: 4px solid var(--color-green);
+    border-radius: var(--radius-md);
+    padding: var(--space-4) var(--space-6);
+    max-width: 780px;
+    margin: 0 auto var(--space-6);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+  }
+
+  .hero-quote-urdu {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin: 0 0 6px;
+    line-height: 1.8;
+  }
+
+  .hero-quote-en {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    margin: 0;
+    line-height: 1.5;
+    font-style: italic;
+  }
+
+  /* Hero Metrics Strip */
+  .hero-metrics-strip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    background: #FFFFFF;
+    border: 1px solid var(--color-border);
+    border-radius: 9999px;
+    padding: 10px 24px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+    width: fit-content;
+    margin: 0 auto var(--space-8);
+  }
+
+  .metric-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .metric-num {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--color-primary);
+  }
+
+  .metric-txt {
+    font-size: 12px;
+    color: var(--color-text-muted);
+    font-weight: 600;
+  }
+
+  .metric-divider {
+    width: 1px;
+    height: 18px;
+    background: var(--color-border);
+  }
+
+  @media (max-width: 640px) {
+    .hero-metrics-strip {
+      border-radius: var(--radius-md);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      padding: 14px 18px;
+      width: 100%;
+    }
+    .metric-divider {
+      display: none;
+    }
+  }
+
+  .hero-cta-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-4);
+  }
+
+  .btn-hero-explore {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(180deg, #D4A017 0%, #B8860B 100%);
+    color: #123322;
+    padding: 12px 24px;
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(212, 160, 23, 0.35);
+    transition: all 0.2s ease;
+  }
+
+  .btn-hero-explore:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(212, 160, 23, 0.45);
+    filter: brightness(1.05);
+  }
+
+  /* Section Headers */
+  .section-header {
+    margin-bottom: var(--space-10);
+  }
+
+  .section-title {
+    font-size: clamp(1.75rem, 3vw, 2.3rem);
+    color: var(--color-primary);
+    margin-top: var(--space-3);
+    margin-bottom: var(--space-2);
+  }
+
+  .section-subtitle {
+    font-size: 1.15rem;
+    color: var(--color-green);
+    line-height: 1.9;
+    max-width: 780px;
+    margin: 0 auto;
+    font-weight: 600;
+  }
+
+  /* 4 Core Safeguards */
+  .section-safeguards {
+    background: #FFFFFF;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .safeguards-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 640px) {
+    .safeguards-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .safeguards-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .safeguard-card {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-6);
+    background: #FAFCFA;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .safeguard-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(6, 77, 50, 0.08);
+  }
+
+  .safeguard-icon-wrap {
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--space-4);
+  }
+
+  .icon-green {
+    background: rgba(6, 77, 50, 0.08);
+    color: var(--color-primary);
+    border: 1px solid rgba(6, 77, 50, 0.15);
+  }
+
+  .icon-gold {
+    background: rgba(212, 160, 23, 0.12);
+    color: #9A7209;
+    border: 1px solid rgba(212, 160, 23, 0.25);
+  }
+
+  .safeguard-header {
+    margin-bottom: var(--space-3);
+  }
+
+  .safeguard-article {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--color-text-subtle);
+    letter-spacing: 0.05em;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .safeguard-header h3 {
+    font-size: 1.15rem;
+    color: var(--color-primary);
+    margin: 0 0 4px;
+  }
+
+  .urdu-safeguard-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-green);
+    display: block;
+    line-height: 1.6;
+  }
+
+  .safeguard-card p {
+    font-size: 0.88rem;
+    color: var(--color-text-muted);
+    line-height: 1.55;
+    margin: 0 0 var(--space-4);
+    flex: 1;
+  }
+
+  .safeguard-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--color-primary);
+    padding-top: var(--space-3);
+    border-top: 1px solid rgba(6, 77, 50, 0.08);
+  }
+
+  /* 6 Core Records Grid */
+  .section-records {
+    background: #F8FAF9;
+  }
+
+  .transparency-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  @media (min-width: 640px) {
+    .transparency-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .transparency-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .trans-card {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-8);
+    background: #FFFFFF;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .trans-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(6, 77, 50, 0.08);
+  }
+
+  .card-highlight {
+    border-top: 4px solid var(--color-gold);
+  }
+
+  .trans-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-4);
+  }
+
+  .trans-icon {
+    width: 54px;
+    height: 54px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .trans-code-badge {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: rgba(6, 77, 50, 0.06);
+    color: var(--color-primary);
+  }
+
+  .trans-title-group {
+    margin-bottom: var(--space-3);
+  }
+
+  .trans-title-group h3 {
+    font-size: 1.25rem;
+    color: var(--color-primary);
+    margin: 0 0 4px;
+  }
+
+  .urdu-trans-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-green);
+    line-height: 1.6;
+    display: block;
+  }
+
+  .trans-desc {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin-bottom: var(--space-4);
+  }
+
+  .trans-features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--color-text);
+  }
+
+  .trans-features-list li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .trans-card-footer {
+    margin-top: auto;
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+  }
+
+  /* Live Snapshot Section */
+  .section-live-snapshot {
+    background: #FFFFFF;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .snapshot-columns-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  @media (min-width: 900px) {
+    .snapshot-columns-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .snapshot-column {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .snapshot-col-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: var(--space-2);
+    border-bottom: 2px solid rgba(6, 77, 50, 0.1);
+  }
+
+  .snapshot-header-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .snapshot-header-title h3 {
+    font-size: 1.15rem;
+    color: var(--color-primary);
+    margin: 0;
+  }
+
+  .view-all-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-green);
+    text-decoration: none;
+  }
+
+  .view-all-link:hover {
+    text-decoration: underline;
+  }
+
+  .snapshot-cards-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .snapshot-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: var(--space-4);
+    background: #FAFCFA;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .snapshot-card:hover {
+    background: #FFFFFF;
+    border-color: var(--color-green);
+    transform: translateX(4px);
+    box-shadow: 0 4px 14px rgba(6, 77, 50, 0.06);
+  }
+
+  .snapshot-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .res-num-tag {
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--color-primary);
+    background: rgba(6, 77, 50, 0.07);
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+
+  .budget-tag {
+    font-size: 11px;
+    font-weight: 800;
+    color: #9A7209;
+    background: rgba(212, 160, 23, 0.12);
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+
+  .status-pill {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 9999px;
+    text-transform: uppercase;
+  }
+
+  .status-completed {
+    background: #D1FAE5;
+    color: #065F46;
+  }
+
+  .status-in-progress {
+    background: #FEF3C7;
+    color: #92400E;
+  }
+
+  .status-approved {
+    background: #E0E7FF;
+    color: #3730A3;
+  }
+
+  .snapshot-card-title {
+    font-size: 0.98rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .snapshot-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: var(--color-text-subtle);
+  }
+
+  .snapshot-card-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .project-mini-progress {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .progress-info-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--color-text-muted);
+  }
+
+  .progress-track {
+    height: 6px;
+    background: #E5E7EB;
+    border-radius: 9999px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #064D32, #D4A017);
+    border-radius: 9999px;
+  }
+
+  /* Official Financial Governance Callout */
+  .section-fin-highlight {
+    background: #F4F8F5;
+  }
+
+  .finance-governance-box {
+    padding: var(--space-8);
+    background: #FFFFFF;
+    border: 1px solid rgba(6, 77, 50, 0.15);
+    border-radius: var(--radius-xl);
+    box-shadow: 0 10px 30px rgba(6, 77, 50, 0.05);
+  }
+
+  .fin-box-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  @media (min-width: 900px) {
+    .fin-box-grid {
+      grid-template-columns: 1.2fr 0.9fr;
+      align-items: center;
+    }
+  }
+
+  .fin-badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: var(--space-3);
+  }
+
+  .fin-security-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--color-primary);
+    background: rgba(6, 77, 50, 0.07);
+    padding: 3px 10px;
+    border-radius: 9999px;
+  }
+
+  .fin-chapter-tag {
+    font-size: 11px;
+    font-weight: 700;
+    color: #9A7209;
+    background: rgba(212, 160, 23, 0.12);
+    padding: 3px 10px;
+    border-radius: 9999px;
+  }
+
+  .fin-box-heading {
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    margin: 0 0 4px;
+  }
+
+  .urdu-fin-heading {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-green);
+    line-height: 1.6;
+    display: block;
+    margin-bottom: var(--space-3);
+  }
+
+  .fin-box-desc {
+    font-size: 0.92rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin-bottom: var(--space-6);
+  }
+
+  .fin-account-card {
+    background: linear-gradient(135deg, #064D32 0%, #032A1C 100%);
+    color: #FFFFFF;
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    box-shadow: 0 8px 24px rgba(6, 77, 50, 0.25);
+  }
+
+  .account-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-3);
+    padding-bottom: var(--space-2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .account-type-badge {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #FDE047;
+  }
+
+  .account-status {
+    font-size: 10px;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 2px 8px;
+    border-radius: 9999px;
+  }
+
+  .account-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: var(--space-3);
+  }
+
+  .account-holder {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .account-holder .label {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .account-holder strong {
+    font-size: 1.05rem;
+    color: #FFFFFF;
+  }
+
+  .account-number-row {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .account-number-row .label {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .account-digits {
+    font-family: monospace;
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: #FDE047;
+  }
+
+  .account-footer {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.85);
+    padding-top: var(--space-2);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  /* Secretariat Column */
+  .secretariat-card {
+    background: #FAFCFA;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .sec-title {
+    font-size: 1.15rem;
+    color: var(--color-primary);
+    margin: 0;
+  }
+
+  .urdu-sec-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-green);
+    line-height: 1.5;
+    margin-top: -8px;
+  }
+
+  .sec-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.88rem;
+  }
+
+  .sec-item strong {
+    display: block;
+    color: var(--color-primary);
+    margin-bottom: 2px;
+  }
+
+  .sec-item p {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: 1.45;
+  }
+
+  .hotline-numbers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .hotline-numbers a {
+    display: inline-block;
+    background: rgba(6, 77, 50, 0.08);
+    color: var(--color-primary);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .cell-phone {
+    font-weight: 700;
+    color: var(--color-green);
+    text-decoration: none;
+  }
+
+  .sec-buttons-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-top: var(--space-2);
+    border-top: 1px solid var(--color-border);
+  }
+
+  /* FAQ Grid */
+  .section-faq {
+    background: #FFFFFF;
+  }
+
+  .faq-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .faq-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .faq-card {
+    padding: var(--space-6);
+    background: #FAFCFA;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .faq-q {
+    font-size: 1.05rem;
+    color: var(--color-primary);
+    margin: 0;
+    font-weight: 700;
+  }
+
+  .urdu-faq-q {
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: var(--color-green);
+    line-height: 1.6;
+    margin-bottom: 4px;
+  }
+
+  .faq-a {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Helper Classes */
+  .text-center { text-align: center; }
+  .text-green { color: var(--color-green); }
+  .text-gold { color: var(--color-gold); }
+
+  .urdu-text {
+    font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', 'Urdu Typesetting', -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, sans-serif;
+  }
+</style>
+
+<script>
+  function setupTransHeroInteractive() {
+    const hero = document.getElementById('trans-hero');
+    if (!hero) return;
+
+    hero.addEventListener('mousemove', (e) => {
+      const rect = hero.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      hero.style.setProperty('--mouse-x', `${x}px`);
+      hero.style.setProperty('--mouse-y', `${y}px`);
+    });
+
+    hero.addEventListener('mouseleave', () => {
+      hero.style.setProperty('--mouse-x', '50%');
+      hero.style.setProperty('--mouse-y', '50%');
+    });
+  }
+
+  setupTransHeroInteractive();
+  document.addEventListener('astro:page-load', setupTransHeroInteractive);
+</script>

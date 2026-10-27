@@ -1,0 +1,588 @@
+---
+import PortalLayout from '../../../layouts/PortalLayout.astro';
+import Icon from '../../../components/ui/Icon.astro';
+import Badge from '../../../components/ui/Badge.astro';
+import Button from '../../../components/ui/Button.astro';
+import Alert from '../../../components/ui/Alert.astro';
+import { MOCK_VOUCHERS } from '../../../lib/portalMock';
+---
+
+<PortalLayout 
+  title="Dual-Signature Vouchers | Togh Aman"
+  description="Chapter 8 financial management. Issue expense vouchers, review bank reconciliation, and apply mandatory dual executive signatures."
+  activeNav="finance"
+>
+  <div class="page-top-bar">
+    <div>
+      <Badge variant="green" class="mb-2">Chapter 8 Financial Integrity</Badge>
+      <h1 class="page-title">Finance Ledger &amp; Dual-Signature Vouchers</h1>
+      <p class="page-subtitle">
+        Mandatory two-person authorization for all disbursements over PKR 5,000.
+      </p>
+    </div>
+
+    <div class="top-action-group">
+      <Button variant="accent" size="sm" id="btn-toggle-new-voucher">
+        <Icon name="balance" size={16} />
+        <span>Create Expense Voucher</span>
+      </Button>
+    </div>
+  </div>
+
+  <Alert variant="info" class="mb-6">
+    <strong>Constitutional Dual-Signature Requirement (Chapter 8, Article 14):</strong> No bank withdrawal or vendor payment shall be executed without the concurrent verification of the <em>Finance Secretary</em> and the countersignature of either the <em>President</em> or <em>General Secretary</em>.
+  </Alert>
+
+  <!-- Bank Account & Treasury Snapshot -->
+  <div class="treasury-cards-grid mb-6">
+    <div class="treasury-card card">
+      <div class="card-top">
+        <span class="card-label">Official Bank Account</span>
+        <Badge variant="subtle">Verified</Badge>
+      </div>
+      <strong class="account-bank">National Bank of Pakistan (NBP)</strong>
+      <p class="account-no">A/C: 0144-002948-1 (Kohat Main Branch)</p>
+      <div class="card-bottom">
+        <span class="signers-note">Authorized Signers: President &amp; Finance Sec</span>
+      </div>
+    </div>
+
+    <div class="treasury-card card">
+      <div class="card-top">
+        <span class="card-label">Total Liquid Reserves</span>
+        <Icon name="balance" size={18} class="text-green" />
+      </div>
+      <strong class="amount-headline">PKR 1,280,000</strong>
+      <p class="account-no">Audited Monthly Balance (August 2026)</p>
+      <div class="card-bottom">
+        <span class="text-green font-semibold">100% Reconciled with Bank Statement</span>
+      </div>
+    </div>
+
+    <div class="treasury-card card">
+      <div class="card-top">
+        <span class="card-label">Pending Dual Signatures</span>
+        <Badge variant="gold">Action Needed</Badge>
+      </div>
+      <strong class="amount-headline text-gold">1 Voucher</strong>
+      <p class="account-no">VOU-2026-082 (PKR 42,500)</p>
+      <div class="card-bottom">
+        <span class="text-muted font-medium">Awaiting President countersignature</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive New Voucher Drawer (Collapsible) -->
+  <div class="new-voucher-panel card mb-6 hidden" id="new-voucher-panel">
+    <div class="panel-header">
+      <h2 class="panel-title">Draft New Chapter 8 Expense Voucher</h2>
+      <button type="button" class="btn-close-panel" id="btn-close-voucher-panel">
+        <Icon name="close" size={20} />
+      </button>
+    </div>
+
+    <form class="voucher-form mt-4" id="voucher-form">
+      <div class="form-grid">
+        <div class="form-field">
+          <label for="vch-category" class="field-label">Budget Category</label>
+          <select id="vch-category" class="form-select" required>
+            <option value="Water Infrastructure">Water Infrastructure</option>
+            <option value="Dispensary & Health">Dispensary &amp; Health</option>
+            <option value="Youth & Sports">Youth &amp; Sports</option>
+            <option value="Legal & Peace">Legal &amp; Peace Mediation</option>
+            <option value="Secretariat Office">Secretariat Administration</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label for="vch-amount" class="field-label">Disbursement Amount (PKR)</label>
+          <input type="number" id="vch-amount" min="100" placeholder="e.g. 45000" class="form-input" required />
+        </div>
+
+        <div class="form-field">
+          <label for="vch-payee" class="field-label">Payee / Vendor Name</label>
+          <input type="text" id="vch-payee" placeholder="e.g. Kohat Cement Corporation" class="form-input" required />
+        </div>
+
+        <div class="form-field">
+          <label for="vch-cheque" class="field-label">Crossed Cheque #</label>
+          <input type="text" id="vch-cheque" placeholder="e.g. CHQ-NBP-992016" class="form-input" required />
+        </div>
+      </div>
+
+      <div class="form-field mt-3">
+        <label for="vch-desc" class="field-label">Expense Description &amp; Verification Details</label>
+        <textarea id="vch-desc" rows="2" placeholder="Specify constitutional resolution number or project authorization..." class="form-textarea" required></textarea>
+      </div>
+
+      <div class="dual-sig-notice mt-4">
+        <Icon name="shield" size={18} class="text-green" />
+        <p class="notice-text">
+          Upon submission, this voucher will be logged as <strong>Draft</strong>. The Finance Secretary must digitally stamp it first, followed by the President / General Secretary before any disbursement can occur.
+        </p>
+      </div>
+
+      <div class="form-actions mt-4">
+        <Button variant="accent" size="sm" type="submit">
+          <Icon name="check" size={16} />
+          <span>Save &amp; Generate Voucher Number</span>
+        </Button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Vouchers Table -->
+  <div class="vouchers-card card">
+    <div class="card-header-bar">
+      <h2 class="section-title">Expense Vouchers Ledger</h2>
+      <span class="badge-count">{MOCK_VOUCHERS.length} Registered</span>
+    </div>
+
+    <div class="table-responsive">
+      <table class="vouchers-table">
+        <thead>
+          <tr>
+            <th>Voucher #</th>
+            <th>Date</th>
+            <th>Payee &amp; Description</th>
+            <th>Category</th>
+            <th>Amount (PKR)</th>
+            <th>1st Signature (Finance)</th>
+            <th>2nd Signature (President/GS)</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {MOCK_VOUCHERS.map((v) => (
+            <tr class="voucher-row" id={`row-${v.id}`}>
+              <td>
+                <strong class="text-primary">{v.voucherNumber}</strong>
+                <span class="cheque-sub">{v.chequeNumber}</span>
+              </td>
+              <td>{v.date}</td>
+              <td>
+                <strong class="payee-name">{v.payee}</strong>
+                <p class="vch-desc-text">{v.description}</p>
+              </td>
+              <td>
+                <span class="cat-pill">{v.category}</span>
+              </td>
+              <td>
+                <strong class="amount-value">PKR {v.amountPKR.toLocaleString()}</strong>
+              </td>
+              <td>
+                <div class={`sig-block ${v.signature1.signed ? 'signed' : 'pending'}`}>
+                  <span class="sig-title">Finance Sec</span>
+                  <span class="sig-name">{v.signature1.name}</span>
+                  {v.signature1.signed && <span class="sig-time">{v.signature1.timestamp}</span>}
+                </div>
+              </td>
+              <td>
+                <div class={`sig-block ${v.signature2.signed ? 'signed' : 'pending'}`} id={`sig2-${v.id}`}>
+                  <span class="sig-title">President / GS</span>
+                  <span class="sig-name">{v.signature2.name}</span>
+                  {v.signature2.signed && <span class="sig-time">{v.signature2.timestamp}</span>}
+                </div>
+              </td>
+              <td>
+                {!v.signature2.signed ? (
+                  <button 
+                    type="button" 
+                    class="btn-countersign" 
+                    data-voucher-id={v.id}
+                    data-voucher-num={v.voucherNumber}
+                  >
+                    Countersign
+                  </button>
+                ) : (
+                  <Badge variant="green">Disbursed</Badge>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</PortalLayout>
+
+<script>
+  function setupFinancePortal() {
+    const btnToggle = document.getElementById('btn-toggle-new-voucher');
+    const btnClose = document.getElementById('btn-close-voucher-panel');
+    const newVoucherPanel = document.getElementById('new-voucher-panel');
+    const voucherForm = document.getElementById('voucher-form');
+    const countersignBtns = document.querySelectorAll('.btn-countersign');
+
+    if (btnToggle && newVoucherPanel) {
+      btnToggle.addEventListener('click', () => {
+        newVoucherPanel.classList.toggle('hidden');
+      });
+    }
+
+    if (btnClose && newVoucherPanel) {
+      btnClose.addEventListener('click', () => {
+        newVoucherPanel.classList.add('hidden');
+      });
+    }
+
+    if (voucherForm && newVoucherPanel) {
+      voucherForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Voucher VOU-2026-084 created successfully and queued for Finance Secretary verification.');
+        newVoucherPanel.classList.add('hidden');
+      });
+    }
+
+    countersignBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const vId = btn.getAttribute('data-voucher-id');
+        const vNum = btn.getAttribute('data-voucher-num');
+
+        const activeRole = sessionStorage.getItem('tac_active_role') || 'president';
+        if (activeRole !== 'president' && activeRole !== 'general_secretary') {
+          alert(`Access Restricted: Chapter 8 mandates that 2nd signature must be applied by either the President or General Secretary. Your current active persona is: ${activeRole}. Please switch role to President in the top bar.`);
+          return;
+        }
+
+        const confirmSign = confirm(`Apply executive countersignature to Voucher ${vNum} using authenticated digital key?`);
+        if (confirmSign) {
+          const sig2Block = document.getElementById(`sig2-${vId}`);
+          if (sig2Block) {
+            sig2Block.className = 'sig-block signed';
+            sig2Block.innerHTML = `
+              <span class="sig-title">President / GS</span>
+              <span class="sig-name">Malik Ihsanullah (President)</span>
+              <span class="sig-time">Signed Just Now (Audited)</span>
+            `;
+          }
+          btn.outerHTML = `<span class="badge-green-custom">✓ Disbursed</span>`;
+          alert(`Voucher ${vNum} is now fully authorized for bank disbursement under Chapter 8.`);
+        }
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', setupFinancePortal);
+</script>
+
+<style>
+  .page-top-bar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .page-top-bar {
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+  }
+
+  .page-title {
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    color: var(--color-primary);
+    margin: 0;
+  }
+
+  .page-subtitle {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-top: var(--space-1);
+  }
+
+  /* Treasury Cards */
+  .treasury-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .treasury-cards-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .treasury-card {
+    background: var(--color-white);
+    padding: var(--space-5);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-2);
+  }
+
+  .card-label {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+
+  .account-bank {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .amount-headline {
+    font-size: var(--text-xl);
+    font-weight: 800;
+    color: var(--color-text);
+  }
+
+  .account-no {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    margin: 2px 0 var(--space-3);
+  }
+
+  .card-bottom {
+    margin-top: auto;
+    font-size: 11px;
+    padding-top: var(--space-2);
+    border-top: 1px solid var(--color-surface-subtle);
+  }
+
+  /* New Voucher Panel */
+  .new-voucher-panel {
+    background: var(--color-white);
+    padding: var(--space-6);
+    border-radius: var(--radius-xl);
+    border: 2px solid var(--color-gold);
+  }
+
+  .panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .panel-title {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-primary);
+    margin: 0;
+  }
+
+  .btn-close-panel {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-text-muted);
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 640px) {
+    .form-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .field-label {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .form-input,
+  .form-select,
+  .form-textarea {
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-size: var(--text-xs);
+    font-family: inherit;
+  }
+
+  .dual-sig-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    background: rgba(8, 116, 67, 0.08);
+    padding: var(--space-3);
+    border-radius: var(--radius-md);
+  }
+
+  .notice-text {
+    font-size: 11px;
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* Table */
+  .vouchers-card {
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+  }
+
+  .card-header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-4) var(--space-6);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .section-title {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-primary);
+    margin: 0;
+  }
+
+  .badge-count {
+    font-size: 11px;
+    background: var(--color-surface-subtle);
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    color: var(--color-text-muted);
+    font-weight: 600;
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .vouchers-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-xs);
+  }
+
+  .vouchers-table th {
+    text-align: left;
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-surface-subtle);
+    color: var(--color-text-muted);
+    font-weight: 600;
+    border-bottom: 1px solid var(--color-border);
+    white-space: nowrap;
+  }
+
+  .vouchers-table td {
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: middle;
+  }
+
+  .cheque-sub {
+    display: block;
+    font-size: 10px;
+    color: var(--color-text-muted);
+  }
+
+  .payee-name {
+    color: var(--color-text);
+  }
+
+  .vch-desc-text {
+    font-size: 11px;
+    color: var(--color-text-muted);
+    margin: 2px 0 0;
+  }
+
+  .cat-pill {
+    background: var(--color-surface-subtle);
+    border: 1px solid var(--color-border);
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    font-size: 10px;
+    font-weight: 500;
+  }
+
+  .amount-value {
+    color: var(--color-text);
+    font-weight: 700;
+  }
+
+  .sig-block {
+    display: flex;
+    flex-direction: column;
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
+    font-size: 10px;
+  }
+
+  .sig-block.signed {
+    background: rgba(8, 116, 67, 0.1);
+    color: var(--color-green);
+    border: 1px solid rgba(8, 116, 67, 0.2);
+  }
+
+  .sig-block.pending {
+    background: #FFFDF0;
+    color: #8C6B00;
+    border: 1px solid rgba(212, 160, 23, 0.3);
+  }
+
+  .sig-title {
+    font-weight: 700;
+    font-size: 9px;
+    text-transform: uppercase;
+  }
+
+  .sig-name {
+    font-weight: 600;
+  }
+
+  .sig-time {
+    font-size: 9px;
+    opacity: 0.85;
+  }
+
+  .btn-countersign {
+    background: var(--color-gold);
+    color: #123322;
+    border: none;
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-md);
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all var(--duration-fast);
+  }
+
+  .btn-countersign:hover {
+    background: #b88a10;
+  }
+
+  .badge-green-custom {
+    display: inline-block;
+    padding: 3px 8px;
+    background: rgba(8, 116, 67, 0.15);
+    color: var(--color-green);
+    border-radius: var(--radius-sm);
+    font-weight: 700;
+    font-size: 11px;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+</style>

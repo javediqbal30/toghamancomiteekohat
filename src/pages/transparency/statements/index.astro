@@ -1,0 +1,256 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Badge from '../../../components/ui/Badge.astro';
+import Button from '../../../components/ui/Button.astro';
+import Icon from '../../../components/ui/Icon.astro';
+
+const officialStatements = [
+  {
+    refNo: 'TAC-PR-2026-003',
+    date: '26 August 2026',
+    title: 'Executive Policy Address on Anti-Narcotics Strategy',
+    signatory: 'Malik Ihsanullah (President)',
+    summary: 'Clarification regarding zero-tolerance policy against crystal meth (ice) and scrap yard monitoring, strictly through lawful state mechanisms.',
+    verified: true,
+    isSample: true
+  },
+  {
+    refNo: 'TAC-PR-2026-002',
+    date: '25 August 2026',
+    title: 'Official Declaration on the Formal Opening of Togh Aman Committee',
+    signatory: 'Authorized Spokesperson & Media Wing',
+    summary: 'Public announcement marking the formal opening of the secretariat in Togh Bala Main Bazar, thanking elders and district officials.',
+    verified: true,
+    isSample: true
+  },
+  {
+    refNo: 'TAC-PR-2026-001',
+    date: '15 July 2026',
+    title: 'Resolution of Reorganization and Enactment of the Constitution',
+    signatory: 'Hadayatullah Khan (Founder) & Malik Ihsanullah (President)',
+    summary: 'Adoption of the 18-chapter constitution establishing the committee as an unalterable civic trust of the people.',
+    verified: true,
+    isSample: true
+  }
+];
+---
+
+<BaseLayout
+  title="Official Statements Archive | Togh Aman"
+  description="Archival register of all public statements, press releases, and authorized announcements issued by the Togh Aman Committee."
+>
+  <section class="page-header">
+    <div class="container text-center">
+      <Badge variant="gold">Chapter 13 Mandate</Badge>
+      <h1 class="page-title">Statements & Media Archive</h1>
+      <p class="page-subtitle">
+        "Only an authorized spokesperson will issue official statements on behalf of the Committee. Proof instead of accusation."
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <!-- Media Policy Declaration Card -->
+      <div class="card card-gold-accent media-policy-card reveal-on-scroll">
+        <div class="policy-header">
+          <Icon name="shield" size={24} class="text-green" />
+          <h3>Constitutional Media Standards (Chapter 13)</h3>
+        </div>
+        <p>The following will never be published in the Committee's name on media or social media:</p>
+        <div class="prohibited-grid">
+          <div class="prohibit-item">
+            <Icon name="close" size={16} class="text-danger" />
+            <span>Unverified news & rumors</span>
+          </div>
+          <div class="prohibit-item">
+            <Icon name="close" size={16} class="text-danger" />
+            <span>Personal accusations & defamation</span>
+          </div>
+          <div class="prohibit-item">
+            <Icon name="close" size={16} class="text-danger" />
+            <span>Character assassination</span>
+          </div>
+          <div class="prohibit-item">
+            <Icon name="close" size={16} class="text-danger" />
+            <span>Provocative (inflammatory) material</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Statements Archive List -->
+      <div class="statements-list">
+        {officialStatements.map((stmt) => (
+          <article class="statement-card card reveal-on-scroll">
+            <div class="statement-top">
+              <div class="statement-badges">
+                <span class="ref-badge">{stmt.refNo}</span>
+                <Badge variant="success" size="sm">
+                  <Icon name="check" size={12} />
+                  <span>Authorized Official</span>
+                </Badge>
+                {stmt.isSample && <Badge variant="neutral" size="sm">SAMPLE</Badge>}
+              </div>
+              <time class="statement-date">{stmt.date}</time>
+            </div>
+
+            <h2 class="statement-title">{stmt.title}</h2>
+            <p class="statement-summary">{stmt.summary}</p>
+
+            <div class="statement-footer">
+              <span class="signatory-text">
+                <strong>Signatory:</strong> {stmt.signatory}
+              </span>
+              <Button variant="outline" size="sm" href={`/news/`}>
+                <span>Read Full Context</span>
+                <Icon name="arrow-right" size={12} />
+              </Button>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-header {
+    background: linear-gradient(180deg, var(--color-surface-subtle) 0%, var(--color-background) 100%);
+    padding: var(--space-12) 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .page-title {
+    margin-top: var(--space-3);
+    margin-bottom: var(--space-2);
+  }
+
+  .page-subtitle {
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .media-policy-card {
+    padding: var(--space-8);
+    margin-bottom: var(--space-10);
+  }
+
+  .policy-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+  }
+
+  .policy-header h3 {
+    margin-bottom: 0;
+    font-size: var(--text-xl);
+  }
+
+  .media-policy-card p {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-4);
+  }
+
+  .prohibited-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 640px) {
+    .prohibited-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .prohibit-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+    color: var(--color-text);
+    background: var(--color-surface-subtle);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+  }
+
+  .text-danger { color: var(--color-danger); }
+  .text-green { color: var(--color-green); }
+
+  .statements-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .statement-card {
+    padding: var(--space-8);
+    border-left: 4px solid var(--color-gold);
+  }
+
+  .statement-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+  }
+
+  .statement-badges {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .ref-badge {
+    font-family: monospace;
+    font-size: var(--text-xs);
+    font-weight: 700;
+    background: var(--color-surface-subtle);
+    border: 1px solid var(--color-border);
+    padding: 3px 8px;
+    border-radius: var(--radius-sm);
+    color: var(--color-primary);
+  }
+
+  .statement-date {
+    font-size: var(--text-xs);
+    color: var(--color-text-subtle);
+  }
+
+  .statement-title {
+    font-size: var(--text-xl);
+    color: var(--color-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .statement-summary {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-normal);
+    margin-bottom: var(--space-4);
+  }
+
+  .statement-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .signatory-text {
+    font-size: var(--text-xs);
+    color: var(--color-green);
+  }
+
+  .text-center { text-align: center; }
+</style>

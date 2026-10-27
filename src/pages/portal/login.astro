@@ -1,0 +1,382 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/ui/Icon.astro';
+import Badge from '../../components/ui/Badge.astro';
+import Button from '../../components/ui/Button.astro';
+import Alert from '../../components/ui/Alert.astro';
+---
+
+<BaseLayout 
+  title="Member Portal Login | Togh Aman"
+  description="Secure two-factor authenticated access for authorized executive members and office-bearers of Togh Aman Committee."
+>
+  <div class="login-wrapper">
+    <div class="login-container">
+      <!-- Header / Logo -->
+      <div class="login-header text-center">
+        <a href="/" class="login-logo-link">
+          <img 
+            src="/assets/brand/togh-aman-committee-emblem.png" 
+            alt="Togh Aman Emblem" 
+            width="80" 
+            height="80" 
+            class="login-emblem"
+          />
+        </a>
+        <h1 class="login-title">Executive Member Portal</h1>
+        <p class="login-subtitle">
+          Internal administrative system under Chapter 6 constitutional governance.
+        </p>
+        <div class="badge-row flex justify-center mt-2">
+          <Badge variant="gold">
+            <Icon name="lock" size={12} />
+            <span>2FA &amp; Hardware Token Protected</span>
+          </Badge>
+        </div>
+      </div>
+
+      <!-- Quick Persona Login for Evaluators & Committee Members -->
+      <div class="persona-demo-card">
+        <div class="persona-demo-header">
+          <Icon name="key" size={16} />
+          <span>Interactive Prototype Persona Access:</span>
+        </div>
+        <div class="persona-grid">
+          <button type="button" class="persona-btn" data-role="president">
+            <strong>President</strong>
+            <small>Malik Ihsanullah</small>
+          </button>
+          <button type="button" class="persona-btn" data-role="general_secretary">
+            <strong>General Sec</strong>
+            <small>Engr. Tariq Khattak</small>
+          </button>
+          <button type="button" class="persona-btn" data-role="finance_secretary">
+            <strong>Finance Sec</strong>
+            <small>Haji Noor Muhammad</small>
+          </button>
+          <button type="button" class="persona-btn" data-role="womens_wing">
+            <strong>Women’s Wing</strong>
+            <small>Bibi Maryam</small>
+          </button>
+        </div>
+      </div>
+
+      <!-- Standard Form -->
+      <form class="login-form card" id="login-form">
+        <!-- Step 1: Credentials -->
+        <div id="step-credentials">
+          <div class="form-group">
+            <label for="member-id" class="input-label">Member ID / Official Email</label>
+            <div class="input-wrapper">
+              <input 
+                type="text" 
+                id="member-id" 
+                name="memberId" 
+                required 
+                value="president@toghamancomitee.com"
+                class="form-input" 
+                autocomplete="username"
+              />
+            </div>
+            <span class="input-hint">Assigned upon ratification by General Council.</span>
+          </div>
+
+          <div class="form-group mt-4">
+            <label for="member-password" class="input-label">Constitutional Access Password</label>
+            <div class="input-wrapper">
+              <input 
+                type="password" 
+                id="member-password" 
+                name="password" 
+                required 
+                value="••••••••••••"
+                class="form-input" 
+                autocomplete="current-password"
+              />
+            </div>
+          </div>
+
+          <div class="form-action mt-6">
+            <Button variant="primary" type="button" id="btn-proceed-2fa" class="w-full">
+              <span>Proceed to 2FA Verification</span>
+              <Icon name="arrow-right" size={16} />
+            </Button>
+          </div>
+        </div>
+
+        <!-- Step 2: 2FA One-Time Passcode -->
+        <div id="step-2fa" class="step-2fa hidden">
+          <Alert variant="info" class="mb-4">
+            A 6-digit cryptographic verification code has been dispatched to your registered SIM / Authenticator App.
+          </Alert>
+
+          <div class="form-group text-center">
+            <label for="otp-input" class="input-label mb-2">Enter 6-Digit Verification Code</label>
+            <div class="otp-inputs-row">
+              <input type="text" maxlength="6" id="otp-input" value="123456" class="otp-input text-center" placeholder="123456" />
+            </div>
+            <span class="input-hint mt-2 block">Demo environment OTP code: <strong>123456</strong></span>
+          </div>
+
+          <div class="form-action mt-6">
+            <Button variant="accent" type="submit" id="btn-submit-login" class="w-full">
+              <Icon name="lock" size={16} />
+              <span>Verify &amp; Unlock Executive Portal</span>
+            </Button>
+          </div>
+
+          <div class="mt-4 text-center">
+            <button type="button" id="btn-back-credentials" class="back-link">
+              ← Change Member ID / Credentials
+            </button>
+          </div>
+        </div>
+
+        <!-- Security Disclaimer -->
+        <div class="login-footer-security mt-6">
+          <p class="sec-text">
+            <strong>Security Warning:</strong> All administrative portal sessions are recorded in a cryptographically immutable SHA-256 audit log. Unauthorized attempts are reported immediately to Kohat cyber security authorities.
+          </p>
+        </div>
+      </form>
+
+      <div class="text-center mt-6">
+        <a href="/" class="back-home-link">
+          ← Return to Public Homepage
+        </a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  function setupLoginInteraction() {
+    const btnProceed = document.getElementById('btn-proceed-2fa');
+    const btnBack = document.getElementById('btn-back-credentials');
+    const stepCredentials = document.getElementById('step-credentials');
+    const step2fa = document.getElementById('step-2fa');
+    const loginForm = document.getElementById('login-form');
+    const personaBtns = document.querySelectorAll('.persona-btn');
+
+    if (btnProceed && stepCredentials && step2fa) {
+      btnProceed.addEventListener('click', () => {
+        stepCredentials.classList.add('hidden');
+        step2fa.classList.remove('hidden');
+      });
+    }
+
+    if (btnBack && stepCredentials && step2fa) {
+      btnBack.addEventListener('click', () => {
+        step2fa.classList.add('hidden');
+        stepCredentials.classList.remove('hidden');
+      });
+    }
+
+    if (loginForm) {
+      loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        // Redirect to dashboard
+        window.location.href = '/portal/dashboard';
+      });
+    }
+
+    // Persona shortcut clicks
+    personaBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const role = btn.getAttribute('data-role');
+        if (role) {
+          sessionStorage.setItem('tac_active_role', role);
+          window.location.href = '/portal/dashboard';
+        }
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', setupLoginInteraction);
+</script>
+
+<style>
+  .login-wrapper {
+    min-height: calc(100vh - 160px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-8) var(--space-4);
+    background: radial-gradient(circle at 50% 10%, rgba(8, 116, 67, 0.08) 0%, var(--color-background) 70%);
+  }
+
+  .login-container {
+    width: 100%;
+    max-width: 480px;
+  }
+
+  .login-header {
+    margin-bottom: var(--space-6);
+  }
+
+  .login-emblem {
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-md);
+    margin-bottom: var(--space-3);
+    border: 3px solid var(--color-gold);
+    background: var(--color-white);
+  }
+
+  .login-title {
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    color: var(--color-primary);
+    margin-bottom: var(--space-1);
+  }
+
+  .login-subtitle {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .persona-demo-card {
+    background: #FFFFFF;
+    border: 1px dashed var(--color-gold);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    margin-bottom: var(--space-6);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .persona-demo-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: var(--space-3);
+  }
+
+  .persona-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-2);
+  }
+
+  .persona-btn {
+    background: var(--color-surface-subtle);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-2);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    cursor: pointer;
+    transition: all var(--duration-fast);
+    text-align: left;
+  }
+
+  .persona-btn:hover {
+    background: var(--color-primary);
+    color: var(--color-white);
+    border-color: var(--color-primary);
+  }
+
+  .persona-btn:hover small {
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .persona-btn strong {
+    font-size: var(--text-xs);
+  }
+
+  .persona-btn small {
+    font-size: 10px;
+    color: var(--color-text-muted);
+  }
+
+  .login-form {
+    padding: var(--space-8);
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--color-border);
+  }
+
+  .input-label {
+    display: block;
+    font-size: var(--text-xs);
+    font-weight: 600;
+    margin-bottom: var(--space-1);
+    color: var(--color-text);
+  }
+
+  .form-input {
+    width: 100%;
+    padding: var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-family: inherit;
+    font-size: var(--text-sm);
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-color: var(--color-green);
+    box-shadow: 0 0 0 3px rgba(8, 116, 67, 0.15);
+  }
+
+  .input-hint {
+    font-size: 11px;
+    color: var(--color-text-muted);
+    margin-top: 4px;
+    display: block;
+  }
+
+  .otp-input {
+    width: 100%;
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    letter-spacing: 0.35em;
+    padding: var(--space-3);
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-md);
+    background: var(--color-surface-subtle);
+  }
+
+  .back-link {
+    background: none;
+    border: none;
+    color: var(--color-green);
+    font-size: var(--text-xs);
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  .back-link:hover {
+    text-decoration: underline;
+  }
+
+  .login-footer-security {
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--space-4);
+  }
+
+  .sec-text {
+    font-size: 10px;
+    color: var(--color-text-muted);
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .back-home-link {
+    font-size: var(--text-xs);
+    color: var(--color-green);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .back-home-link:hover {
+    text-decoration: underline;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+</style>

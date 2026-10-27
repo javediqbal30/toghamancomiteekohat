@@ -1,0 +1,706 @@
+---
+import PortalLayout from '../../layouts/PortalLayout.astro';
+import Icon from '../../components/ui/Icon.astro';
+import Badge from '../../components/ui/Badge.astro';
+import Button from '../../components/ui/Button.astro';
+import { MOCK_AUDIT_LOGS, MOCK_COMPLAINTS, MOCK_VOUCHERS, MOCK_MEETINGS } from '../../lib/portalMock';
+
+// Summary metrics computed from mock data
+const totalComplaints = MOCK_COMPLAINTS.length;
+const activeComplaints = MOCK_COMPLAINTS.filter(c => c.status !== 'resolved').length;
+const pendingVouchers = MOCK_VOUCHERS.filter(v => v.status === 'awaiting_signature_2').length;
+const nextMeeting = MOCK_MEETINGS[0];
+---
+
+<PortalLayout 
+  title="Executive Dashboard | Togh Aman"
+  description="Live overview of active community resolutions, confidential complaints, financial treasury status, and scheduled council sessions."
+  activeNav="dashboard"
+>
+  <div class="dashboard-header">
+    <div class="header-titles">
+      <Badge variant="green" class="mb-2">
+        <Icon name="check-circle" size={12} />
+        <span>Chapter 6 Constitutional Governance Active</span>
+      </Badge>
+      <h1 class="page-title">Executive Council Overview</h1>
+      <p class="page-subtitle">
+        Unified administration for Togh Bala and Togh Payan executive leadership.
+      </p>
+    </div>
+
+    <div class="header-actions">
+      <Button variant="accent" size="sm" href="/portal/finance" class="quick-btn">
+        <Icon name="balance" size={16} />
+        <span>Issue Voucher</span>
+      </Button>
+      <Button variant="primary" size="sm" href="/portal/meetings" class="quick-btn">
+        <Icon name="calendar" size={16} />
+        <span>Quorum Check</span>
+      </Button>
+    </div>
+  </div>
+
+  <!-- Role Notification Alert Bar (Dynamic via JS) -->
+  <div class="role-alert-card" id="role-alert-card">
+    <div class="alert-icon">
+      <Icon name="alert" size={24} />
+    </div>
+    <div class="alert-content">
+      <h2 class="alert-headline" id="role-alert-headline">President Action Required:</h2>
+      <p class="alert-desc" id="role-alert-desc">
+        Voucher <strong>VOU-2026-082</strong> (PKR 42,500 - Drinking Water Pipes) is waiting for your mandatory 2nd executive signature.
+      </p>
+    </div>
+    <div class="alert-btn">
+      <Button variant="outline" size="sm" href="/portal/finance">Review Voucher</Button>
+    </div>
+  </div>
+
+  <!-- Key Metrics Row -->
+  <div class="metrics-grid">
+    <div class="metric-card card">
+      <div class="metric-icon-wrap bg-green-light">
+        <Icon name="document" size={24} class="text-green" />
+      </div>
+      <div class="metric-info">
+        <span class="metric-label">Active Resolutions</span>
+        <strong class="metric-value">5 Passed</strong>
+        <span class="metric-sub">100% on schedule</span>
+      </div>
+    </div>
+
+    <div class="metric-card card">
+      <div class="metric-icon-wrap bg-gold-light">
+        <Icon name="shield" size={24} class="text-gold" />
+      </div>
+      <div class="metric-info">
+        <span class="metric-label">Complaints Triage</span>
+        <strong class="metric-value">{activeComplaints} Active</strong>
+        <span class="metric-sub">{totalComplaints} Total Logged</span>
+      </div>
+    </div>
+
+    <div class="metric-card card">
+      <div class="metric-icon-wrap bg-green-light">
+        <Icon name="balance" size={24} class="text-green" />
+      </div>
+      <div class="metric-info">
+        <span class="metric-label">Treasury Balance</span>
+        <strong class="metric-value">PKR 1.28M</strong>
+        <span class="metric-sub">{pendingVouchers} pending 2nd signature</span>
+      </div>
+    </div>
+
+    <div class="metric-card card">
+      <div class="metric-icon-wrap bg-blue-light">
+        <Icon name="users" size={24} class="text-primary" />
+      </div>
+      <div class="metric-info">
+        <span class="metric-label">Next Council Quorum</span>
+        <strong class="metric-value">{nextMeeting.quorumPercentage}%</strong>
+        <span class="metric-sub">{nextMeeting.attendedSeats}/{nextMeeting.totalSeats} seats confirmed</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dashboard Main Columns Grid -->
+  <div class="dashboard-grid mt-8">
+    <!-- Left Column: Priority Complaints & Upcoming Session -->
+    <div class="dashboard-col-main">
+      <!-- Active Complaints Snapshot -->
+      <div class="section-card card mb-6">
+        <div class="section-card-header">
+          <div class="header-left">
+            <h2 class="section-title">Confidential Grievance Queue</h2>
+            <span class="section-badge">Chapter 11 Triage</span>
+          </div>
+          <a href="/portal/complaints" class="view-all-link">View All ({totalComplaints}) →</a>
+        </div>
+
+        <div class="complaints-table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Code</th>
+                <th>Category</th>
+                <th>Location</th>
+                <th>Privacy Level</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {MOCK_COMPLAINTS.slice(0, 4).map((c) => (
+                <tr>
+                  <td><strong>{c.trackingCode}</strong></td>
+                  <td>{c.categoryLabel}</td>
+                  <td class="text-muted">{c.location}</td>
+                  <td>
+                    {c.privacyLevel === 4 ? (
+                      <Badge variant="red">Level 4: Encrypted</Badge>
+                    ) : c.privacyLevel === 3 ? (
+                      <Badge variant="gold">Level 3: Police</Badge>
+                    ) : (
+                      <Badge variant="subtle">Level {c.privacyLevel}</Badge>
+                    )}
+                  </td>
+                  <td>
+                    <Badge variant={c.status === 'investigating' ? 'green' : c.status === 'referred_police' ? 'red' : 'subtle'}>
+                      {c.statusLabel}
+                    </Badge>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Scheduled Session & Quorum -->
+      <div class="section-card card">
+        <div class="section-card-header">
+          <div class="header-left">
+            <h2 class="section-title">Upcoming Executive Council Session</h2>
+            <span class="section-badge">Chapter 6 Mandate</span>
+          </div>
+          <a href="/portal/meetings" class="view-all-link">Open Quorum Calculator →</a>
+        </div>
+
+        <div class="meeting-preview-box">
+          <div class="meeting-meta">
+            <div class="meta-item">
+              <Icon name="calendar" size={16} />
+              <span><strong>Date:</strong> {nextMeeting.date} ({nextMeeting.time})</span>
+            </div>
+            <div class="meta-item">
+              <Icon name="map-pin" size={16} />
+              <span><strong>Venue:</strong> {nextMeeting.location}</span>
+            </div>
+            <div class="meta-item">
+              <Icon name="check" size={16} />
+              <span><strong>Quorum Status:</strong> <span class="text-green font-bold">Passed (16 of 21 present - 76.2%)</span></span>
+            </div>
+          </div>
+
+          <h3 class="agenda-heading mt-4">Order of Business (Agendas):</h3>
+          <ul class="agenda-list">
+            {nextMeeting.agendaItems.map((item) => (
+              <li class="agenda-item">
+                <span class="agenda-num">{item.number}</span>
+                <div class="agenda-text">
+                  <strong>{item.title}</strong>
+                  <p class="agenda-decision">{item.decision}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Dual-Signature Vouchers & Crypto Audit Trail -->
+    <div class="dashboard-col-side">
+      <!-- Dual-Signature Vouchers Box -->
+      <div class="section-card card mb-6">
+        <div class="section-card-header">
+          <div class="header-left">
+            <h2 class="section-title">Chapter 8 Vouchers</h2>
+          </div>
+          <a href="/portal/finance" class="view-all-link">Ledger →</a>
+        </div>
+
+        <div class="vouchers-list">
+          {MOCK_VOUCHERS.map((v) => (
+            <div class="voucher-mini-item">
+              <div class="voucher-top">
+                <strong class="voucher-code">{v.voucherNumber}</strong>
+                <span class="voucher-amount">PKR {v.amountPKR.toLocaleString()}</span>
+              </div>
+              <p class="voucher-desc">{v.description}</p>
+              <div class="voucher-signatures">
+                <span class={`sig-pill ${v.signature1.signed ? 'signed' : 'pending'}`}>
+                  Finance: {v.signature1.signed ? '✓ Signed' : 'Pending'}
+                </span>
+                <span class={`sig-pill ${v.signature2.signed ? 'signed' : 'pending'}`}>
+                  President/GS: {v.signature2.signed ? '✓ Signed' : 'Pending'}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Immutable Audit Log Snippet -->
+      <div class="section-card card">
+        <div class="section-card-header">
+          <div class="header-left">
+            <h2 class="section-title">Cryptographic Trail</h2>
+            <span class="section-badge">SHA-256</span>
+          </div>
+          <a href="/portal/audit" class="view-all-link">Full Log →</a>
+        </div>
+
+        <div class="audit-feed">
+          {MOCK_AUDIT_LOGS.slice(0, 3).map((log) => (
+            <div class="audit-feed-item">
+              <div class="audit-item-header">
+                <span class="audit-seq">#{log.sequence}</span>
+                <span class="audit-time">{log.timestamp.split(' ')[1]}</span>
+              </div>
+              <strong class="audit-action">{log.action}</strong>
+              <span class="audit-user">{log.userName} ({log.role})</span>
+              <code class="audit-hash">{log.sha256Hash.slice(0, 18)}...</code>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</PortalLayout>
+
+<script>
+  function setupDashboardDynamicRole() {
+    const headline = document.getElementById('role-alert-headline');
+    const desc = document.getElementById('role-alert-desc');
+
+    const roleAlerts: Record<string, { headline: string; desc: string }> = {
+      president: {
+        headline: 'President Action Required:',
+        desc: 'Voucher VOU-2026-082 (PKR 42,500 - Drinking Water Pipes) is waiting for your mandatory 2nd executive signature.',
+      },
+      general_secretary: {
+        headline: 'General Secretary Notice:',
+        desc: 'Meeting #14 agenda items are locked. Quorum calculator indicates 16 of 21 members are registered to attend.',
+      },
+      finance_secretary: {
+        headline: 'Finance Secretary Notice:',
+        desc: 'Voucher VOU-2026-083 (PKR 18,000 - Youth Sports) has been drafted. Please attach verified vendor quotation.',
+      },
+      womens_wing: {
+        headline: 'Women’s Wing Action Required:',
+        desc: 'Confidential petition CMP-2026-005 (Inheritance mediation) is assigned to you. Complainant privacy is protected.',
+      },
+    };
+
+    function updateAlert(role: string) {
+      const data = roleAlerts[role] || roleAlerts.president;
+      if (headline && desc) {
+        headline.textContent = data.headline;
+        desc.textContent = data.desc;
+      }
+    }
+
+    const currentRole = sessionStorage.getItem('tac_active_role') || 'president';
+    updateAlert(currentRole);
+
+    window.addEventListener('portal:role-changed', ((e: CustomEvent) => {
+      updateAlert(e.detail.role);
+    }) as EventListener);
+  }
+
+  document.addEventListener('astro:page-load', setupDashboardDynamicRole);
+</script>
+
+<style>
+  .dashboard-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .dashboard-header {
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+  }
+
+  .page-title {
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    color: var(--color-primary);
+    margin: 0;
+  }
+
+  .page-subtitle {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-top: var(--space-1);
+  }
+
+  .header-actions {
+    display: flex;
+    gap: var(--space-3);
+  }
+
+  /* Role Alert Card */
+  .role-alert-card {
+    background: #FFFDF0;
+    border: 1px solid var(--color-gold);
+    border-left: 5px solid var(--color-gold);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+
+  .alert-icon {
+    color: var(--color-gold);
+    flex-shrink: 0;
+  }
+
+  .alert-content {
+    flex: 1;
+  }
+
+  .alert-headline {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: #8C6B00;
+    margin: 0;
+  }
+
+  .alert-desc {
+    font-size: var(--text-xs);
+    color: var(--color-text);
+    margin: 2px 0 0;
+  }
+
+  /* Metrics Grid */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 640px) {
+    .metrics-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .metrics-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .metric-card {
+    padding: var(--space-5);
+    background: var(--color-white);
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+  }
+
+  .metric-icon-wrap {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .bg-green-light { background: rgba(8, 116, 67, 0.1); }
+  .bg-gold-light { background: rgba(212, 160, 23, 0.15); }
+  .bg-blue-light { background: rgba(6, 77, 50, 0.1); }
+
+  .text-green { color: var(--color-green); }
+  .text-gold { color: #8C6B00; }
+  .text-primary { color: var(--color-primary); }
+
+  .metric-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .metric-label {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    font-weight: 600;
+  }
+
+  .metric-value {
+    font-size: var(--text-xl);
+    font-weight: 800;
+    color: var(--color-text);
+    line-height: 1.2;
+  }
+
+  .metric-sub {
+    font-size: 11px;
+    color: var(--color-green);
+    font-weight: 500;
+  }
+
+  /* Dashboard Grid */
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 1024px) {
+    .dashboard-grid {
+      grid-template-columns: 1.8fr 1.2fr;
+    }
+  }
+
+  .section-card {
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    border: 1px solid var(--color-border);
+  }
+
+  .section-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .section-title {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-primary);
+    margin: 0;
+  }
+
+  .section-badge {
+    font-size: 10px;
+    background: var(--color-surface-subtle);
+    border: 1px solid var(--color-border);
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    color: var(--color-text-muted);
+    font-weight: 600;
+  }
+
+  .view-all-link {
+    font-size: var(--text-xs);
+    color: var(--color-green);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .view-all-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Data Table */
+  .complaints-table-wrap {
+    overflow-x: auto;
+  }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-xs);
+  }
+
+  .data-table th {
+    text-align: left;
+    padding: var(--space-2) var(--space-3);
+    color: var(--color-text-muted);
+    font-weight: 600;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .data-table td {
+    padding: var(--space-3);
+    border-bottom: 1px solid var(--color-surface-subtle);
+  }
+
+  /* Meeting Preview Box */
+  .meeting-preview-box {
+    background: var(--color-surface-subtle);
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+  }
+
+  .meeting-meta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .agenda-heading {
+    font-size: var(--text-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+  }
+
+  .agenda-list {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-2) 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .agenda-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    font-size: var(--text-xs);
+    background: var(--color-white);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+  }
+
+  .agenda-num {
+    background: var(--color-primary);
+    color: var(--color-white);
+    width: 20px;
+    height: 20px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+
+  .agenda-decision {
+    font-size: 11px;
+    color: var(--color-text-muted);
+    margin: 2px 0 0;
+  }
+
+  /* Vouchers List */
+  .vouchers-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .voucher-mini-item {
+    background: var(--color-surface-subtle);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-3);
+  }
+
+  .voucher-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: var(--text-xs);
+  }
+
+  .voucher-code {
+    color: var(--color-primary);
+  }
+
+  .voucher-amount {
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .voucher-desc {
+    font-size: 11px;
+    color: var(--color-text-muted);
+    margin: var(--space-1) 0 var(--space-2);
+  }
+
+  .voucher-signatures {
+    display: flex;
+    gap: var(--space-2);
+  }
+
+  .sig-pill {
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+  }
+
+  .sig-pill.signed {
+    background: rgba(8, 116, 67, 0.1);
+    color: var(--color-green);
+  }
+
+  .sig-pill.pending {
+    background: #FFFDF0;
+    color: #8C6B00;
+    border: 1px solid rgba(212, 160, 23, 0.3);
+  }
+
+  /* Crypto Audit Feed */
+  .audit-feed {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .audit-feed-item {
+    border-left: 2px solid var(--color-green);
+    padding-left: var(--space-3);
+    font-size: var(--text-xs);
+  }
+
+  .audit-item-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--color-text-muted);
+  }
+
+  .audit-seq {
+    font-weight: 700;
+  }
+
+  .audit-action {
+    display: block;
+    color: var(--color-primary);
+    font-size: 11px;
+    margin-top: 2px;
+  }
+
+  .audit-user {
+    display: block;
+    font-size: 10px;
+    color: var(--color-text-muted);
+  }
+
+  .audit-hash {
+    display: block;
+    font-size: 9px;
+    color: var(--color-text-subtle);
+    font-family: monospace;
+    background: var(--color-surface-subtle);
+    padding: 2px 4px;
+    border-radius: var(--radius-sm);
+    margin-top: 4px;
+  }
+</style>

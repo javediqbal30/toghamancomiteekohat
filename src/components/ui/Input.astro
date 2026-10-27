@@ -1,0 +1,140 @@
+---
+interface Props {
+  label: string;
+  id: string;
+  name: string;
+  type?: 'text' | 'email' | 'tel' | 'textarea' | 'select' | 'file';
+  placeholder?: string;
+  required?: boolean;
+  helperText?: string;
+  error?: string;
+  options?: { value: string; label: string }[];
+  class?: string;
+  rows?: number;
+}
+
+const {
+  label,
+  id,
+  name,
+  type = 'text',
+  placeholder,
+  required = false,
+  helperText,
+  error,
+  options = [],
+  class: className = '',
+  rows = 4,
+} = Astro.props;
+---
+
+<div class={`form-field ${className}`}>
+  <label for={id} class="form-label">
+    {label}
+    {required && <span class="required-mark" aria-hidden="true">*</span>}
+  </label>
+
+  {type === 'textarea' ? (
+    <textarea
+      id={id}
+      name={name}
+      placeholder={placeholder}
+      required={required}
+      rows={rows}
+      aria-describedby={helperText ? `${id}-helper` : error ? `${id}-error` : undefined}
+      aria-invalid={error ? 'true' : undefined}
+      class={`form-input form-textarea ${error ? 'has-error' : ''}`}
+    ></textarea>
+  ) : type === 'select' ? (
+    <select
+      id={id}
+      name={name}
+      required={required}
+      aria-describedby={helperText ? `${id}-helper` : error ? `${id}-error` : undefined}
+      aria-invalid={error ? 'true' : undefined}
+      class={`form-input form-select ${error ? 'has-error' : ''}`}
+    >
+      <option value="" disabled selected>{placeholder || 'Select an option'}</option>
+      {options.map((opt) => (
+        <option value={opt.value}>{opt.label}</option>
+      ))}
+    </select>
+  ) : (
+    <input
+      type={type}
+      id={id}
+      name={name}
+      placeholder={placeholder}
+      required={required}
+      aria-describedby={helperText ? `${id}-helper` : error ? `${id}-error` : undefined}
+      aria-invalid={error ? 'true' : undefined}
+      class={`form-input ${error ? 'has-error' : ''}`}
+    />
+  )}
+
+  {helperText && <p id={`${id}-helper`} class="form-helper">{helperText}</p>}
+  {error && <p id={`${id}-error`} class="form-error" role="alert">{error}</p>}
+</div>
+
+<style>
+  .form-field {
+    margin-bottom: var(--space-5);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-label {
+    font-weight: 600;
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin-bottom: var(--space-2);
+  }
+
+  .required-mark {
+    color: var(--color-danger);
+    margin-left: 2px;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    min-height: 48px;
+    transition: border-color var(--duration-fast), box-shadow var(--duration-fast);
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-color: var(--color-green);
+    box-shadow: 0 0 0 3px var(--color-primary-soft);
+  }
+
+  .form-textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  .form-input.has-error {
+    border-color: var(--color-danger);
+    background-color: var(--color-danger-bg);
+  }
+
+  .form-helper {
+    font-size: var(--text-xs);
+    color: var(--color-text-subtle);
+    margin-top: var(--space-1);
+    margin-bottom: 0;
+  }
+
+  .form-error {
+    font-size: var(--text-xs);
+    color: var(--color-danger);
+    font-weight: 500;
+    margin-top: var(--space-1);
+    margin-bottom: 0;
+  }
+</style>

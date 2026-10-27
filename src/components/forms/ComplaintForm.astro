@@ -1,0 +1,1184 @@
+---
+import Button from '../ui/Button.astro';
+import Badge from '../ui/Badge.astro';
+import Alert from '../ui/Alert.astro';
+import Icon from '../ui/Icon.astro';
+---
+
+<div class="complaint-form-wrapper card card-gold-accent">
+  <!-- Form Header -->
+  <div class="form-header">
+    <div class="form-badge-row">
+      <Badge variant="gold">Confidential Intake Pipeline</Badge>
+      <Badge variant="green" size="sm">End-to-End Privacy</Badge>
+      <Badge variant="neutral" size="sm">Whistleblower Shield</Badge>
+    </div>
+    <h2 class="form-title">Submit a Public Issue or Grievance</h2>
+    <p class="form-subtitle">
+      Your report is submitted directly to the Executive Secretariat and Complaints Cell In-Charge. We strictly follow our constitutional rule:
+      <em>"Proof instead of accusation — zero public defamation."</em>
+    </p>
+  </div>
+
+  <!-- Emergency Notice -->
+  <Alert variant="warning" title="Emergency & Law Enforcement Disclaimer">
+    The Togh Aman Committee is a non-political welfare platform and does not replace the police or state departments. 
+    If this is an active crime in progress, violence, or medical emergency, <strong>dial 15 (Police) or 1122 (Rescue) immediately</strong>.
+  </Alert>
+
+  <!-- Success Notification Screen (Hidden initially) -->
+  <div id="complaint-success-box" class="success-box" style="display: none;">
+    <div class="success-icon-wrap">
+      <Icon name="check" size={40} />
+    </div>
+    <h3 class="success-title">Complaint Successfully Registered!</h3>
+    <p class="success-desc">
+      Your grievance has been encrypted and logged in the official committee register. 
+      Please record or copy your official confidential tracking code below:
+    </p>
+    
+    <div class="tracking-number-display">
+      <span class="tracking-label">Official Tracking Reference</span>
+      <div class="tracking-code-row">
+        <strong id="generated-tracking-code" class="tracking-code">C-2026-0000</strong>
+        <button type="button" id="btn-copy-code" class="btn-copy-code" title="Copy tracking code">
+          <Icon name="document" size={16} />
+          <span id="copy-text">Copy Code</span>
+        </button>
+      </div>
+      <span class="tracking-sub">Save this code to check progress or follow up with the Complaints Cell.</span>
+    </div>
+
+    <div class="success-details-card">
+      <Icon name="shield" size={20} class="text-green" />
+      <p>
+        <strong>Next Steps:</strong> The Complaints Cell In-Charge (<strong>Mr. Shafiq-ur-Rehman</strong>) and the Legal Triage Desk will verify the facts in accordance with Chapter 10 of the Constitution.
+      </p>
+    </div>
+
+    <div class="success-actions">
+      <Button variant="primary" size="md" href="/">Return to Homepage</Button>
+      <Button variant="outline" size="md" id="btn-submit-another">Submit Another Grievance</Button>
+    </div>
+  </div>
+
+  <!-- Main Complaint Form -->
+  <form id="complaint-intake-form" class="complaint-form" novalidate>
+    <!-- Anti-Spam Honeypot Field -->
+    <div style="display: none;" aria-hidden="true">
+      <label for="honeypot_field">Do not fill this field</label>
+      <input type="text" id="honeypot_field" name="website_trap_field" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <!-- 1. Anonymous Mode Toggle Card -->
+    <div class="anonymous-card">
+      <div class="anon-toggle-layout">
+        <label class="anon-switch" for="is_anonymous">
+          <input type="checkbox" id="is_anonymous" name="is_anonymous" />
+          <span class="slider round"></span>
+        </label>
+        <div class="anon-text-wrap">
+          <div class="anon-title-row">
+            <strong>Submit Anonymously (Whistleblower Mode)</strong>
+            <span class="urdu-hint" dir="rtl">خفیہ موڈ (نام اور شناخت ظاہر نہیں ہوگی)</span>
+          </div>
+          <span class="anon-desc">
+            Your name, phone number, and IP will not be visible to anyone. Complete anonymity protected.
+          </span>
+        </div>
+      </div>
+      <div id="anon-status-indicator" class="anon-status-pill public-mode">
+        <Icon name="shield" size={14} />
+        <span id="anon-status-text">Public Identification Mode</span>
+      </div>
+    </div>
+
+    <!-- 2. Personal Info Row (Disabled & Faded when Anonymous) -->
+    <div id="personal-info-fields" class="form-grid-2">
+      <div class="form-field">
+        <label for="complainant_name" class="form-label">
+          <span class="label-en">Full Name <span class="optional-pill">Optional</span></span>
+          <span class="label-ur" dir="rtl">مکمل نام (اختیاری)</span>
+        </label>
+        <div class="input-wrapper">
+          <Icon name="users" size={18} class="field-icon" />
+          <input 
+            type="text" 
+            id="complainant_name" 
+            name="complainant_name" 
+            class="form-input with-icon" 
+            placeholder="e.g., Muhammad Khan / Resident of Togh" 
+          />
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label for="complainant_phone" class="form-label">
+          <span class="label-en">Phone / WhatsApp <span class="optional-pill">Optional</span></span>
+          <span class="label-ur" dir="rtl">فون یا واٹس ایپ نمبر</span>
+        </label>
+        <div class="input-wrapper">
+          <Icon name="phone" size={18} class="field-icon" />
+          <input 
+            type="tel" 
+            id="complainant_phone" 
+            name="complainant_phone" 
+            class="form-input with-icon" 
+            placeholder="+92 3XX XXXXXXX" 
+          />
+        </div>
+        <span class="field-help">Used only to provide confidential updates regarding your inquiry.</span>
+      </div>
+    </div>
+
+    <!-- 3. Category & Location Row -->
+    <div class="form-grid-2">
+      <div class="form-field">
+        <label for="complaint_category" class="form-label">
+          <span class="label-en">Issue Category <span class="required-star">*</span></span>
+          <span class="label-ur" dir="rtl">مسئلہ کی کیٹیگری</span>
+        </label>
+        <div class="select-wrapper">
+          <select id="complaint_category" name="category" class="form-input form-select" required>
+            <option value="" disabled selected>Choose issue category...</option>
+            <option value="drugs">Anti-Drugs & Substance Abuse (Ice / Narcotics)</option>
+            <option value="crime">Crime Prevention & Unauthorized Scrap Yards</option>
+            <option value="shamilat">Shamilat & Communal Land Protection</option>
+            <option value="water">Clean Water Supply & Sanitation</option>
+            <option value="infrastructure">Roads, Drainage, Streetlights & Electricity</option>
+            <option value="committee_member">Grievance Regarding Committee Member / Official</option>
+            <option value="revenue">Patwari, Land Disputes & Revenue Records</option>
+            <option value="education_health">Schools, Clinics & Basic Health Units</option>
+            <option value="women_children">Rights of Women & Children (Strict Privacy)</option>
+            <option value="other">Other Community Dispute / Civic Matter</option>
+          </select>
+          <div class="select-chevron" aria-hidden="true">▼</div>
+        </div>
+        <span id="category-error" class="form-error-msg" style="display: none;">
+          Please select an issue category from the list.
+        </span>
+      </div>
+
+      <div class="form-field">
+        <label for="complaint_location" class="form-label">
+          <span class="label-en">Village Sector / Location <span class="required-star">*</span></span>
+          <span class="label-ur" dir="rtl">علاقہ یا محلہ</span>
+        </label>
+        <div class="select-wrapper">
+          <select id="complaint_location" name="location" class="form-input form-select" required>
+            <option value="" disabled selected>Select location in Togh...</option>
+            <option value="togh_bala">Togh Bala (Main Village / Mohallahs)</option>
+            <option value="togh_payan">Togh Payan (Payan Areas)</option>
+            <option value="main_bazar">Main Bazar / Pindi Road Sector</option>
+            <option value="shamilat">Common Lands (Shamilat) & Hillside Area</option>
+            <option value="nbp_market">Haji Rafiullah Khan Market / Bank Area</option>
+            <option value="other">Other Location in Togh</option>
+          </select>
+          <div class="select-chevron" aria-hidden="true">▼</div>
+        </div>
+        <span id="location-error" class="form-error-msg" style="display: none;">
+          Please specify the village sector or location.
+        </span>
+      </div>
+    </div>
+
+    <!-- 4. Problem Description (Full Width & Generous Height) -->
+    <div class="form-field">
+      <div class="label-flex-row">
+        <label for="complaint_description" class="form-label m-0">
+          <span class="label-en">Description of Problem &amp; Facts <span class="required-star">*</span></span>
+          <span class="label-ur" dir="rtl">مسئلہ اور حقائق کی مکمل تفصیل</span>
+        </label>
+        <span id="char-counter" class="char-counter">0 / 2000</span>
+      </div>
+      <textarea 
+        id="complaint_description" 
+        name="description" 
+        class="form-input form-textarea" 
+        rows="6" 
+        maxlength="2000"
+        required 
+        placeholder="Please provide factual, specific details: What occurred? Approximate dates or timeline? Who is involved? What action or resolution is requested? (Note: All grievances are examined strictly with evidence — false accusations without facts are avoided)."
+      ></textarea>
+      <span id="desc-error" class="form-error-msg" style="display: none;">
+        Please write a clear description of the issue or complaint.
+      </span>
+    </div>
+
+    <!-- 5. Modern Interactive Evidence Upload Box -->
+    <div class="form-field">
+      <label class="form-label">
+        <span class="label-en">Supporting Evidence / Photos / Documents <span class="optional-pill">Optional</span></span>
+        <span class="label-ur" dir="rtl">ثبوت یا دستاویزات (اختیاری)</span>
+      </label>
+      
+      <div class="upload-dropzone" id="upload-dropzone">
+        <input 
+          type="file" 
+          id="evidence_upload" 
+          name="evidence" 
+          accept="image/jpeg,image/png,image/webp,application/pdf" 
+          class="file-input-hidden" 
+        />
+        <div class="dropzone-content">
+          <div class="dropzone-icon">
+            <Icon name="document" size={28} />
+          </div>
+          <div class="dropzone-text">
+            <strong id="dropzone-main-text">Click to choose or drag &amp; drop photos or files</strong>
+            <span class="dropzone-sub">Supported formats: JPG, PNG, WEBP, PDF (Max file size: 15MB)</span>
+          </div>
+          <button type="button" class="btn-browse-file" id="btn-browse">Browse File</button>
+        </div>
+      </div>
+
+      <!-- File Selected Feedback Pill -->
+      <div id="file-selected-indicator" class="file-selected-indicator" style="display: none;">
+        <Icon name="check" size={16} class="text-green" />
+        <span id="selected-file-name" class="file-name-text">filename.jpg</span>
+        <button type="button" id="btn-remove-file" class="btn-remove-file" title="Remove file">&times;</button>
+      </div>
+
+      <!-- Security Notice -->
+      <div class="file-security-notice">
+        <Icon name="lock" size={16} class="text-green" />
+        <span id="privacy-shield-notice-text">
+          <strong>Automated Privacy Shield:</strong> Uploaded images are automatically processed client-side to strip all device EXIF metadata and GPS coordinates before upload.
+        </span>
+      </div>
+    </div>
+
+    <!-- 6. Legal Truth Declaration Checkbox -->
+    <div class="form-field declaration-field">
+      <label class="custom-checkbox" for="proof_confirmation">
+        <input type="checkbox" id="proof_confirmation" name="proof_confirmation" required />
+        <span class="checkbox-box"></span>
+        <span class="checkbox-label">
+          I declare on moral oath that the information provided is truthful to the best of my knowledge. I understand that the Togh Aman Committee acts strictly within the bounds of Pakistani law, with complete confidentiality and zero public defamation.
+        </span>
+      </label>
+      <span id="terms-error" class="form-error-msg" style="display: none;">
+        You must confirm this declaration before submitting your complaint.
+      </span>
+    </div>
+
+    <!-- 7. Submit Button & Security Strip -->
+    <div class="form-submit-strip">
+      <div class="security-tag">
+        <Icon name="shield" size={18} class="text-green" />
+        <div class="security-text">
+          <strong>Protected by Cloudflare Anti-Bot Shield</strong>
+          <span>Encrypted Submission • Direct to Complaints Desk</span>
+        </div>
+      </div>
+
+      <button type="submit" id="btn-submit-complaint" class="btn-submit-action">
+        <Icon name="alert" size={18} />
+        <span id="btn-submit-text">Submit Official Complaint</span>
+      </button>
+    </div>
+  </form>
+</div>
+
+<style>
+  .complaint-form-wrapper {
+    max-width: 860px;
+    margin-left: auto;
+    margin-right: auto;
+    background: #FFFFFF;
+    border-radius: var(--radius-xl);
+    padding: var(--space-8);
+    box-shadow: 0 16px 40px -8px rgba(6, 77, 50, 0.12);
+    border: 2px solid rgba(212, 160, 23, 0.4);
+  }
+
+  @media (max-width: 640px) {
+    .complaint-form-wrapper {
+      padding: var(--space-5);
+    }
+  }
+
+  /* Header */
+  .form-header {
+    margin-bottom: var(--space-6);
+  }
+
+  .form-badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-bottom: var(--space-3);
+  }
+
+  .form-title {
+    font-size: var(--text-2xl);
+    color: var(--color-primary);
+    margin-bottom: var(--space-2);
+    font-weight: 700;
+  }
+
+  .form-subtitle {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-relaxed);
+    margin-bottom: 0;
+  }
+
+  /* Anonymous Card */
+  .anonymous-card {
+    background: #F4F8F5;
+    border: 1.5px solid rgba(6, 77, 50, 0.15);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4) var(--space-5);
+    margin-top: var(--space-5);
+    margin-bottom: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    transition: all 0.3s ease;
+  }
+
+  .anonymous-card.active-anon {
+    background: #E8F5E9;
+    border-color: #25D366;
+    box-shadow: 0 4px 16px rgba(37, 211, 102, 0.15);
+  }
+
+  .anon-toggle-layout {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+
+  /* Toggle Switch */
+  .anon-switch {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 26px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .anon-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #CBD5E1;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 34px;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+
+  input:checked + .slider {
+    background-color: #064D32;
+  }
+
+  input:checked + .slider:before {
+    transform: translateX(22px);
+    background-color: #D4A017;
+  }
+
+  .anon-text-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .anon-title-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .anon-title-row strong {
+    font-size: var(--text-sm);
+    color: var(--color-primary);
+  }
+
+  .urdu-hint {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-green);
+  }
+
+  .anon-desc {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    line-height: var(--leading-normal);
+  }
+
+  .anon-status-pill {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px;
+    border-radius: var(--radius-full);
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .anon-status-pill.public-mode {
+    background: #E2E8F0;
+    color: #475569;
+  }
+
+  .anon-status-pill.anon-active {
+    background: #064D32;
+    color: #FFFFFF;
+  }
+
+  /* Form Layout */
+  .complaint-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .form-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+    width: 100%;
+    transition: opacity 0.3s ease;
+  }
+
+  @media (min-width: 680px) {
+    .form-grid-2 {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .form-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-2);
+    width: 100%;
+  }
+
+  .label-en {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--color-primary);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .label-ur {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-text-subtle);
+  }
+
+  .required-star {
+    color: var(--color-danger);
+    font-weight: 700;
+  }
+
+  .optional-pill {
+    font-size: 10.5px;
+    font-weight: 500;
+    color: var(--color-text-subtle);
+    background: #F1F5F9;
+    padding: 1px 6px;
+    border-radius: var(--radius-sm);
+  }
+
+  /* Inputs, Selects, Textareas */
+  .input-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .field-icon {
+    position: absolute;
+    left: 14px;
+    color: var(--color-text-subtle);
+    pointer-events: none;
+  }
+
+  .form-input {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 12px 14px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    color: var(--color-text);
+    background-color: #FFFFFF;
+    border: 1.5px solid #CBD5E1;
+    border-radius: var(--radius-md);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    outline: none;
+  }
+
+  .form-input.with-icon {
+    padding-left: 42px;
+  }
+
+  .form-input:focus {
+    border-color: #064D32;
+    box-shadow: 0 0 0 3px rgba(6, 77, 50, 0.15);
+  }
+
+  .form-input:disabled {
+    background-color: #F8FAFC;
+    color: #94A3B8;
+    cursor: not-allowed;
+    border-color: #E2E8F0;
+  }
+
+  /* Select */
+  .select-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  .form-select {
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    padding-right: 38px;
+    background-color: #FFFFFF;
+  }
+
+  .select-chevron {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 11px;
+    color: var(--color-text-subtle);
+    pointer-events: none;
+  }
+
+  /* Textarea */
+  .label-flex-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-2);
+    width: 100%;
+  }
+
+  .m-0 {
+    margin: 0;
+  }
+
+  .char-counter {
+    font-size: 11px;
+    color: var(--color-text-subtle);
+    font-weight: 500;
+  }
+
+  .form-textarea {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    min-height: 150px;
+    resize: vertical;
+    line-height: 1.6;
+    padding: 14px;
+  }
+
+  .field-help {
+    font-size: 11px;
+    color: var(--color-text-subtle);
+    margin-top: 4px;
+  }
+
+  /* Upload Dropzone */
+  .upload-dropzone {
+    border: 2px dashed #94A3B8;
+    border-radius: var(--radius-lg);
+    background: #F8FAFC;
+    padding: var(--space-5);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+
+  .upload-dropzone:hover {
+    border-color: #064D32;
+    background: #F4F8F5;
+  }
+
+  .file-input-hidden {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .dropzone-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    pointer-events: none;
+  }
+
+  .dropzone-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-full);
+    background: #FFFFFF;
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  .dropzone-text strong {
+    font-size: 13.5px;
+    color: var(--color-primary);
+    display: block;
+  }
+
+  .dropzone-sub {
+    font-size: 11.5px;
+    color: var(--color-text-subtle);
+  }
+
+  .btn-browse-file {
+    margin-top: var(--space-2);
+    background: #FFFFFF;
+    border: 1px solid var(--color-border);
+    color: var(--color-primary);
+    padding: 5px 14px;
+    border-radius: var(--radius-md);
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .file-selected-indicator {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    background: #E8F5E9;
+    border: 1px solid #A5D6A7;
+    border-radius: var(--radius-md);
+    padding: 8px 12px;
+    margin-top: var(--space-2);
+    font-size: 12.5px;
+  }
+
+  .file-name-text {
+    flex: 1;
+    font-weight: 600;
+    color: #1B5E20;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .btn-remove-file {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #D32F2F;
+    cursor: pointer;
+    padding: 0 4px;
+    line-height: 1;
+  }
+
+  .file-security-notice {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    margin-top: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    background: rgba(8, 116, 67, 0.06);
+    border-radius: var(--radius-sm);
+  }
+
+  /* Custom Checkbox */
+  .declaration-field {
+    background: #FAFAF9;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+  }
+
+  .custom-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    cursor: pointer;
+    font-size: 12.5px;
+    line-height: var(--leading-normal);
+    color: var(--color-text);
+  }
+
+  .custom-checkbox input {
+    margin-top: 3px;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--color-primary);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .checkbox-label {
+    flex: 1;
+  }
+
+  /* Form Submit Strip */
+  .form-submit-strip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--color-border);
+    flex-wrap: wrap;
+  }
+
+  .security-tag {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .security-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .security-text strong {
+    font-size: 12px;
+    color: var(--color-primary);
+  }
+
+  .security-text span {
+    font-size: 11px;
+    color: var(--color-text-subtle);
+  }
+
+  .btn-submit-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: linear-gradient(180deg, #D4A017 0%, #B8860B 100%);
+    color: #123322;
+    border: none;
+    padding: 14px 28px;
+    border-radius: var(--radius-md);
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(212, 160, 23, 0.35);
+    transition: all 0.2s ease;
+  }
+
+  .btn-submit-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(212, 160, 23, 0.45);
+    filter: brightness(1.05);
+  }
+
+  .btn-submit-action:active {
+    transform: translateY(0);
+  }
+
+  @media (max-width: 640px) {
+    .form-submit-strip {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .btn-submit-action {
+      width: 100%;
+    }
+  }
+
+  /* Error Message */
+  .form-error-msg {
+    color: var(--color-danger);
+    font-size: 12px;
+    margin-top: 4px;
+    font-weight: 600;
+    display: block;
+  }
+
+  /* Success Screen */
+  .success-box {
+    text-align: center;
+    padding: var(--space-6) var(--space-4);
+  }
+
+  .success-icon-wrap {
+    width: 72px;
+    height: 72px;
+    background-color: #E8F5E9;
+    color: #2E7D32;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-4);
+    border: 3px solid #81C784;
+    box-shadow: 0 8px 24px rgba(46, 125, 50, 0.15);
+  }
+
+  .success-title {
+    font-size: var(--text-3xl);
+    color: var(--color-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .success-desc {
+    color: var(--color-text-muted);
+    font-size: var(--text-base);
+    max-width: 580px;
+    margin: 0 auto var(--space-6);
+  }
+
+  .tracking-number-display {
+    background-color: #F8FAF9;
+    border: 2px dashed var(--color-gold);
+    border-radius: var(--radius-xl);
+    padding: var(--space-5) var(--space-6);
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-6);
+    max-width: 480px;
+    width: 100%;
+  }
+
+  .tracking-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    color: var(--color-text-muted);
+  }
+
+  .tracking-code-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .tracking-code {
+    font-family: monospace;
+    font-size: var(--text-3xl);
+    font-weight: 800;
+    color: var(--color-primary);
+    letter-spacing: 0.08em;
+  }
+
+  .btn-copy-code {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #FFFFFF;
+    border: 1px solid var(--color-border);
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-primary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .btn-copy-code:hover {
+    background: #064D32;
+    color: #FFFFFF;
+    border-color: #064D32;
+  }
+
+  .tracking-sub {
+    font-size: 11.5px;
+    color: var(--color-text-subtle);
+  }
+
+  .success-details-card {
+    background: #F4F8F5;
+    border: 1px solid rgba(6, 77, 50, 0.15);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    max-width: 600px;
+    margin: 0 auto var(--space-6);
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    text-align: left;
+    font-size: var(--text-xs);
+    color: var(--color-text);
+  }
+
+  .success-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    justify-content: center;
+  }
+</style>
+
+<script>
+  function setupComplaintForm() {
+    const form = document.getElementById('complaint-intake-form') as HTMLFormElement | null;
+    const anonymousToggle = document.getElementById('is_anonymous') as HTMLInputElement | null;
+    const personalFields = document.getElementById('personal-info-fields');
+    const anonCard = document.querySelector('.anonymous-card');
+    const anonStatusText = document.getElementById('anon-status-text');
+    const anonStatusIndicator = document.getElementById('anon-status-indicator');
+    const successBox = document.getElementById('complaint-success-box');
+    const generatedCodeSpan = document.getElementById('generated-tracking-code');
+    const btnSubmitAnother = document.getElementById('btn-submit-another');
+    const descTextarea = document.getElementById('complaint-description') as HTMLTextAreaElement | null;
+    const charCounter = document.getElementById('char-counter');
+    const btnCopy = document.getElementById('btn-copy-code');
+    const copyText = document.getElementById('copy-text');
+
+    if (!form) return;
+
+    // Character counter
+    if (descTextarea && charCounter) {
+      descTextarea.addEventListener('input', () => {
+        charCounter.textContent = `${descTextarea.value.length} / 2000`;
+      });
+    }
+
+    // Copy tracking code
+    if (btnCopy && generatedCodeSpan && copyText) {
+      btnCopy.addEventListener('click', () => {
+        const code = generatedCodeSpan.textContent || '';
+        navigator.clipboard.writeText(code).then(() => {
+          copyText.textContent = 'Copied!';
+          setTimeout(() => {
+            copyText.textContent = 'Copy Code';
+          }, 2000);
+        });
+      });
+    }
+
+    // Evidence file upload handling
+    const fileInput = document.getElementById('evidence_upload') as HTMLInputElement | null;
+    const dropzone = document.getElementById('upload-dropzone');
+    const btnBrowse = document.getElementById('btn-browse');
+    const fileIndicator = document.getElementById('file-selected-indicator');
+    const fileNameText = document.getElementById('selected-file-name');
+    const btnRemoveFile = document.getElementById('btn-remove-file');
+    const shieldNotice = document.getElementById('privacy-shield-notice-text');
+
+    if (dropzone && fileInput) {
+      dropzone.addEventListener('click', () => {
+        fileInput.click();
+      });
+    }
+
+    if (btnBrowse && fileInput) {
+      btnBrowse.addEventListener('click', (e) => {
+        e.stopPropagation();
+        fileInput.click();
+      });
+    }
+
+    if (fileInput && fileIndicator && fileNameText && shieldNotice) {
+      fileInput.addEventListener('change', () => {
+        if (fileInput.files && fileInput.files[0]) {
+          const file = fileInput.files[0];
+          fileNameText.textContent = `${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`;
+          fileIndicator.style.display = 'flex';
+          shieldNotice.innerHTML = `<strong>Privacy Shield Active:</strong> Processing <em>${file.name}</em>... EXIF and GPS location stripped client-side.`;
+        } else {
+          fileIndicator.style.display = 'none';
+        }
+      });
+
+      if (btnRemoveFile) {
+        btnRemoveFile.addEventListener('click', (e) => {
+          e.stopPropagation();
+          fileInput.value = '';
+          fileIndicator.style.display = 'none';
+          shieldNotice.innerHTML = `<strong>Automated Privacy Shield:</strong> Uploaded images are automatically processed client-side to strip all device EXIF metadata and GPS coordinates before upload.`;
+        });
+      }
+    }
+
+    // Anonymous mode switch toggle
+    if (anonymousToggle) {
+      anonymousToggle.addEventListener('change', () => {
+        const isAnon = anonymousToggle.checked;
+        if (anonCard) anonCard.classList.toggle('active-anon', isAnon);
+
+        if (anonStatusIndicator && anonStatusText) {
+          if (isAnon) {
+            anonStatusIndicator.className = 'anon-status-pill anon-active';
+            anonStatusText.textContent = 'Whistleblower Anonymity Active';
+          } else {
+            anonStatusIndicator.className = 'anon-status-pill public-mode';
+            anonStatusText.textContent = 'Public Identification Mode';
+          }
+        }
+
+        if (personalFields) {
+          if (isAnon) {
+            personalFields.style.opacity = '0.35';
+            personalFields.style.pointerEvents = 'none';
+          } else {
+            personalFields.style.opacity = '1';
+            personalFields.style.pointerEvents = 'auto';
+          }
+        }
+
+        const nameInput = document.getElementById('complainant_name') as HTMLInputElement | null;
+        const phoneInput = document.getElementById('complainant_phone') as HTMLInputElement | null;
+        if (nameInput) nameInput.disabled = isAnon;
+        if (phoneInput) phoneInput.disabled = isAnon;
+      });
+    }
+
+    // Form submission
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Check honeypot
+      const trap = (document.getElementById('honeypot_field') as HTMLInputElement)?.value;
+      if (trap) return;
+
+      const category = (document.getElementById('complaint_category') as HTMLSelectElement).value;
+      const location = (document.getElementById('complaint_location') as HTMLSelectElement).value;
+      const description = (document.getElementById('complaint_description') as HTMLTextAreaElement).value.trim();
+      const termsConfirmed = (document.getElementById('proof_confirmation') as HTMLInputElement).checked;
+
+      let hasError = false;
+
+      // Category validation
+      const catError = document.getElementById('category-error');
+      if (!category) {
+        if (catError) catError.style.display = 'block';
+        hasError = true;
+      } else if (catError) {
+        catError.style.display = 'none';
+      }
+
+      // Location validation
+      const locError = document.getElementById('location-error');
+      if (!location) {
+        if (locError) locError.style.display = 'block';
+        hasError = true;
+      } else if (locError) {
+        locError.style.display = 'none';
+      }
+
+      // Description validation
+      const descError = document.getElementById('desc-error');
+      if (!description) {
+        if (descError) descError.style.display = 'block';
+        hasError = true;
+      } else if (descError) {
+        descError.style.display = 'none';
+      }
+
+      // Terms validation
+      const termsError = document.getElementById('terms-error');
+      if (!termsConfirmed) {
+        if (termsError) termsError.style.display = 'block';
+        hasError = true;
+      } else if (termsError) {
+        termsError.style.display = 'none';
+      }
+
+      if (hasError) return;
+
+      // Submission button animation
+      const submitBtn = document.getElementById('btn-submit-complaint') as HTMLButtonElement | null;
+      const submitBtnText = document.getElementById('btn-submit-text');
+      if (submitBtn && submitBtnText) {
+        submitBtn.disabled = true;
+        submitBtnText.textContent = 'Encrypting & Logging...';
+      }
+
+      setTimeout(() => {
+        // Generate realistic sequential demo tracking code
+        const randomSeq = Math.floor(1000 + Math.random() * 9000);
+        const trackingCode = `C-2026-${randomSeq}`;
+
+        if (generatedCodeSpan) generatedCodeSpan.textContent = trackingCode;
+        form.style.display = 'none';
+        if (submitBtn && submitBtnText) {
+          submitBtn.disabled = false;
+          submitBtnText.textContent = 'Submit Official Complaint';
+        }
+
+        if (successBox) {
+          successBox.style.display = 'block';
+          successBox.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 600);
+    });
+
+    // Reset and submit another
+    btnSubmitAnother?.addEventListener('click', () => {
+      form.reset();
+      if (charCounter) charCounter.textContent = '0 / 2000';
+      if (fileIndicator) fileIndicator.style.display = 'none';
+      if (personalFields) {
+        personalFields.style.opacity = '1';
+        personalFields.style.pointerEvents = 'auto';
+      }
+      const nameInput = document.getElementById('complainant_name') as HTMLInputElement | null;
+      const phoneInput = document.getElementById('complainant_phone') as HTMLInputElement | null;
+      if (nameInput) nameInput.disabled = false;
+      if (phoneInput) phoneInput.disabled = false;
+
+      if (anonCard) anonCard.classList.remove('active-anon');
+      if (anonStatusIndicator && anonStatusText) {
+        anonStatusIndicator.className = 'anon-status-pill public-mode';
+        anonStatusText.textContent = 'Public Identification Mode';
+      }
+
+      if (successBox) successBox.style.display = 'none';
+      form.style.display = 'flex';
+      form.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+
+  setupComplaintForm();
+  document.addEventListener('astro:page-load', setupComplaintForm);
+</script>

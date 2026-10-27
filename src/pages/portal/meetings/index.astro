@@ -1,0 +1,702 @@
+---
+import PortalLayout from '../../../layouts/PortalLayout.astro';
+import Icon from '../../../components/ui/Icon.astro';
+import Badge from '../../../components/ui/Badge.astro';
+import Button from '../../../components/ui/Button.astro';
+import { COMMITTEE_ROSTER, MOCK_MEETINGS } from '../../../lib/portalMock';
+
+const currentMeeting = MOCK_MEETINGS[0];
+const totalSeats = COMMITTEE_ROSTER.length; // 21
+const quorumThreshold = Math.floor(totalSeats / 2) + 1; // 11
+const initialPresent = COMMITTEE_ROSTER.filter(m => m.isPresent).length; // 16
+const initialPct = ((initialPresent / totalSeats) * 100).toFixed(1);
+---
+
+<PortalLayout 
+  title="Meetings & Quorum Calculator | Togh Aman"
+  description="Track executive sessions, calculate 50%+1 constitutional quorum across 21 seats, and draft verified minutes of meeting."
+  activeNav="meetings"
+>
+  <div class="page-top-bar">
+    <div>
+      <Badge variant="gold" class="mb-2">Chapter 6 Constitutional Mandate</Badge>
+      <h1 class="page-title">Meeting Minutes &amp; Quorum Calculator</h1>
+      <p class="page-subtitle">
+        Verify mandatory 50% + 1 voting quorum before ratifying binding community resolutions.
+      </p>
+    </div>
+
+    <div class="top-action-group">
+      <Button variant="accent" size="sm" id="btn-open-mom-modal">
+        <Icon name="document" size={16} />
+        <span>Draft New MoM</span>
+      </Button>
+    </div>
+  </div>
+
+  <!-- Live Quorum Calculator Card -->
+  <div class="quorum-engine-card card mb-8">
+    <div class="quorum-header">
+      <div class="q-title-group">
+        <Icon name="users" size={24} class="text-primary" />
+        <div>
+          <h2 class="q-heading">Constitutional Quorum Engine (21 Seats)</h2>
+          <span class="q-sub">Togh Bala &amp; Togh Payan Joint Executive Council</span>
+        </div>
+      </div>
+
+      <!-- Realtime Quorum Status Indicator -->
+      <div class="quorum-verdict" id="quorum-verdict-box">
+        <div class="verdict-pill valid" id="verdict-pill">
+          <Icon name="check-circle" size={18} />
+          <span id="verdict-text">QUORUM SATISFIED: {initialPresent}/{totalSeats} ({initialPct}%)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="quorum-progress-container mt-4">
+      <div class="quorum-bar-track">
+        <div class="quorum-bar-fill" id="quorum-bar-fill" style={`width: ${initialPct}%;`}></div>
+        <div class="quorum-marker-line" style={`left: ${(quorumThreshold / totalSeats) * 100}%;`} title={`Quorum line: ${quorumThreshold} seats (50%+1)`}>
+          <span class="marker-tag">Quorum: {quorumThreshold} (50%+1)</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="quorum-rule-note mt-3">
+      <strong>Constitutional Provision (Chapter 6):</strong> All resolutions and budget authorizations require a physical or verified quorum of more than 50% of the recognized 21 council seats. If attendees fall below {quorumThreshold}, all official voting is suspended.
+    </p>
+
+    <!-- Interactive Attendance Roster Table -->
+    <div class="roster-table-wrap mt-6">
+      <div class="roster-toolbar">
+        <span class="roster-count">
+          Showing <span id="roster-present-count">{initialPresent}</span> Present out of {totalSeats} Members
+        </span>
+        <div class="roster-quick-actions">
+          <button type="button" class="btn-roster-action" id="btn-select-all">Select All</button>
+          <button type="button" class="btn-roster-action" id="btn-reset-roster">Reset Default</button>
+        </div>
+      </div>
+
+      <div class="roster-grid">
+        {COMMITTEE_ROSTER.map((member) => (
+          <label class="roster-member-item" data-member-id={member.id}>
+            <input 
+              type="checkbox" 
+              name="roster_attendance" 
+              value={member.id} 
+              checked={member.isPresent} 
+              class="roster-checkbox"
+            />
+            <div class="member-meta">
+              <strong class="member-name">{member.name}</strong>
+              <span class="member-role">{member.portfolio}</span>
+              <span class="member-village">{member.village}</span>
+            </div>
+            {member.isExecutive && (
+              <span class="exec-chip">Executive</span>
+            )}
+          </label>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Minutes of Meeting (MoM) Builder & Signed Archive -->
+  <div class="mom-section-grid">
+    <!-- Active Meeting Dossier -->
+    <div class="active-mom-card card">
+      <div class="mom-card-header">
+        <div>
+          <Badge variant="green">Current Session</Badge>
+          <h2 class="mom-card-title mt-2">{currentMeeting.title}</h2>
+          <span class="mom-card-date">Scheduled: {currentMeeting.date} at {currentMeeting.time} | Venue: {currentMeeting.location}</span>
+        </div>
+      </div>
+
+      <div class="agenda-items-container mt-6">
+        <h3 class="agenda-title">Official Order of Business (Agenda Items):</h3>
+        <div class="agenda-cards-list">
+          {currentMeeting.agendaItems.map((item) => (
+            <div class="agenda-card">
+              <div class="agenda-card-top">
+                <span class="item-badge">Item #{item.number}</span>
+                <span class="mover-badge">Mover: <strong>{item.mover}</strong></span>
+              </div>
+              <h4 class="agenda-item-title">{item.title}</h4>
+              <p class="agenda-item-decision">
+                <strong>Decision / Directive:</strong> {item.decision}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Digital Sign-off Block -->
+      <div class="mom-signoff-box mt-6">
+        <h3 class="signoff-title">Constitutional Sign-Off &amp; Ratification Status:</h3>
+        <div class="signoff-grid">
+          <div class="signoff-party">
+            <span class="party-label">Recorded By (General Secretary):</span>
+            <div class="party-status verified">
+              <Icon name="check" size={16} />
+              <span>Engr. Tariq Khattak (Signed &amp; Logged)</span>
+            </div>
+          </div>
+
+          <div class="signoff-party">
+            <span class="party-label">Approved By (President):</span>
+            <div class="party-status pending">
+              <Icon name="lock" size={16} />
+              <span>Malik Ihsanullah (Pending Council Vote)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Past Sessions Archive -->
+    <div class="past-mom-sidebar card">
+      <h2 class="section-title mb-4">Past Sessions Archive</h2>
+      <div class="past-sessions-list">
+        {MOCK_MEETINGS.slice(1).map((m) => (
+          <div class="past-session-item">
+            <div class="session-top">
+              <span class="session-no">Session #{m.meetingNumber}</span>
+              <span class="session-date">{m.date}</span>
+            </div>
+            <h3 class="session-title">{m.title}</h3>
+            <div class="session-footer">
+              <span class="quorum-stat">Quorum: {m.quorumPercentage}% ({m.attendedSeats}/{m.totalSeats})</span>
+              <Badge variant="subtle">Signed &amp; Audited</Badge>
+            </div>
+          </div>
+        ))}
+        <div class="past-session-item">
+          <div class="session-top">
+            <span class="session-no">Session #12</span>
+            <span class="session-date">2026-06-25</span>
+          </div>
+          <h3 class="session-title">Togho Bala Drinking Water Project Planning</h3>
+          <div class="session-footer">
+            <span class="quorum-stat">Quorum: 85.7% (18/21)</span>
+            <Badge variant="subtle">Signed &amp; Audited</Badge>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</PortalLayout>
+
+<script>
+  function setupQuorumCalculator() {
+    const checkboxes = document.querySelectorAll<HTMLInputElement>('.roster-checkbox');
+    const presentCountEl = document.getElementById('roster-present-count');
+    const verdictPill = document.getElementById('verdict-pill');
+    const verdictText = document.getElementById('verdict-text');
+    const barFill = document.getElementById('quorum-bar-fill');
+    const btnSelectAll = document.getElementById('btn-select-all');
+    const btnReset = document.getElementById('btn-reset-roster');
+
+    const totalSeats = 21;
+    const quorumThreshold = 11; // 50% + 1
+
+    function updateQuorum() {
+      let count = 0;
+      checkboxes.forEach((cb) => {
+        if (cb.checked) count++;
+      });
+
+      const pct = ((count / totalSeats) * 100).toFixed(1);
+
+      if (presentCountEl) presentCountEl.textContent = count.toString();
+      if (barFill) barFill.style.width = `${pct}%`;
+
+      if (count >= quorumThreshold) {
+        if (verdictPill) {
+          verdictPill.className = 'verdict-pill valid';
+        }
+        if (verdictText) {
+          verdictText.textContent = `QUORUM SATISFIED: ${count}/${totalSeats} (${pct}%) — Voting Permitted`;
+        }
+      } else {
+        if (verdictPill) {
+          verdictPill.className = 'verdict-pill invalid';
+        }
+        if (verdictText) {
+          verdictText.textContent = `QUORUM NOT MET: ${count}/${totalSeats} (${pct}%) — Voting Restricted`;
+        }
+      }
+    }
+
+    checkboxes.forEach((cb) => {
+      cb.addEventListener('change', updateQuorum);
+    });
+
+    if (btnSelectAll) {
+      btnSelectAll.addEventListener('click', () => {
+        checkboxes.forEach((cb) => cb.checked = true);
+        updateQuorum();
+      });
+    }
+
+    if (btnReset) {
+      btnReset.addEventListener('click', () => {
+        checkboxes.forEach((cb, idx) => {
+          // Default: 16 present, 5 absent
+          cb.checked = idx < 16;
+        });
+        updateQuorum();
+      });
+    }
+  }
+
+  document.addEventListener('astro:page-load', setupQuorumCalculator);
+</script>
+
+<style>
+  .page-top-bar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .page-top-bar {
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+  }
+
+  .page-title {
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    color: var(--color-primary);
+    margin: 0;
+  }
+
+  .page-subtitle {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-top: var(--space-1);
+  }
+
+  /* Quorum Engine Card */
+  .quorum-engine-card {
+    background: var(--color-white);
+    padding: var(--space-6);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-border);
+  }
+
+  .quorum-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .quorum-header {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .q-title-group {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .q-heading {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-primary);
+    margin: 0;
+  }
+
+  .q-sub {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+  }
+
+  .verdict-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    transition: all var(--duration-fast);
+  }
+
+  .verdict-pill.valid {
+    background: rgba(8, 116, 67, 0.12);
+    color: var(--color-green);
+    border: 1px solid var(--color-green);
+  }
+
+  .verdict-pill.invalid {
+    background: rgba(220, 38, 38, 0.12);
+    color: var(--color-danger);
+    border: 1px solid var(--color-danger);
+  }
+
+  /* Progress Track */
+  .quorum-bar-track {
+    position: relative;
+    height: 14px;
+    background: var(--color-surface-subtle);
+    border-radius: var(--radius-full);
+    overflow: visible;
+    border: 1px solid var(--color-border);
+  }
+
+  .quorum-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-green) 0%, #0db168 100%);
+    border-radius: var(--radius-full);
+    transition: width 0.3s ease;
+  }
+
+  .quorum-marker-line {
+    position: absolute;
+    top: -4px;
+    bottom: -4px;
+    width: 2px;
+    background: var(--color-gold);
+    z-index: 2;
+  }
+
+  .marker-tag {
+    position: absolute;
+    top: -24px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    font-weight: 700;
+    color: #8C6B00;
+    background: #FFFDF0;
+    padding: 1px 6px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-gold);
+    white-space: nowrap;
+  }
+
+  .quorum-rule-note {
+    font-size: 11px;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+  }
+
+  /* Roster Table & Grid */
+  .roster-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: var(--space-3);
+    margin-bottom: var(--space-3);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .roster-count {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .btn-roster-action {
+    background: var(--color-surface-subtle);
+    border: 1px solid var(--color-border);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-sm);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--color-text);
+    cursor: pointer;
+  }
+
+  .btn-roster-action:hover {
+    background: var(--color-primary);
+    color: var(--color-white);
+  }
+
+  .roster-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: var(--space-2);
+  }
+
+  @media (min-width: 640px) {
+    .roster-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .roster-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .roster-member-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-white);
+    cursor: pointer;
+    transition: all var(--duration-fast);
+  }
+
+  .roster-member-item:hover {
+    background: var(--color-surface-subtle);
+    border-color: var(--color-green);
+  }
+
+  .roster-checkbox {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--color-green);
+    cursor: pointer;
+  }
+
+  .member-meta {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  .member-name {
+    font-size: var(--text-xs);
+    color: var(--color-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .member-role {
+    font-size: 10px;
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  .member-village {
+    font-size: 9px;
+    color: var(--color-text-subtle);
+  }
+
+  .exec-chip {
+    font-size: 9px;
+    background: rgba(8, 116, 67, 0.1);
+    color: var(--color-green);
+    padding: 1px 4px;
+    border-radius: var(--radius-sm);
+    font-weight: 700;
+  }
+
+  /* MoM Grid */
+  .mom-section-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 1024px) {
+    .mom-section-grid {
+      grid-template-columns: 2fr 1fr;
+    }
+  }
+
+  .active-mom-card {
+    background: var(--color-white);
+    padding: var(--space-6);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-border);
+  }
+
+  .mom-card-title {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-primary);
+    margin: 0;
+  }
+
+  .mom-card-date {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+  }
+
+  .agenda-title {
+    font-size: var(--text-xs);
+    font-weight: 700;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-3);
+  }
+
+  .agenda-cards-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .agenda-card {
+    background: var(--color-surface-subtle);
+    border: 1px solid var(--color-border);
+    border-left: 3px solid var(--color-primary);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+  }
+
+  .agenda-card-top {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    margin-bottom: var(--space-1);
+  }
+
+  .item-badge {
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .mover-badge {
+    color: var(--color-text-muted);
+  }
+
+  .agenda-item-title {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0 0 4px;
+  }
+
+  .agenda-item-decision {
+    font-size: 11px;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  .mom-signoff-box {
+    background: #FAFBFA;
+    border: 1px solid var(--color-border);
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+  }
+
+  .signoff-title {
+    font-size: var(--text-xs);
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: var(--space-3);
+  }
+
+  .signoff-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 640px) {
+    .signoff-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .signoff-party {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .party-label {
+    font-size: 11px;
+    color: var(--color-text-muted);
+    font-weight: 600;
+  }
+
+  .party-status {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
+  }
+
+  .party-status.verified {
+    background: rgba(8, 116, 67, 0.1);
+    color: var(--color-green);
+    border: 1px solid rgba(8, 116, 67, 0.2);
+  }
+
+  .party-status.pending {
+    background: #FFFDF0;
+    color: #8C6B00;
+    border: 1px solid rgba(212, 160, 23, 0.3);
+  }
+
+  /* Past Sessions Sidebar */
+  .past-mom-sidebar {
+    background: var(--color-white);
+    padding: var(--space-6);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-border);
+  }
+
+  .past-sessions-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .past-session-item {
+    background: var(--color-surface-subtle);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-3);
+  }
+
+  .session-top {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--color-text-muted);
+  }
+
+  .session-no {
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .session-title {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 4px 0;
+  }
+
+  .session-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--space-2);
+    font-size: 10px;
+  }
+
+  .quorum-stat {
+    color: var(--color-green);
+    font-weight: 600;
+  }
+</style>

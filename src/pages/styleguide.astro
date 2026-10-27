@@ -1,0 +1,717 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/ui/Button.astro';
+import Badge from '../components/ui/Badge.astro';
+import Alert from '../components/ui/Alert.astro';
+import Input from '../components/ui/Input.astro';
+import Icon from '../components/ui/Icon.astro';
+
+const contrastPairs = [
+  { foreground: '#1F2937 (Text)', background: '#FFFFFF (Surface)', ratio: '12.6 : 1', wcag: 'Passes AAA', usage: 'Primary content on white cards' },
+  { foreground: '#1F2937 (Text)', background: '#F5F7F5 (Background)', ratio: '11.8 : 1', wcag: 'Passes AAA', usage: 'Default page body text' },
+  { foreground: '#FFFFFF (White)', background: '#064D32 (Dark Green)', ratio: '9.4 : 1', wcag: 'Passes AAA', usage: 'Header, footer & primary buttons' },
+  { foreground: '#123322 (Dark Green)', background: '#D4A017 (Gold)', ratio: '6.2 : 1', wcag: 'Passes AAA Large & AA', usage: 'Accent gold buttons & badges' },
+  { foreground: '#D4A017 (Gold)', background: '#064D32 (Dark Green)', ratio: '4.8 : 1', wcag: 'Passes AA', usage: 'Large headers, icons & borders on dark green' },
+  { foreground: '#B91C1C (Danger)', background: '#FEF2F2 (Danger Bg)', ratio: '5.9 : 1', wcag: 'Passes AA', usage: 'Emergency alerts & form errors' },
+  { foreground: '#047857 (Success)', background: '#ECFDF5 (Success Bg)', ratio: '6.1 : 1', wcag: 'Passes AA', usage: 'Verified resolutions & confirmation' }
+];
+
+const colorTokens = [
+  { name: '--color-primary', hex: '#064D32', label: 'Primary Dark Green', role: 'Navbar, footer, primary buttons, structural authority' },
+  { name: '--color-green', hex: '#087443', label: 'Mid Green', role: 'Secondary actions, links, progress bars, success' },
+  { name: '--color-gold', hex: '#D4A017', label: 'Golden Yellow', role: 'Buttons, borders, highlights, and primary CTAs' },
+  { name: '--color-white', hex: '#FFFFFF', label: 'White Surface', role: 'Card surfaces, input backgrounds, modal containers' },
+  { name: '--color-background', hex: '#F5F7F5', label: 'Soft Background', role: 'Overall page background, eye comfort for long reading' },
+  { name: '--color-text', hex: '#1F2937', label: 'Charcoal Text', role: 'Primary readable body text and headings' },
+  { name: '--color-border', hex: '#DCE5DE', label: 'Border Green-Gray', role: 'Card borders, dividers, subtle section separators' }
+];
+---
+
+<BaseLayout 
+  title="Style Guide & UI Tokens | Togh Aman" 
+  description="Living design system, UI components, color swatches, contrast table, and motion demonstrations for Togh Aman Committee."
+>
+  <div class="container section">
+    <!-- Header Banner -->
+    <div class="styleguide-hero reveal-on-scroll">
+      <Badge variant="gold">Phase 0 Living Design System</Badge>
+      <h1 class="hero-title">Visual Identity & UI Components</h1>
+      <p class="hero-desc">
+        A bespoke design system crafted for the <strong>Togh Aman Committee</strong> (Togh Bala & Payan). 
+        Engineered with a clean white background, authoritative dark-green navbar, and golden-yellow highlights. 
+        Fully compliant with WCAG 2.2 AA accessibility standards.
+      </p>
+    </div>
+
+    <!-- Section 1: Color Palette -->
+    <section class="sg-section reveal-on-scroll">
+      <div class="section-header">
+        <h2 class="sg-heading">1. Mandatory Brand Colors & Tokens</h2>
+        <p class="sg-sub">Strict palette defined by the committee. Gold is reserved strictly for buttons, highlights, and borders.</p>
+      </div>
+
+      <div class="swatches-grid">
+        {colorTokens.map((t) => (
+          <div class="swatch-card">
+            <div class="swatch-preview" style={`background-color: ${t.hex}; border: 1px solid rgba(0,0,0,0.1);`}>
+              <span class="swatch-hex" style={`color: ${t.hex === '#FFFFFF' || t.hex === '#F5F7F5' ? '#1F2937' : '#FFFFFF'};`}>
+                {t.hex}
+              </span>
+            </div>
+            <div class="swatch-info">
+              <code class="swatch-token">{t.name}</code>
+              <p class="swatch-label">{t.label}</p>
+              <p class="swatch-role">{t.role}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Section 2: Contrast & Accessibility Audit -->
+    <section class="sg-section reveal-on-scroll">
+      <div class="section-header">
+        <h2 class="sg-heading">2. WCAG 2.2 AA Contrast Compliance Matrix</h2>
+        <p class="sg-sub">Verified color pairs ensuring high legibility on mid-to-low tier mobile screens and in direct sunlight.</p>
+      </div>
+
+      <div class="table-responsive">
+        <table class="contrast-table">
+          <thead>
+            <tr>
+              <th>Foreground / Background</th>
+              <th>Contrast Ratio</th>
+              <th>Standard</th>
+              <th>Intended Application</th>
+            </tr>
+          </thead>
+          <tbody>
+            {contrastPairs.map((p) => (
+              <tr>
+                <td><strong>{p.foreground}</strong> on <span>{p.background}</span></td>
+                <td><span class="ratio-badge">{p.ratio}</span></td>
+                <td><Badge variant="success">{p.wcag}</Badge></td>
+                <td>{p.usage}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 3: Typography Scale -->
+    <section class="sg-section reveal-on-scroll">
+      <div class="section-header">
+        <h2 class="sg-heading">3. Fluid Typography System</h2>
+        <p class="sg-sub">Typography set in Poppins font family (fluid clamp 17–18px for clear readability on mobile and desktop).</p>
+      </div>
+
+      <div class="card card-gold-accent">
+        <div class="type-row">
+          <span class="type-label">H1 (Fluid 46–60px)</span>
+          <h1>A Sacred Trust of the People</h1>
+        </div>
+        <div class="type-row">
+          <span class="type-label">H2 (Fluid 32–38px)</span>
+          <h2>Promoting Peace, Justice & Accountability</h2>
+        </div>
+        <div class="type-row">
+          <span class="type-label">H3 (Fluid 26–30px)</span>
+          <h3>14 Manifesto Pillars for Community Welfare</h3>
+        </div>
+        <div class="type-row">
+          <span class="type-label">H4 (Fluid 22–25px)</span>
+          <h4>Official Resolution Registry & Minutes of Meeting</h4>
+        </div>
+        <div class="type-row">
+          <span class="type-label">Body Text (17–18px, 1.65 line-height)</span>
+          <p>
+            The Togh Aman Committee is a non-political, non-sectarian public welfare platform dedicated to the rule of law, peace, transparent development, and the protection of common shared lands (Shamilat) across Togh Bala and Payan.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Buttons & Interactive Controls -->
+    <section class="sg-section reveal-on-scroll">
+      <div class="section-header">
+        <h2 class="sg-heading">4. Buttons & Interactive States</h2>
+        <p class="sg-sub">Gold button reserved for the key primary action per screen. Dark green for standard primary actions.</p>
+      </div>
+
+      <div class="card">
+        <div class="button-showcase">
+          <div class="btn-group-row">
+            <span class="btn-group-label">Primary (Dark Green)</span>
+            <div class="btn-row">
+              <Button variant="primary" size="lg">
+                <Icon name="document" size={18} />
+                <span>Primary Large</span>
+              </Button>
+              <Button variant="primary" size="md">
+                <Icon name="check" size={16} />
+                <span>Primary Normal</span>
+              </Button>
+              <Button variant="primary" size="sm">Primary Small</Button>
+            </div>
+          </div>
+
+          <div class="btn-group-row">
+            <span class="btn-group-label">Accent (Golden Yellow CTA)</span>
+            <div class="btn-row">
+              <Button variant="accent" size="lg">
+                <Icon name="alert" size={18} />
+                <span>Report an Issue (Large)</span>
+              </Button>
+              <Button variant="accent" size="md">
+                <Icon name="alert" size={16} />
+                <span>Report an Issue</span>
+              </Button>
+              <Button variant="accent" size="sm">Quick Submit</Button>
+            </div>
+          </div>
+
+          <div class="btn-group-row">
+            <span class="btn-group-label">Outline (Secondary Actions)</span>
+            <div class="btn-row">
+              <Button variant="outline" size="md">
+                <span>View Constitution</span>
+                <Icon name="arrow-right" size={16} />
+              </Button>
+              <Button variant="outline" size="sm">Download PDF</Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Badges & Status Indicators -->
+    <section class="sg-section reveal-on-scroll">
+      <div class="section-header">
+        <h2 class="sg-heading">5. Badges, Tags & Privacy Levels</h2>
+        <p class="sg-sub">Used for resolution status, project milestones, and whistleblower privacy tags.</p>
+      </div>
+
+      <div class="card">
+        <div class="badges-row">
+          <Badge variant="gold">
+            <Icon name="shield" size={12} />
+            <span>Official Resolution</span>
+          </Badge>
+          <Badge variant="green">In Progress</Badge>
+          <Badge variant="success">Completed & Audited</Badge>
+          <Badge variant="danger">High Priority Emergency</Badge>
+          <Badge variant="neutral">Under Review</Badge>
+          <Badge variant="gold" size="sm">Sensitive Case</Badge>
+          <Badge variant="green" size="sm">Public Document</Badge>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6: Alerts & Callouts -->
+    <section class="sg-section reveal-on-scroll">
+      <div class="section-header">
+        <h2 class="sg-heading">6. Alerts & Notices</h2>
+        <p class="sg-sub">Mandatory disclaimers, emergency advisories, and confirmation alerts.</p>
+      </div>
+
+      <div class="alerts-container">
+        <Alert variant="warning" title="Emergency Advisory">
+          This Committee does not replace the police or any government department. In case of an ongoing crime or life emergency, call 15 immediately.
+        </Alert>
+
+        <Alert variant="info" title="Strict Confidentiality Guaranteed">
+          Whistleblower reports and evidence are submitted through an encrypted pipeline. EXIF/GPS metadata is stripped automatically before storage.
+        </Alert>
+
+        <Alert variant="success" title="Resolution Approved">
+          Resolution No. 05/2026 (Water supply project) was ratified with unanimous consensus by the Executive Committee.
+        </Alert>
+
+        <Alert variant="danger" title="Immediate Action Required">
+          Illegal encroachment identified on common grazing lands. Formal representation dispatched to Assistant Commissioner Kohat.
+        </Alert>
+      </div>
+    </section>
+
+    <!-- Section 7: Form Inputs -->
+    <section class="sg-section reveal-on-scroll">
+      <div class="section-header">
+        <h2 class="sg-heading">7. Accessible Form Controls</h2>
+        <p class="sg-sub">Minimum 48px tap targets, high-contrast borders, clear inline labels and validation states.</p>
+      </div>
+
+      <div class="card">
+        <div class="form-preview-grid">
+          <Input 
+            label="Complainant Name (Optional for anonymous reports)"
+            id="preview-name"
+            name="name"
+            placeholder="e.g., Resident of Togh Bala"
+            helperText="Leave blank if you wish to remain strictly anonymous."
+          />
+
+          <Input 
+            label="Phone Number / WhatsApp"
+            id="preview-phone"
+            name="phone"
+            type="tel"
+            placeholder="+92 3XX XXXXXXX"
+            helperText="Used solely to provide status updates via SMS/WhatsApp."
+          />
+
+          <Input 
+            label="Issue Category"
+            id="preview-category"
+            name="category"
+            type="select"
+            required={true}
+            options={[
+              { value: 'drugs', label: 'Anti-Drugs & Substance Abuse' },
+              { value: 'crime', label: 'Crime & Illegal Scrap Yards' },
+              { value: 'land', label: 'Shamilat (Common Lands) Protection' },
+              { value: 'water', label: 'Clean Drinking Water & Facilities' },
+              { value: 'revenue', label: 'Patwari & Land Revenue Records' },
+              { value: 'women', label: 'Women & Children Rights' }
+            ]}
+          />
+
+          <Input 
+            label="Description of Problem"
+            id="preview-desc"
+            name="description"
+            type="textarea"
+            required={true}
+            placeholder="Provide factual details, village sector, and specific dates..."
+            rows={3}
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 8: Brand Imagery & Leadership -->
+    <section class="sg-section reveal-on-scroll">
+      <div class="section-header">
+        <h2 class="sg-heading">8. Official Brand Assets & Leadership</h2>
+        <p class="sg-sub">Verified emblem and high-resolution official portraits incorporated into the design.</p>
+      </div>
+
+      <div class="leaders-showcase-grid">
+        <div class="card leader-card">
+          <div class="leader-image-box">
+            <img 
+              src="/assets/leaders/hadayatullah-khan.webp" 
+              alt="Hadayatullah Khan - Founder of Togh Aman Committee" 
+              class="leader-img"
+              width="280"
+              height="280"
+              loading="lazy"
+            />
+          </div>
+          <div class="leader-details">
+            <Badge variant="gold">Founder</Badge>
+            <h3 class="leader-name">Hadayatullah Khan</h3>
+            <p class="leader-role">Foundation laid: July 2024 &bull; Strengthened: July 2026</p>
+            <p class="leader-bio">
+              Initiated the historic peaceful movement to unite the people of Togh Bala and Payan under a lawful, non-political welfare trust.
+            </p>
+          </div>
+        </div>
+
+        <div class="card leader-card">
+          <div class="leader-image-box">
+            <img 
+              src="/assets/leaders/malik-ihsanullah.webp" 
+              alt="Malik Ihsanullah - President of Togh Aman Committee" 
+              class="leader-img"
+              width="280"
+              height="280"
+              loading="lazy"
+            />
+          </div>
+          <div class="leader-details">
+            <Badge variant="green">President</Badge>
+            <h3 class="leader-name">Malik Ihsanullah</h3>
+            <p class="leader-role">Executive Leadership &bull; Formally opened: 25 August 2026</p>
+            <p class="leader-bio">
+              Leading the executive committee with firm resolve against drugs, crime, and moral decay, strictly within the boundaries of Pakistan's law.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 9: Motion & Animation Gallery -->
+    <section class="sg-section reveal-on-scroll">
+      <div class="section-header">
+        <h2 class="sg-heading">9. Hardware-Accelerated Motion Demonstrations</h2>
+        <p class="sg-sub">Subtle, professional animations using transform and opacity only. Respects user motion preferences.</p>
+      </div>
+
+      <div class="card">
+        <div class="motion-demo-grid">
+          <div class="demo-box">
+            <span class="demo-label">Subtle Attention Pulse (Max 3 pulses)</span>
+            <Button variant="accent" size="md" class="pulse-gold">
+              <Icon name="alert" size={16} />
+              <span>Pulsing CTA Button</span>
+            </Button>
+          </div>
+
+          <div class="demo-box">
+            <span class="demo-label">Card Lift & Soft Green Shadow</span>
+            <div class="card mini-card">
+              <Icon name="shield" size={24} class="text-green" />
+              <h4>Hover to Lift</h4>
+              <p>Green-tinted layered shadow.</p>
+            </div>
+          </div>
+
+          <div class="demo-box">
+            <span class="demo-label">Official WhatsApp Integration</span>
+            <div class="contact-preview">
+              <Icon name="whatsapp" size={24} />
+              <div>
+                <strong>Hotlines:</strong> +92 333 9768022 | +92 333 9636226 | +92 336 9498887<br/>
+                <span class="small-text">Instant chat & complaint helpline</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .styleguide-hero {
+    margin-bottom: var(--space-12);
+    text-align: center;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-title {
+    margin-top: var(--space-4);
+    margin-bottom: var(--space-4);
+  }
+
+  .hero-desc {
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+  }
+
+  .sg-section {
+    margin-bottom: var(--space-16);
+  }
+
+  .section-header {
+    margin-bottom: var(--space-6);
+  }
+
+  .sg-heading {
+    font-size: var(--text-2xl);
+    color: var(--color-primary);
+    margin-bottom: var(--space-1);
+  }
+
+  .sg-sub {
+    font-size: var(--text-sm);
+    color: var(--color-text-subtle);
+    margin-bottom: 0;
+  }
+
+  /* Swatches */
+  .swatches-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--space-4);
+  }
+
+  .swatch-card {
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-xs);
+  }
+
+  .swatch-preview {
+    height: 90px;
+    display: flex;
+    align-items: flex-end;
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .swatch-hex {
+    font-family: monospace;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .swatch-info {
+    padding: var(--space-3);
+  }
+
+  .swatch-token {
+    font-size: 12px;
+    color: var(--color-primary);
+    font-weight: 600;
+    display: block;
+    margin-bottom: var(--space-1);
+  }
+
+  .swatch-label {
+    font-weight: 600;
+    font-size: var(--text-sm);
+    margin-bottom: 2px;
+  }
+
+  .swatch-role {
+    font-size: 11px;
+    color: var(--color-text-muted);
+    line-height: 1.35;
+    margin-bottom: 0;
+  }
+
+  /* Table */
+  .table-responsive {
+    overflow-x: auto;
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .contrast-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: var(--text-sm);
+  }
+
+  .contrast-table th, .contrast-table td {
+    padding: var(--space-4);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .contrast-table th {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    font-weight: 600;
+  }
+
+  .contrast-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .ratio-badge {
+    font-family: monospace;
+    font-weight: 700;
+    background: var(--color-surface-subtle);
+    padding: 3px 8px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+  }
+
+  /* Typography rows */
+  .type-row {
+    padding-bottom: var(--space-6);
+    margin-bottom: var(--space-6);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .type-row:last-child {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border-bottom: none;
+  }
+
+  .type-label {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--color-gold);
+    margin-bottom: var(--space-1);
+  }
+
+  /* Buttons showcase */
+  .button-showcase {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .btn-group-row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .btn-group-label {
+    font-weight: 600;
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .btn-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  /* Badges */
+  .badges-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    align-items: center;
+  }
+
+  /* Alerts */
+  .alerts-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  /* Form */
+  .form-preview-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+
+  @media (min-width: 768px) {
+    .form-preview-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .form-preview-grid :global(.form-field:nth-child(4)) {
+      grid-column: span 2;
+    }
+  }
+
+  /* Leaders */
+  .leaders-showcase-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .leaders-showcase-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .leader-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .leader-image-box {
+    width: 100%;
+    height: 280px;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    margin-bottom: var(--space-4);
+    background: var(--color-surface-subtle);
+  }
+
+  .leader-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    transition: transform var(--duration-normal) var(--ease-spring);
+  }
+
+  .leader-card:hover .leader-img {
+    transform: scale(1.03);
+  }
+
+  .leader-name {
+    margin-top: var(--space-2);
+    margin-bottom: 2px;
+  }
+
+  .leader-role {
+    font-size: var(--text-xs);
+    color: var(--color-green);
+    font-weight: 600;
+    margin-bottom: var(--space-3);
+  }
+
+  .leader-bio {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-bottom: 0;
+  }
+
+  /* Motion */
+  .motion-demo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-6);
+  }
+
+  .demo-box {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    align-items: flex-start;
+  }
+
+  .demo-label {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+
+  .mini-card {
+    width: 100%;
+    padding: var(--space-4);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .mini-card h4 {
+    margin-bottom: 0;
+    font-size: var(--text-base);
+  }
+
+  .mini-card p {
+    font-size: var(--text-xs);
+    color: var(--color-text-subtle);
+    margin-bottom: 0;
+  }
+
+  .contact-preview {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    background: #E8F8EE;
+    color: #123322;
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(8, 116, 67, 0.2);
+    width: 100%;
+  }
+
+  .text-green {
+    color: var(--color-green);
+  }
+
+  .small-text {
+    font-size: 11px;
+    color: var(--color-text-muted);
+  }
+</style>

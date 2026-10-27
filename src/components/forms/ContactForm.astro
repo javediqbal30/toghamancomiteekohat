@@ -1,0 +1,124 @@
+---
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+---
+
+<div class="contact-form-card card">
+  <div id="contact-success" class="contact-success" style="display: none;">
+    <div class="success-icon">
+      <Icon name="check" size={32} />
+    </div>
+    <h3>Message Sent Successfully!</h3>
+    <p>Thank you for reaching out to the Togh Aman Committee. Our secretariat team will review your message and reply promptly.</p>
+    <Button variant="outline" size="sm" id="btn-reset-contact">Send Another Message</Button>
+  </div>
+
+  <form id="contact-form" class="contact-form-body">
+    <!-- Honeypot -->
+    <div style="display: none;" aria-hidden="true">
+      <input type="text" id="contact_trap" name="contact_trap" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <div class="form-row-2">
+      <div class="form-field">
+        <label for="c_name" class="form-label">Your Name <span class="required-mark">*</span></label>
+        <input type="text" id="c_name" name="name" class="form-input" required placeholder="e.g., Muhammad Khan" />
+      </div>
+
+      <div class="form-field">
+        <label for="c_phone" class="form-label">Phone / WhatsApp <span class="required-mark">*</span></label>
+        <input type="tel" id="c_phone" name="phone" class="form-input" required placeholder="+92 3XX XXXXXXX" />
+      </div>
+    </div>
+
+    <div class="form-field">
+      <label for="c_subject" class="form-label">Subject <span class="required-mark">*</span></label>
+      <input type="text" id="c_subject" name="subject" class="form-input" required placeholder="General inquiry, volunteer interest, etc." />
+    </div>
+
+    <div class="form-field">
+      <label for="c_message" class="form-label">Message <span class="required-mark">*</span></label>
+      <textarea id="c_message" name="message" class="form-input form-textarea" rows="4" required placeholder="Write your message here..."></textarea>
+    </div>
+
+    <Button variant="primary" size="md" type="submit" class="w-full sm:w-auto">
+      <span>Send Message</span>
+      <Icon name="arrow-right" size={16} />
+    </Button>
+  </form>
+</div>
+
+<style>
+  .contact-form-card {
+    padding: var(--space-8);
+  }
+
+  .form-row-2 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 640px) {
+    .form-row-2 {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .contact-success {
+    text-align: center;
+    padding: var(--space-6) var(--space-4);
+  }
+
+  .success-icon {
+    width: 56px;
+    height: 56px;
+    background: var(--color-success-bg);
+    color: var(--color-success);
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-4);
+    border: 2px solid var(--color-success-border);
+  }
+
+  .contact-success h3 {
+    margin-bottom: var(--space-2);
+    color: var(--color-primary);
+  }
+
+  .contact-success p {
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-6);
+  }
+</style>
+
+<script>
+  function setupContactForm() {
+    const form = document.getElementById('contact-form') as HTMLFormElement | null;
+    const success = document.getElementById('contact-success');
+    const resetBtn = document.getElementById('btn-reset-contact');
+
+    if (!form) return;
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const trap = (document.getElementById('contact_trap') as HTMLInputElement)?.value;
+      if (trap) return;
+
+      form.style.display = 'none';
+      if (success) success.style.display = 'block';
+    });
+
+    resetBtn?.addEventListener('click', () => {
+      form.reset();
+      if (success) success.style.display = 'none';
+      form.style.display = 'block';
+    });
+  }
+
+  setupContactForm();
+  document.addEventListener('astro:page-load', setupContactForm);
+</script>

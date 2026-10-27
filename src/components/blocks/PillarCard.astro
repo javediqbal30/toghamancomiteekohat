@@ -1,0 +1,131 @@
+---
+import Icon from '../ui/Icon.astro';
+
+interface Props {
+  number: number;
+  title: string;
+  summary: string;
+  icon?: string;
+  articleRef?: string;
+}
+
+const { number, title, summary, icon = 'shield', articleRef } = Astro.props;
+---
+
+<div class="pillar-card card reveal-on-scroll">
+  <div class="pillar-top">
+    <div class="pillar-icon-box">
+      <Icon name={icon as any} size={24} />
+    </div>
+    <span class="pillar-num">{number < 10 ? `0${number}` : number}</span>
+  </div>
+
+  <h3 class="pillar-title">{title}</h3>
+  <p class="pillar-summary">{summary}</p>
+
+  {articleRef && (
+    <div class="pillar-footer">
+      <span class="pillar-ref">{articleRef}</span>
+      <a href={`/our-work#pillar-${number}`} class="pillar-link" aria-label={`Read more about Pillar ${number}: ${title}`}>
+        <span>Learn more</span>
+        <Icon name="arrow-right" size={14} />
+      </a>
+    </div>
+  )}
+</div>
+
+<style>
+  .pillar-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+    border-top: 3px solid var(--color-border);
+    transition: all var(--duration-normal) var(--ease-spring);
+  }
+
+  .pillar-card:hover {
+    border-top-color: var(--color-gold);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .pillar-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-4);
+  }
+
+  .pillar-icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    background-color: var(--color-surface-subtle);
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-border);
+    transition: background-color var(--duration-fast), color var(--duration-fast);
+  }
+
+  .pillar-card:hover .pillar-icon-box {
+    background-color: var(--color-primary);
+    color: var(--color-gold);
+  }
+
+  .pillar-num {
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    color: rgba(6, 77, 50, 0.12);
+    font-family: var(--font-sans);
+  }
+
+  .pillar-title {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-2);
+    color: var(--color-primary);
+  }
+
+  .pillar-summary {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-normal);
+    flex: 1;
+    margin-bottom: var(--space-4);
+  }
+
+  .pillar-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-border);
+    margin-top: auto;
+  }
+
+  .pillar-ref {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--color-green);
+    letter-spacing: 0.05em;
+  }
+
+  .pillar-link {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--color-primary);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: gap var(--duration-fast);
+  }
+
+  .pillar-link:hover {
+    color: var(--color-gold);
+    gap: 8px;
+  }
+</style>

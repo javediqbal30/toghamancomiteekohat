@@ -1,0 +1,257 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Badge from '../../../components/ui/Badge.astro';
+import Button from '../../../components/ui/Button.astro';
+import Icon from '../../../components/ui/Icon.astro';
+
+export async function getStaticPaths() {
+  const resolutions = await getCollection('resolutions');
+  return resolutions.map((res) => ({
+    params: { id: res.id },
+    props: { res },
+  }));
+}
+
+const { res } = Astro.props;
+const { Content } = await render(res);
+
+const formattedDate = new Intl.DateTimeFormat('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+}).format(res.data.date);
+
+const statusVariant = res.data.status === 'Completed' 
+  ? 'success' 
+  : res.data.status === 'In Progress' 
+    ? 'green' 
+    : res.data.status === 'Approved' 
+      ? 'gold' 
+      : 'neutral';
+---
+
+<BaseLayout
+  title={`Resolution #${res.data.resolutionNo} | Togh Aman`}
+  description={`Official record for Resolution #${res.data.resolutionNo}: ${res.data.subject}. Verified under Chapter 7 of Committee Constitution.`}
+>
+  <div class="container section">
+    <div class="res-detail-wrap">
+      <div class="card card-gold-accent res-detail-card">
+        <div class="res-detail-header">
+          <div class="res-badges-wrap">
+            <Badge variant="gold">Official Resolution</Badge>
+            <Badge variant={statusVariant}>{res.data.status}</Badge>
+            {res.data.isSample && <Badge variant="neutral">SAMPLE DATA</Badge>}
+          </div>
+          <time datetime={res.data.date.toISOString()} class="res-time">{formattedDate}</time>
+        </div>
+
+        <h1 class="res-title">Resolution No. {res.data.resolutionNo}</h1>
+        <p class="res-subject-lead">{res.data.subject}</p>
+
+        <!-- Mandatory Constitutional Fields Grid (Chapter 7) -->
+        <div class="constitutional-fields-grid">
+          <div class="c-field-box">
+            <span class="c-label">Problem Statement</span>
+            <p>{res.data.problem}</p>
+          </div>
+
+          <div class="c-field-box">
+            <span class="c-label">Approved Decision</span>
+            <p>{res.data.decision}</p>
+          </div>
+
+          <div class="c-field-box">
+            <span class="c-label">Responsible Officer / Wing</span>
+            <p><strong>{res.data.responsible}</strong></p>
+          </div>
+
+          <div class="c-field-box">
+            <span class="c-label">Target Completion Date</span>
+            <p><strong>{res.data.deadline}</strong></p>
+          </div>
+
+          <div class="c-field-box">
+            <span class="c-label">Resources Allocated</span>
+            <p>{res.data.resources}</p>
+          </div>
+
+          <div class="c-field-box">
+            <span class="c-label">Follow-up Procedure</span>
+            <p>{res.data.followup}</p>
+          </div>
+        </div>
+
+        <!-- Markdown Body (if any) -->
+        <div class="res-body-prose">
+          <Content />
+        </div>
+
+        <!-- Verification Seal -->
+        <div class="verification-seal">
+          <Icon name="shield" size={24} class="text-green" />
+          <div>
+            <strong>Officially Verified Resolution</strong>
+            <p>Recorded in the permanent register in accordance with Chapter 7 of the Togh Aman Committee Constitution.</p>
+          </div>
+        </div>
+
+        <div class="res-detail-actions">
+          <Button variant="outline" size="sm" href="/transparency/resolutions">
+            <Icon name="arrow-right" size={14} class="rotate-180" />
+            <span>Back to Resolutions Register</span>
+          </Button>
+
+          <Button variant="primary" size="sm" href="/transparency/projects">
+            <span>View Linked Projects</span>
+            <Icon name="arrow-right" size={14} />
+          </Button>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .res-detail-wrap {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .res-detail-card {
+    padding: var(--space-8);
+  }
+
+  .res-detail-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-bottom: var(--space-4);
+  }
+
+  .res-badges-wrap {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .res-time {
+    font-size: var(--text-xs);
+    color: var(--color-text-subtle);
+  }
+
+  .res-title {
+    font-size: var(--text-3xl);
+    color: var(--color-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .res-subject-lead {
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+    line-height: var(--leading-normal);
+    margin-bottom: var(--space-8);
+  }
+
+  .constitutional-fields-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    background: var(--color-surface-subtle);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin-bottom: var(--space-8);
+  }
+
+  @media (min-width: 640px) {
+    .constitutional-fields-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .c-field-box {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .c-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--color-green);
+    letter-spacing: 0.05em;
+  }
+
+  .c-field-box p {
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    margin-bottom: 0;
+  }
+
+  .res-body-prose {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-8);
+  }
+
+  .res-body-prose :global(h3) {
+    color: var(--color-primary);
+    font-size: var(--text-base);
+    margin-top: var(--space-4);
+    margin-bottom: var(--space-2);
+  }
+
+  .res-body-prose :global(ol), .res-body-prose :global(ul) {
+    margin-left: var(--space-6);
+    margin-bottom: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .verification-seal {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    background: rgba(8, 116, 67, 0.06);
+    border: 1px solid rgba(8, 116, 67, 0.2);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-6);
+  }
+
+  .verification-seal strong {
+    font-size: var(--text-sm);
+    color: var(--color-primary);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .verification-seal p {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    margin-bottom: 0;
+  }
+
+  .res-detail-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .rotate-180 {
+    transform: rotate(180deg);
+  }
+
+  .text-green { color: var(--color-green); }
+</style>

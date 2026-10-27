@@ -1,0 +1,72 @@
+---
+interface Props {
+  variant?: 'gold' | 'green' | 'neutral' | 'danger' | 'success' | 'red' | 'subtle';
+  size?: 'sm' | 'md';
+  class?: string;
+}
+
+const {
+  variant = 'green',
+  size = 'md',
+  class: className = '',
+} = Astro.props;
+---
+
+<span class={`badge badge-${variant} badge-${size} ${className}`}>
+  <slot />
+</span>
+
+<style>
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-weight: 600;
+    line-height: 1;
+    border-radius: var(--radius-full);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .badge-sm {
+    padding: 3px 8px;
+    font-size: 11px;
+  }
+
+  .badge-md {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .badge-gold {
+    background-color: var(--color-gold-soft);
+    color: var(--color-gold-dark);
+    border: 1px solid var(--color-gold-border);
+  }
+
+  .badge-green {
+    background-color: var(--color-green-soft);
+    color: var(--color-primary);
+    border: 1px solid rgba(8, 116, 67, 0.25);
+  }
+
+  .badge-neutral,
+  .badge-subtle {
+    background-color: var(--color-surface-subtle);
+    color: var(--color-text-muted);
+    border: 1px solid var(--color-border);
+  }
+
+  .badge-danger,
+  .badge-red {
+    background-color: var(--color-danger-bg);
+    color: var(--color-danger);
+    border: 1px solid var(--color-danger-border);
+  }
+
+  .badge-success {
+    background-color: var(--color-success-bg);
+    color: var(--color-success);
+    border: 1px solid var(--color-success-border);
+  }
+</style>

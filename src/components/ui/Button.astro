@@ -1,0 +1,84 @@
+---
+interface Props {
+  variant?: 'primary' | 'accent' | 'outline';
+  size?: 'sm' | 'md' | 'lg';
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  class?: string;
+  target?: string;
+  rel?: string;
+  id?: string;
+  onclick?: string;
+  'aria-label'?: string;
+}
+
+const {
+  variant = 'primary',
+  size = 'md',
+  href,
+  type = 'button',
+  class: className = '',
+  target,
+  rel,
+  id,
+  onclick,
+  'aria-label': ariaLabel,
+  ...rest
+} = Astro.props;
+
+const variantClass = variant === 'accent' 
+  ? 'btn-accent' 
+  : variant === 'outline' 
+    ? 'btn-outline' 
+    : 'btn-primary';
+
+const sizeClass = size === 'sm' 
+  ? 'btn-sm' 
+  : size === 'lg' 
+    ? 'btn-lg' 
+    : '';
+
+const combinedClass = `${variantClass} ${sizeClass} ${className}`.trim();
+---
+
+{href ? (
+  <a
+    href={href}
+    class={combinedClass}
+    target={target}
+    rel={rel || (target === '_blank' ? 'noopener noreferrer' : undefined)}
+    id={id}
+    onclick={onclick}
+    aria-label={ariaLabel}
+    {...rest}
+  >
+    <slot />
+  </a>
+) : (
+  <button
+    type={type}
+    class={combinedClass}
+    id={id}
+    onclick={onclick}
+    aria-label={ariaLabel}
+    {...rest}
+  >
+    <slot />
+  </button>
+)}
+
+<style>
+  .btn-sm {
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--text-sm);
+    min-height: 40px;
+    border-radius: var(--radius-sm);
+  }
+
+  .btn-lg {
+    padding: var(--space-4) var(--space-8);
+    font-size: var(--text-lg);
+    min-height: 56px;
+    border-radius: var(--radius-lg);
+  }
+</style>

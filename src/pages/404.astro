@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/ui/Button.astro';
+import Badge from '../components/ui/Badge.astro';
+import Icon from '../components/ui/Icon.astro';
+---
+
+<BaseLayout
+  title="Page Not Found | Togh Aman Committee"
+  description="The requested page could not be found on the official Togh Aman Committee website."
+>
+  <div class="container section">
+    <div class="not-found-card card text-center">
+      <div class="dove-symbol-box">
+        <Icon name="dove" size={48} />
+      </div>
+
+      <Badge variant="gold">404 Error</Badge>
+      <h1 class="error-title">Page Not Found</h1>
+      <p class="error-desc">
+        The page you are seeking does not exist or may have been relocated in accordance with our transparency restructuring.
+      </p>
+
+      <div class="error-action-row">
+        <Button variant="primary" size="md" href="/">
+          <Icon name="mountains" size={16} />
+          <span>Return to Homepage</span>
+        </Button>
+        <Button variant="accent" size="md" href="/complaints">
+          <Icon name="alert" size={16} />
+          <span>Report an Issue</span>
+        </Button>
+        <Button variant="outline" size="md" href="/transparency/constitution">
+          <span>Read Constitution</span>
+        </Button>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .not-found-card {
+    max-width: 640px;
+    margin: var(--space-12) auto;
+    padding: var(--space-12) var(--space-6);
+  }
+
+  .dove-symbol-box {
+    width: 80px;
+    height: 80px;
+    background: var(--color-surface-subtle);
+    color: var(--color-primary);
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-4);
+    border: 2px solid var(--color-gold);
+  }
+
+  .error-title {
+    margin-top: var(--space-3);
+    margin-bottom: var(--space-3);
+  }
+
+  .error-desc {
+    color: var(--color-text-muted);
+    font-size: var(--text-base);
+    margin-bottom: var(--space-8);
+  }
+
+  .error-action-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    justify-content: center;
+  }
+
+  .text-center { text-align: center; }
+</style>

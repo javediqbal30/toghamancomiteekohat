@@ -1,0 +1,339 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/ui/Icon.astro';
+import Badge from '../../components/ui/Badge.astro';
+import Button from '../../components/ui/Button.astro';
+import Alert from '../../components/ui/Alert.astro';
+---
+
+<BaseLayout 
+  title="Women’s Welfare Wing | Togh Aman"
+  description="Dignified support for women in Togh Bala & Payan. Safe inheritance mediation, vocational development, health advocacy, and private counsel."
+>
+  <div class="page-hero">
+    <div class="container text-center">
+      <Badge variant="gold" class="mb-3">
+        <Icon name="shield" size={14} />
+        <span>Chapter 10 Constitutional Mandate</span>
+      </Badge>
+      <h1 class="hero-title">Women’s Welfare &amp; Dignity Wing</h1>
+      <p class="hero-subtitle">
+        Providing safe, dignified, and confidential representation for the women and families of Togh Bala and Togh Payan.
+      </p>
+    </div>
+  </div>
+
+  <section class="section-py bg-surface">
+    <div class="container">
+      <Alert variant="info" class="mb-8">
+        <strong>Constitutional Guarantee (Chapter 10, Article 17):</strong> The Women’s Wing operates with total autonomy to investigate matters impacting female villagers. All inheritance petitions and domestic welfare grievances are handled with strict privacy (Level 2 &amp; 4 protection).
+      </Alert>
+
+      <div class="wings-grid">
+        <!-- Pillar 1: Inheritance Rights -->
+        <div class="wing-card card">
+          <div class="icon-circle bg-green-soft">
+            <Icon name="document" size={24} class="text-green" />
+          </div>
+          <h2 class="wing-title mt-3">Inheritance &amp; Shariah Rights</h2>
+          <p class="wing-text">
+            Facilitating peaceful Jirga mediation to protect widows, sisters, and daughters from unlawful dispossession of agricultural land, orchards, and residential properties under Islamic Shariah and statutory law.
+          </p>
+          <ul class="wing-list mt-3">
+            <li>Zero court fee mediation</li>
+            <li>Formal revenue record (Patwari) verification</li>
+            <li>Binding community agreements</li>
+          </ul>
+        </div>
+
+        <!-- Pillar 2: Maternal Health -->
+        <div class="wing-card card">
+          <div class="icon-circle bg-gold-soft">
+            <Icon name="check" size={24} class="text-gold" />
+          </div>
+          <h2 class="wing-title mt-3">Maternal &amp; Family Health</h2>
+          <p class="wing-text">
+            Supporting Lady Health Visitors (LHVs) and rural dispensaries in Togh Bala and Payan with clean maternity supplies, regular polio/routine vaccination camps, and basic diagnostic equipment.
+          </p>
+          <ul class="wing-list mt-3">
+            <li>Dispensary solar emergency backup</li>
+            <li>Clean drinking water access for clinics</li>
+            <li>Mother &amp; child nutrition awareness</li>
+          </ul>
+        </div>
+
+        <!-- Pillar 3: Vocational Skills -->
+        <div class="wing-card card">
+          <div class="icon-circle bg-green-soft">
+            <Icon name="users" size={24} class="text-green" />
+          </div>
+          <h2 class="wing-title mt-3">Vocational Empowerment</h2>
+          <p class="wing-text">
+            Operating community craft workshops, sewing and tailoring certification classes, and artisan sales facilitation so village women can achieve dignified household financial security.
+          </p>
+          <ul class="wing-list mt-3">
+            <li>Community center sewing machines</li>
+            <li>Free training by master tailors</li>
+            <li>Direct marketplace link in Kohat bazar</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Confidential Contact Section -->
+  <section class="section-py">
+    <div class="container max-w-2xl">
+      <div class="confidential-card card">
+        <div class="confidential-header text-center mb-6">
+          <div class="badge-center mb-2">
+            <Badge variant="green">Confidential Desk</Badge>
+          </div>
+          <h2 class="confidential-title">Private Consultation Request</h2>
+          <p class="confidential-sub">
+            Petitions are received directly by the Women’s Wing Coordinator (Bibi Maryam Khattak) and never shared with public attendees.
+          </p>
+        </div>
+
+        <form class="confidential-form" id="womens-form">
+          <div class="form-group">
+            <label for="caller-name" class="input-label">Your Name or Alias (Optional)</label>
+            <input type="text" id="caller-name" placeholder="Leave blank if you wish to remain anonymous" class="form-input" />
+          </div>
+
+          <div class="form-row mt-4">
+            <div class="form-group">
+              <label for="caller-village" class="input-label">Village / Mohallah</label>
+              <select id="caller-village" class="form-select" required>
+                <option value="Togh Bala">Togh Bala</option>
+                <option value="Togh Payan">Togh Payan</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="caller-phone" class="input-label">Contact Phone / WhatsApp</label>
+              <input type="tel" id="caller-phone" required placeholder="0333-XXXXXXX" class="form-input" />
+            </div>
+          </div>
+
+          <div class="form-group mt-4">
+            <label for="case-type" class="input-label">Nature of Assistance</label>
+            <select id="case-type" class="form-select">
+              <option value="inheritance">Inheritance Demarcation / Property Settlement</option>
+              <option value="health">Emergency Medical &amp; Maternal Health Support</option>
+              <option value="vocational">Sewing &amp; Handicraft Center Enrollment</option>
+              <option value="dispute">Private Domestic Conflict Mediation</option>
+            </select>
+          </div>
+
+          <div class="form-group mt-4">
+            <label for="case-summary" class="input-label">Brief Description of Grievance</label>
+            <textarea id="case-summary" rows="3" placeholder="Explain your situation in confidence..." class="form-textarea" required></textarea>
+          </div>
+
+          <div class="form-submit mt-6">
+            <Button variant="accent" type="submit" class="w-full">
+              <Icon name="shield" size={16} />
+              <span>Submit Confidential Petition</span>
+            </Button>
+          </div>
+        </form>
+
+        <div class="direct-call-box mt-6 text-center">
+          <p class="call-text">Or contact the Women’s Wing Coordinator directly via WhatsApp:</p>
+          <a href="https://wa.me/923339768022?text=Confidential%20Petition%20for%20Womens%20Wing%20Coordinator" class="wa-direct-link" target="_blank" rel="noopener noreferrer">
+            <Icon name="whatsapp" size={18} />
+            <span>+92 333 9768022 (Official Secretariat Desk)</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  function setupWomensForm() {
+    const form = document.getElementById('womens-form');
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Your confidential petition has been received and encrypted. Bibi Maryam Khattak will contact you in private.');
+        (form as HTMLFormElement).reset();
+      });
+    }
+  }
+
+  document.addEventListener('astro:page-load', setupWomensForm);
+</script>
+
+<style>
+  .page-hero {
+    background: linear-gradient(180deg, var(--color-surface-subtle) 0%, var(--color-background) 100%);
+    padding: var(--space-12) 0 var(--space-8);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .hero-title {
+    font-size: var(--text-3xl);
+    font-weight: 800;
+    color: var(--color-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .hero-subtitle {
+    font-size: var(--text-base);
+    color: var(--color-text-muted);
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .wings-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .wings-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .wing-card {
+    background: var(--color-white);
+    padding: var(--space-6);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-border);
+  }
+
+  .icon-circle {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bg-green-soft { background: rgba(8, 116, 67, 0.1); }
+  .bg-gold-soft { background: rgba(212, 160, 23, 0.15); }
+
+  .text-green { color: var(--color-green); }
+  .text-gold { color: #8C6B00; }
+
+  .wing-title {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-primary);
+    margin: 0;
+  }
+
+  .wing-text {
+    font-size: var(--text-xs);
+    color: var(--color-text);
+    line-height: 1.6;
+    margin: var(--space-2) 0;
+  }
+
+  .wing-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 11px;
+    color: var(--color-text-muted);
+  }
+
+  .wing-list li::before {
+    content: "✓ ";
+    color: var(--color-green);
+    font-weight: 700;
+  }
+
+  .confidential-card {
+    background: var(--color-white);
+    padding: var(--space-8);
+    border-radius: var(--radius-xl);
+    border: 2px solid var(--color-gold);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .badge-center {
+    display: flex;
+    justify-content: center;
+  }
+
+  .confidential-title {
+    font-size: var(--text-xl);
+    font-weight: 800;
+    color: var(--color-primary);
+    margin: 0;
+  }
+
+  .confidential-sub {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    max-width: 500px;
+    margin: 4px auto 0;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 640px) {
+    .form-row {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .input-label {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .form-input,
+  .form-select,
+  .form-textarea {
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-size: var(--text-xs);
+    font-family: inherit;
+  }
+
+  .direct-call-box {
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--space-4);
+  }
+
+  .call-text {
+    font-size: 11px;
+    color: var(--color-text-muted);
+    margin: 0 0 4px;
+  }
+
+  .wa-direct-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--color-green);
+    font-weight: 700;
+    font-size: var(--text-xs);
+    text-decoration: none;
+  }
+
+  .wa-direct-link:hover {
+    text-decoration: underline;
+  }
+</style>

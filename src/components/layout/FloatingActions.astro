@@ -1,0 +1,254 @@
+---
+import Icon from '../ui/Icon.astro';
+import { OFFICIAL_HOTLINES } from '../../data/contactInfo';
+---
+
+<!-- Floating WhatsApp Multi-Line Action Widget -->
+<div class="floating-whatsapp-wrapper" id="floating-whatsapp-wrapper">
+  <!-- Speed Dial Dropup Menu (Loops over all 3 verified numbers) -->
+  <div class="whatsapp-menu-card" id="whatsapp-menu-card" aria-hidden="true">
+    <div class="menu-header">
+      <div class="header-titles">
+        <span class="menu-title">Official WhatsApp Hotlines</span>
+        <span class="menu-subtitle">Togh Aman Secretariat &bull; Kohat</span>
+      </div>
+      <button type="button" class="btn-close-wa" id="btn-close-wa" aria-label="Close WhatsApp options">
+        <Icon name="close" size={16} />
+      </button>
+    </div>
+
+    <div class="whatsapp-channels-list">
+      {OFFICIAL_HOTLINES.map((channel, index) => (
+        <a 
+          href={channel.whatsappUrl} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="channel-item"
+          title={`Message line ${index + 1}: ${channel.phone}`}
+        >
+          <div class="channel-icon-wrap">
+            <Icon name="whatsapp" size={20} />
+          </div>
+          <div class="channel-details">
+            <strong class="channel-phone">{channel.phone}</strong>
+            <span class="channel-label">{channel.label}</span>
+          </div>
+          <span class="chat-arrow">→</span>
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <!-- Floating Toggle Button -->
+  <button 
+    type="button" 
+    class="floating-whatsapp-btn pulse-gold" 
+    id="btn-toggle-wa-menu"
+    aria-label="Open WhatsApp Hotlines Menu"
+    title="Chat on WhatsApp (3 Verified Lines)"
+  >
+    <Icon name="whatsapp" size={28} />
+  </button>
+</div>
+
+<script>
+  function setupFloatingWhatsApp() {
+    const btnToggle = document.getElementById('btn-toggle-wa-menu');
+    const btnClose = document.getElementById('btn-close-wa');
+    const menuCard = document.getElementById('whatsapp-menu-card');
+
+    if (!btnToggle || !menuCard) return;
+
+    btnToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      menuCard.classList.toggle('active');
+      const isExpanded = menuCard.classList.contains('active');
+      btnToggle.setAttribute('aria-expanded', isExpanded.toString());
+      menuCard.setAttribute('aria-hidden', (!isExpanded).toString());
+    });
+
+    if (btnClose) {
+      btnClose.addEventListener('click', (e) => {
+        e.stopPropagation();
+        menuCard.classList.remove('active');
+        btnToggle.setAttribute('aria-expanded', 'false');
+        menuCard.setAttribute('aria-hidden', 'true');
+      });
+    }
+
+    document.addEventListener('click', (e) => {
+      const target = e.target as Node;
+      if (!menuCard.contains(target) && !btnToggle.contains(target)) {
+        menuCard.classList.remove('active');
+        btnToggle.setAttribute('aria-expanded', 'false');
+        menuCard.setAttribute('aria-hidden', 'true');
+      }
+    });
+  }
+
+  document.addEventListener('astro:page-load', setupFloatingWhatsApp);
+  setupFloatingWhatsApp();
+</script>
+
+<style>
+  .floating-whatsapp-wrapper {
+    position: fixed;
+    bottom: var(--space-6);
+    right: var(--space-6);
+    z-index: 990;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  @media (max-width: 768px) {
+    .floating-whatsapp-wrapper {
+      bottom: calc(var(--space-16) + var(--space-4));
+      right: var(--space-4);
+    }
+  }
+
+  .floating-whatsapp-btn {
+    width: 58px;
+    height: 58px;
+    background-color: #25D366;
+    color: var(--color-white);
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4);
+    border: 2px solid var(--color-white);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .floating-whatsapp-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.55);
+  }
+
+  /* Dropup Menu Card */
+  .whatsapp-menu-card {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    width: 320px;
+    background: #FFFFFF;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-border);
+    box-shadow: 0 12px 32px -4px rgba(6, 77, 50, 0.22);
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px) scale(0.96);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+  }
+
+  .whatsapp-menu-card.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+
+  .menu-header {
+    background: var(--color-primary);
+    color: var(--color-white);
+    padding: var(--space-3) var(--space-4);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--color-gold);
+  }
+
+  .header-titles {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .menu-title {
+    font-size: var(--text-xs);
+    font-weight: 700;
+  }
+
+  .menu-subtitle {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .btn-close-wa {
+    background: transparent;
+    border: none;
+    color: var(--color-white);
+    cursor: pointer;
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .whatsapp-channels-list {
+    padding: var(--space-2);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    background: var(--color-surface-subtle);
+  }
+
+  .channel-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-2) var(--space-3);
+    background: #FFFFFF;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    color: var(--color-text);
+    transition: all var(--duration-fast);
+  }
+
+  .channel-item:hover {
+    background: #FAFCFA;
+    border-color: #25D366;
+    transform: translateX(-2px);
+  }
+
+  .channel-icon-wrap {
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-full);
+    background: rgba(37, 211, 102, 0.12);
+    color: #25D366;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .channel-details {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  .channel-phone {
+    font-size: var(--text-xs);
+    color: var(--color-primary);
+    font-weight: 700;
+  }
+
+  .channel-label {
+    font-size: 10px;
+    color: var(--color-text-muted);
+  }
+
+  .chat-arrow {
+    font-size: var(--text-sm);
+    color: #25D366;
+    font-weight: 700;
+  }
+</style>

@@ -1,0 +1,762 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Badge from '../../components/ui/Badge.astro';
+import Icon from '../../components/ui/Icon.astro';
+import ComplaintForm from '../../components/forms/ComplaintForm.astro';
+import { COMPLAINTS_INCHARGE } from '../../data/contactInfo';
+---
+
+<BaseLayout
+  title="Report an Issue | Togh Aman Committee"
+  description="Contact Mr. Shafiq-ur-Rehman (In-Charge Complaints Cell: 0333-8303485) or submit a confidential grievance online. Whistleblower protection guaranteed."
+>
+  <!-- Modernized Interactive Complaints Hero Section -->
+  <section class="complaints-hero-section" id="complaints-hero">
+    <!-- 1. Interactive Mouse Spotlight Glow Layer -->
+    <div class="hero-mouse-spotlight" id="hero-mouse-glow" aria-hidden="true"></div>
+
+    <!-- 2. Geometric Dot Matrix Pattern -->
+    <div class="hero-matrix-grid" aria-hidden="true"></div>
+
+    <!-- 3. Rising Floating Glowing Orbs -->
+    <div class="floating-orbs-layer" aria-hidden="true">
+      <span class="rising-orb orb-1"></span>
+      <span class="rising-orb orb-2"></span>
+      <span class="rising-orb orb-3"></span>
+      <span class="rising-orb orb-4"></span>
+      <span class="rising-orb orb-5"></span>
+      <span class="rising-orb orb-6"></span>
+      <span class="rising-orb orb-7"></span>
+      <span class="rising-orb orb-8"></span>
+      <span class="rising-orb orb-9"></span>
+      <span class="rising-orb orb-10"></span>
+    </div>
+
+    <!-- 4. Scenic Wave Contour Transition -->
+    <div class="hero-wave-transition" aria-hidden="true">
+      <svg viewBox="0 0 1440 140" fill="none" preserveAspectRatio="none" class="wave-svg">
+        <path d="M0,140 L0,90 Q360,35 720,80 Q1080,125 1440,70 L1440,140 Z" fill="rgba(6, 77, 50, 0.04)" />
+        <path d="M0,140 L0,110 Q360,70 720,105 Q1080,138 1440,95 L1440,140 Z" fill="rgba(212, 160, 23, 0.05)" />
+      </svg>
+    </div>
+
+    <div class="container hero-content-container text-center">
+      <div class="hero-badge-cluster">
+        <Badge variant="gold">Whistleblower &amp; Citizen Intake &bull; عوامی شکایات سیل</Badge>
+        <span class="hero-status-pill">
+          <Icon name="shield" size={14} class="text-green" />
+          <span>100% Confidential &bull; مکمل رازداری کی ضمانت</span>
+        </span>
+      </div>
+
+      <h1 class="page-title">Report an Issue or Grievance</h1>
+      <span class="urdu-hero-title urdu-text" dir="rtl">توغ امن کمیٹی — آزاد عوامی شکایات و احتساب سیل</span>
+
+      <div class="hero-quote-box">
+        <p class="hero-quote-urdu urdu-text" dir="rtl">
+          "آپ کا مسئلہ ہمارا مسئلہ ہے — منشیات، تجاوزات یا کمیٹی کے کسی بھی ممبر کے خلاف بلا خوف و خطر شکایت درج کروائیں۔"
+        </p>
+        <p class="hero-quote-en">
+          "Your voice matters. Whether reporting illegal narcotics, land encroachment, or conduct of any committee member, reach out with complete confidentiality."
+        </p>
+        <span class="hero-quote-citation">— In-Charge Complaints Cell: Mr. Shafiq-ur-Rehman (0333-8303485) &bull; Article 10 &amp; 11 Guaranteed</span>
+      </div>
+
+      <!-- Live Hero Metrics Strip -->
+      <div class="hero-metrics-strip">
+        <div class="metric-pill">
+          <strong class="metric-num">100%</strong>
+          <span class="metric-txt">Whistleblower Privacy</span>
+        </div>
+        <div class="metric-divider"></div>
+        <div class="metric-pill">
+          <strong class="metric-num">0</strong>
+          <span class="metric-txt">Retaliation Tolerance</span>
+        </div>
+        <div class="metric-divider"></div>
+        <div class="metric-pill">
+          <strong class="metric-num">24/7</strong>
+          <span class="metric-txt">Hotline &amp; WhatsApp</span>
+        </div>
+        <div class="metric-divider"></div>
+        <div class="metric-pill">
+          <strong class="metric-num">Audited</strong>
+          <span class="metric-txt">8-Stage Tracking</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="hero-cta-group">
+        <a href="#digital-form" class="btn-hero-explore">
+          <span>Submit Online Grievance / آن لائن شکایت</span>
+          <Icon name="arrow-right" size={15} />
+        </a>
+        <a href={`tel:${COMPLAINTS_INCHARGE.raw}`} class="btn-hero-call">
+          <Icon name="phone" size={16} />
+          <span>Call: 0333-8303485</span>
+        </a>
+        <a href={COMPLAINTS_INCHARGE.whatsappUrl} target="_blank" rel="noopener noreferrer" class="btn-hero-wa">
+          <Icon name="whatsapp" size={16} />
+          <span>WhatsApp In-Charge</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section complaints-section">
+    <div class="container">
+      <!-- Official Notice: In-Charge Complaints Cell Appointment -->
+      <div class="card incharge-notice-card mb-8">
+        <div class="incharge-grid">
+          <div class="incharge-image-col">
+            <div class="incharge-image-wrap">
+              <img 
+                src="/assets/leaders/Mr_Shafiq_ur_Rehman.webp" 
+                alt="Mr. Shafiq-ur-Rehman - In-Charge Complaints Cell" 
+                class="incharge-img"
+                width="340"
+                height="340"
+                loading="eager"
+              />
+            </div>
+            <div class="incharge-badge-box">
+              <Badge variant="gold">In-Charge Complaints Cell</Badge>
+              <span class="incharge-urdu-title" dir="rtl">شکایات سیل انچارج</span>
+            </div>
+          </div>
+
+          <div class="incharge-content-col">
+            <div class="notice-meta-bar">
+              <span class="notice-tag">Official Public Announcement</span>
+              <span class="notice-issuer">Issued by: Toogh Aman Committee</span>
+            </div>
+
+            <h2 class="incharge-heading">Mr. Shafiq-ur-Rehman</h2>
+            <p class="incharge-lead-role">Appointed as In-Charge of the Complaints Cell</p>
+
+            <div class="notice-body-text">
+              <p>
+                The Toogh Aman Committee hereby informs all community elders, leaders, senior members, and respected religious scholars that <strong>Mr. Shafiq-ur-Rehman</strong> has been appointed as the <strong>In-Charge of the Complaints Cell</strong> of the Toogh Aman Committee.
+              </p>
+              <p>
+                If any individual faces a complaint or issue, <strong>particularly concerning any member of the Aman Committee</strong>, they are requested to contact the Complaints Cell In-Charge directly.
+              </p>
+              <p>
+                All complaints will be heard respectfully, reviewed appropriately, and forwarded to the relevant committee officials whenever necessary. The committee is committed to listening to community concerns and addressing complaints through an appropriate process.
+              </p>
+            </div>
+
+            <!-- Direct Contact Hotline Action Bar -->
+            <div class="incharge-contact-bar">
+              <div class="contact-num-block">
+                <span class="cell-label">Direct Cell &amp; WhatsApp:</span>
+                <a href={`tel:${COMPLAINTS_INCHARGE.raw}`} class="cell-number">0333-8303485</a>
+              </div>
+              <div class="contact-buttons-group">
+                <a href={`tel:${COMPLAINTS_INCHARGE.raw}`} class="incharge-btn call-btn">
+                  <Icon name="phone" size={16} />
+                  <span>Call 0333-8303485</span>
+                </a>
+                <a 
+                  href={COMPLAINTS_INCHARGE.whatsappUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  class="incharge-btn wa-btn"
+                >
+                  <Icon name="whatsapp" size={16} />
+                  <span>WhatsApp Directly</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Mission & Commitment Tagline -->
+            <div class="notice-footer-strip">
+              <div class="tagline-item">
+                <strong>Our Mission:</strong> Peace &bull; Unity &bull; Prosperity
+              </div>
+              <div class="tagline-item">
+                <strong>Our Commitment:</strong> A Safe Community, A Prosperous Future
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Online Digital Whistleblower Intake Form -->
+      <div class="online-form-anchor" id="digital-form">
+        <ComplaintForm />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero Section with Interactive Spotlight & Rising Particles */
+  .complaints-hero-section {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, #F3F7F4 0%, #FFFFFF 100%);
+    padding: var(--space-16) 0 var(--space-12);
+    border-bottom: 1px solid var(--color-border);
+    --mouse-x: 50%;
+    --mouse-y: 50%;
+  }
+
+  /* Interactive Mouse Spotlight Glow */
+  .hero-mouse-spotlight {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background: radial-gradient(
+      520px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(212, 160, 23, 0.22),
+      rgba(6, 77, 50, 0.12) 35%,
+      transparent 70%
+    );
+    transition: background 0.08s ease-out;
+  }
+
+  /* Dot Matrix Pattern */
+  .hero-matrix-grid {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.55;
+    background-image: radial-gradient(rgba(6, 77, 50, 0.15) 1.2px, transparent 1.2px);
+    background-size: 26px 26px;
+    mask-image: linear-gradient(180deg, #000 65%, transparent 100%);
+    -webkit-mask-image: linear-gradient(180deg, #000 65%, transparent 100%);
+  }
+
+  /* Rising Floating Orbs */
+  .floating-orbs-layer {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .rising-orb {
+    position: absolute;
+    bottom: -30px;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: floatUpward linear infinite;
+  }
+
+  @keyframes floatUpward {
+    0% {
+      bottom: -30px;
+      transform: translateX(0) scale(0.85);
+      opacity: 0;
+    }
+    20% {
+      opacity: 0.25;
+    }
+    50% {
+      transform: translateX(18px) scale(1.05);
+      opacity: 0.38;
+    }
+    80% {
+      opacity: 0.22;
+    }
+    100% {
+      bottom: 108%;
+      transform: translateX(-16px) scale(1.1);
+      opacity: 0;
+    }
+  }
+
+  .orb-1 { width: 8px; height: 8px; left: 8%; background: radial-gradient(circle at 35% 35%, #81C784, #064D32); animation-duration: 9s; animation-delay: 0s; }
+  .orb-2 { width: 12px; height: 12px; left: 20%; background: radial-gradient(circle at 35% 35%, #FDE047, #D4A017); animation-duration: 13s; animation-delay: 2s; }
+  .orb-3 { width: 6px; height: 6px; left: 34%; background: radial-gradient(circle at 35% 35%, #A7F3D0, #047857); animation-duration: 8s; animation-delay: 4.5s; }
+  .orb-4 { width: 10px; height: 10px; left: 48%; background: radial-gradient(circle at 35% 35%, #FCD34D, #B45309); animation-duration: 11s; animation-delay: 1.2s; }
+  .orb-5 { width: 7px; height: 7px; left: 62%; background: radial-gradient(circle at 35% 35%, #6EE7B7, #065F46); animation-duration: 9.5s; animation-delay: 3.8s; }
+  .orb-6 { width: 13px; height: 13px; left: 74%; background: radial-gradient(circle at 35% 35%, #FEF08A, #D97706); animation-duration: 14s; animation-delay: 5s; }
+  .orb-7 { width: 8px; height: 8px; left: 86%; background: radial-gradient(circle at 35% 35%, #86EFAC, #15803D); animation-duration: 10s; animation-delay: 2.7s; }
+  .orb-8 { width: 10px; height: 10px; left: 93%; background: radial-gradient(circle at 35% 35%, #FDE68A, #CA8A04); animation-duration: 12.5s; animation-delay: 4.1s; }
+  .orb-9 { width: 7px; height: 7px; left: 14%; background: radial-gradient(circle at 35% 35%, #A7F3D0, #064D32); animation-duration: 8.5s; animation-delay: 6s; }
+  .orb-10 { width: 9px; height: 9px; left: 55%; background: radial-gradient(circle at 35% 35%, #FDE047, #D4A017); animation-duration: 11.5s; animation-delay: 7s; }
+
+  /* Wave Transition */
+  .hero-wave-transition {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+    z-index: 1;
+    line-height: 0;
+  }
+
+  .wave-svg {
+    width: 100%;
+    height: 70px;
+    display: block;
+  }
+
+  .hero-content-container {
+    position: relative;
+    z-index: 2;
+    max-width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  .hero-badge-cluster {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: var(--space-3);
+  }
+
+  .hero-status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(6, 77, 50, 0.08);
+    color: var(--color-primary);
+    padding: 4px 14px;
+    border-radius: 9999px;
+    font-size: 12.5px;
+    font-weight: 600;
+    border: 1px solid rgba(6, 77, 50, 0.15);
+  }
+
+  .page-title {
+    text-align: center;
+    font-size: clamp(1.85rem, 3.2vw, 2.75rem);
+    font-weight: 800;
+    color: var(--color-primary);
+    margin: 0 auto var(--space-2);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    max-width: 860px;
+    text-wrap: balance;
+    width: 100%;
+  }
+
+  .urdu-hero-title {
+    display: block;
+    text-align: center;
+    font-size: clamp(1.15rem, 2.2vw, 1.6rem);
+    font-weight: 700;
+    color: var(--color-green);
+    line-height: 1.7;
+    margin: 0 auto var(--space-4);
+    max-width: 760px;
+    text-wrap: balance;
+    width: 100%;
+  }
+
+  .hero-quote-box {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(6, 77, 50, 0.12);
+    border-left: 4px solid var(--color-gold);
+    border-right: 4px solid var(--color-green);
+    border-radius: var(--radius-md);
+    padding: 14px 22px;
+    max-width: 720px;
+    margin: 0 auto var(--space-5);
+    box-shadow: 0 4px 18px rgba(6, 77, 50, 0.04);
+  }
+
+  .hero-quote-urdu {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin: 0 0 4px;
+    line-height: 1.8;
+  }
+
+  .hero-quote-en {
+    font-size: 0.92rem;
+    color: var(--color-text-muted);
+    margin: 0 0 4px;
+    line-height: 1.5;
+    font-style: italic;
+  }
+
+  .hero-quote-citation {
+    display: block;
+    font-size: 0.76rem;
+    color: var(--color-gold-dark);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Hero Metrics Strip */
+  .hero-metrics-strip {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    background: #FFFFFF;
+    border: 1px solid var(--color-border);
+    border-radius: 9999px;
+    padding: 8px 24px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+    width: fit-content;
+    margin: 0 auto var(--space-6);
+  }
+
+  .metric-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .metric-num {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--color-primary);
+  }
+
+  .metric-txt {
+    font-size: 12px;
+    color: var(--color-text-muted);
+    font-weight: 600;
+  }
+
+  .metric-divider {
+    width: 1px;
+    height: 18px;
+    background: var(--color-border);
+  }
+
+  @media (max-width: 768px) {
+    .hero-metrics-strip {
+      border-radius: var(--radius-md);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      padding: 14px 18px;
+      width: 100%;
+    }
+    .metric-divider {
+      display: none;
+    }
+  }
+
+  .hero-cta-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .btn-hero-explore {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--color-gold);
+    color: var(--color-gold-text);
+    font-weight: 700;
+    font-size: 14px;
+    padding: 10px 20px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    box-shadow: 0 4px 14px rgba(212, 160, 23, 0.28);
+    transition: transform var(--duration-fast), box-shadow var(--duration-fast);
+  }
+
+  .btn-hero-explore:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(212, 160, 23, 0.38);
+    background: var(--color-gold-hover);
+  }
+
+  .btn-hero-call {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #FFFFFF;
+    color: var(--color-primary);
+    font-weight: 600;
+    font-size: 14px;
+    padding: 9px 18px;
+    border-radius: var(--radius-sm);
+    border: 1.5px solid var(--color-primary);
+    text-decoration: none;
+    transition: all var(--duration-fast);
+  }
+
+  .btn-hero-call:hover {
+    background: var(--color-primary);
+    color: #FFFFFF;
+  }
+
+  .btn-hero-wa {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #25D366;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px 18px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
+    transition: all var(--duration-fast);
+  }
+
+  .btn-hero-wa:hover {
+    background: #1EBE5B;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(37, 211, 102, 0.35);
+  }
+
+  .text-center { text-align: center; }
+
+  /* In-Charge Notice Card */
+  .incharge-notice-card {
+    background: #FFFFFF;
+    border: 2px solid var(--color-gold);
+    border-radius: var(--radius-xl);
+    padding: var(--space-8);
+    box-shadow: 0 12px 36px -6px rgba(6, 77, 50, 0.12);
+  }
+
+  .incharge-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    align-items: center;
+  }
+
+  @media (min-width: 860px) {
+    .incharge-grid {
+      grid-template-columns: 320px 1fr;
+    }
+  }
+
+  .incharge-image-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .incharge-image-wrap {
+    width: 100%;
+    max-width: 300px;
+    height: 320px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 3px solid var(--color-surface-subtle);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    background-color: var(--color-surface-subtle);
+  }
+
+  .incharge-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    transition: transform var(--duration-normal) var(--ease-spring);
+  }
+
+  .incharge-img:hover {
+    transform: scale(1.03);
+  }
+
+  .incharge-badge-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .incharge-urdu-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--color-primary);
+    font-family: inherit;
+  }
+
+  /* Content Column */
+  .incharge-content-col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .notice-meta-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-2);
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .notice-tag {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-gold-dark);
+  }
+
+  .notice-issuer {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-green);
+  }
+
+  .incharge-heading {
+    font-size: var(--text-3xl);
+    color: var(--color-primary);
+    margin-bottom: 2px;
+  }
+
+  .incharge-lead-role {
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--color-gold-dark);
+    margin-bottom: var(--space-4);
+  }
+
+  .notice-body-text {
+    font-size: var(--text-sm);
+    color: var(--color-text-main);
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-6);
+  }
+
+  .notice-body-text p {
+    margin-bottom: var(--space-3);
+  }
+
+  .notice-body-text p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Contact Bar */
+  .incharge-contact-bar {
+    background: #F4F8F5;
+    border: 1px solid rgba(6, 77, 50, 0.15);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4) var(--space-5);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-bottom: var(--space-5);
+    flex-wrap: wrap;
+  }
+
+  .contact-num-block {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cell-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  .cell-number {
+    font-size: var(--text-xl);
+    font-weight: 800;
+    color: var(--color-primary);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+
+  .cell-number:hover {
+    color: var(--color-green);
+  }
+
+  .contact-buttons-group {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .incharge-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: var(--radius-md);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all var(--duration-fast);
+  }
+
+  .call-btn {
+    background: #FFFFFF;
+    color: var(--color-primary);
+    border: 1px solid var(--color-border);
+  }
+
+  .call-btn:hover {
+    background: var(--color-primary);
+    color: #FFFFFF;
+  }
+
+  .wa-btn {
+    background: #25D366;
+    color: #FFFFFF;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+  }
+
+  .wa-btn:hover {
+    background: #1EBE5B;
+    transform: translateY(-1px);
+  }
+
+  /* Notice Footer Strip */
+  .notice-footer-strip {
+    display: flex;
+    justify-content: space-between;
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-border);
+    font-size: var(--text-xs);
+    color: var(--color-text-subtle);
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .tagline-item strong {
+    color: var(--color-primary);
+  }
+
+  .mb-8 {
+    margin-bottom: var(--space-8);
+  }
+</style>
+
+<script>
+  function setupComplaintsHero() {
+    const heroSection = document.getElementById('complaints-hero');
+    if (heroSection) {
+      heroSection.addEventListener('mousemove', (e) => {
+        const rect = heroSection.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        heroSection.style.setProperty('--mouse-x', `${x}%`);
+        heroSection.style.setProperty('--mouse-y', `${y}%`);
+      });
+    }
+  }
+
+  setupComplaintsHero();
+  document.addEventListener('astro:page-load', setupComplaintsHero);
+</script>

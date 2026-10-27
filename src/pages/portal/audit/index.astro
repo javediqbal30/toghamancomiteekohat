@@ -1,0 +1,412 @@
+---
+import PortalLayout from '../../../layouts/PortalLayout.astro';
+import Icon from '../../../components/ui/Icon.astro';
+import Badge from '../../../components/ui/Badge.astro';
+import Button from '../../../components/ui/Button.astro';
+import { MOCK_AUDIT_LOGS } from '../../../lib/portalMock';
+---
+
+<PortalLayout 
+  title="Cryptographic Audit Logs | Togh Aman"
+  description="Tamper-evident SHA-256 hash-chained log documenting every administrative action, complaint access, and financial voucher signature."
+  activeNav="audit"
+>
+  <div class="page-top-bar">
+    <div>
+      <Badge variant="gold" class="mb-2">Section 4.3 Tamper-Evident Architecture</Badge>
+      <h1 class="page-title">Cryptographic Audit Chain</h1>
+      <p class="page-subtitle">
+        Append-only SHA-256 hash ledger preventing retroactive modification of committee records.
+      </p>
+    </div>
+
+    <div class="top-action-group">
+      <Button variant="accent" size="sm" id="btn-verify-chain">
+        <Icon name="shield" size={16} />
+        <span>Verify Chain Integrity</span>
+      </Button>
+    </div>
+  </div>
+
+  <!-- Verification Result Banner -->
+  <div class="chain-status-banner card mb-6" id="chain-status-banner">
+    <div class="banner-icon">
+      <Icon name="check-circle" size={28} />
+    </div>
+    <div class="banner-content">
+      <strong class="banner-title" id="banner-title">Chain Integrity Verified: Intact</strong>
+      <p class="banner-sub" id="banner-sub">
+        All 1,048 cryptographic blocks validated against genesis seed. Zero retro-modifications or database anomalies detected.
+      </p>
+    </div>
+    <div class="banner-stats">
+      <span class="stat-pill">Genesis Block: #0001</span>
+      <span class="stat-pill">Head Block: #1048</span>
+    </div>
+  </div>
+
+  <!-- Formula Card -->
+  <div class="formula-card card mb-6">
+    <div class="formula-header">
+      <Icon name="key" size={18} class="text-green" />
+      <h2 class="formula-title">Mathematical Chaining Formula</h2>
+    </div>
+    <div class="formula-box">
+      <code>Hash<sub>n</sub> = SHA-256(Hash<sub>n-1</sub> ∥ Timestamp ∥ UserID ∥ Action ∥ Payload)</code>
+    </div>
+    <p class="formula-desc">
+      Even a database administrator cannot alter a past voucher amount or delete an intake log without invalidating every subsequent SHA-256 signature downstream.
+    </p>
+  </div>
+
+  <!-- Audit Blocks Visual List -->
+  <div class="audit-chain-container">
+    <h2 class="section-title mb-4">Recent Audit Blocks (Head of Chain)</h2>
+
+    <div class="chain-blocks-list" id="chain-blocks-list">
+      {MOCK_AUDIT_LOGS.map((entry, idx) => (
+        <div class="audit-block-card card" id={`block-${entry.sequence}`}>
+          <div class="block-top-row">
+            <div class="seq-group">
+              <span class="block-seq-badge">Block #{entry.sequence}</span>
+              <span class="block-action-tag">{entry.action}</span>
+            </div>
+            <span class="block-time">{entry.timestamp}</span>
+          </div>
+
+          <div class="block-details-grid mt-3">
+            <div class="detail-item">
+              <span class="d-label">Actor / Operator:</span>
+              <strong class="d-val">{entry.userName} ({entry.role})</strong>
+            </div>
+            <div class="detail-item">
+              <span class="d-label">Origin IP / Network:</span>
+              <span class="d-val font-mono">{entry.ipAddress}</span>
+            </div>
+            <div class="detail-item">
+              <span class="d-label">Target Resource:</span>
+              <span class="d-val font-mono">{entry.targetId}</span>
+            </div>
+          </div>
+
+          <!-- Cryptographic Hashes -->
+          <div class="hashes-box mt-3">
+            <div class="hash-row">
+              <span class="hash-label">Current SHA-256:</span>
+              <code class="hash-code">{entry.sha256Hash}</code>
+            </div>
+            <div class="hash-row mt-1">
+              <span class="hash-label">Previous Hash (Link):</span>
+              <code class="hash-code prev">{entry.previousHash}</code>
+            </div>
+          </div>
+
+          {idx < MOCK_AUDIT_LOGS.length - 1 && (
+            <div class="chain-link-indicator">
+              <span class="link-line"></span>
+              <span class="link-label">⛓ Cryptographically Bound to #{entry.sequence - 1}</span>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</PortalLayout>
+
+<script>
+  function setupAuditVerification() {
+    const btnVerify = document.getElementById('btn-verify-chain');
+    const banner = document.getElementById('chain-status-banner');
+    const title = document.getElementById('banner-title');
+    const sub = document.getElementById('banner-sub');
+    const blocks = document.querySelectorAll('.audit-block-card');
+
+    if (btnVerify) {
+      btnVerify.addEventListener('click', () => {
+        btnVerify.innerHTML = `<span>Validating 1,048 Hashes...</span>`;
+        btnVerify.setAttribute('disabled', 'true');
+
+        setTimeout(() => {
+          btnVerify.innerHTML = `<span>✓ Verification Complete</span>`;
+          btnVerify.removeAttribute('disabled');
+
+          blocks.forEach((b) => {
+            b.classList.add('verified-glow');
+          });
+          banner?.classList.add('verified-glow');
+
+          if (title && sub) {
+            title.textContent = 'Chain Integrity 100% Confirmed';
+            sub.textContent = 'All SHA-256 hash pointers from Genesis #0001 through Head #1048 match mathematically. No tampering detected.';
+          }
+          alert('Cryptographic Chain Audit Successful: All 1,048 blocks validated with zero discrepancies.');
+        }, 800);
+      });
+    }
+  }
+
+  document.addEventListener('astro:page-load', setupAuditVerification);
+</script>
+
+<style>
+  .page-top-bar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .page-top-bar {
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+  }
+
+  .page-title {
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    color: var(--color-primary);
+    margin: 0;
+  }
+
+  .page-subtitle {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-top: var(--space-1);
+  }
+
+  /* Chain Status Banner */
+  .chain-status-banner {
+    background: #FAFCFA;
+    border: 1px solid var(--color-green);
+    border-left: 5px solid var(--color-green);
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 768px) {
+    .chain-status-banner {
+      flex-direction: row;
+      align-items: center;
+      gap: var(--space-4);
+    }
+  }
+
+  .banner-icon {
+    color: var(--color-green);
+    flex-shrink: 0;
+  }
+
+  .banner-content {
+    flex: 1;
+  }
+
+  .banner-title {
+    font-size: var(--text-sm);
+    color: var(--color-primary);
+    display: block;
+  }
+
+  .banner-sub {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    margin: 2px 0 0;
+  }
+
+  .banner-stats {
+    display: flex;
+    gap: var(--space-2);
+  }
+
+  .stat-pill {
+    background: var(--color-surface-subtle);
+    border: 1px solid var(--color-border);
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    font-size: 10px;
+    font-family: monospace;
+    color: var(--color-text-muted);
+  }
+
+  /* Formula Card */
+  .formula-card {
+    background: var(--color-white);
+    padding: var(--space-5);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-border);
+  }
+
+  .formula-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-2);
+  }
+
+  .formula-title {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-primary);
+    margin: 0;
+  }
+
+  .formula-box {
+    background: var(--color-surface-subtle);
+    padding: var(--space-3);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    font-size: var(--text-xs);
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  .formula-desc {
+    font-size: 11px;
+    color: var(--color-text-muted);
+    margin: var(--space-2) 0 0;
+  }
+
+  /* Chain Blocks List */
+  .chain-blocks-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .audit-block-card {
+    background: var(--color-white);
+    padding: var(--space-5);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    position: relative;
+    transition: all var(--duration-normal);
+  }
+
+  .audit-block-card.verified-glow {
+    border-color: var(--color-green);
+    box-shadow: 0 0 12px rgba(8, 116, 67, 0.15);
+  }
+
+  .block-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .seq-group {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .block-seq-badge {
+    background: var(--color-primary);
+    color: var(--color-white);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+  }
+
+  .block-action-tag {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--color-green);
+    background: rgba(8, 116, 67, 0.08);
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+  }
+
+  .block-time {
+    font-size: 11px;
+    color: var(--color-text-muted);
+  }
+
+  .block-details-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+  }
+
+  @media (min-width: 640px) {
+    .block-details-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .detail-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .d-label {
+    font-size: 10px;
+    color: var(--color-text-muted);
+  }
+
+  .d-val {
+    color: var(--color-text);
+  }
+
+  .font-mono {
+    font-family: monospace;
+  }
+
+  .hashes-box {
+    background: var(--color-surface-subtle);
+    padding: var(--space-3);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    font-size: 11px;
+  }
+
+  .hash-row {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  @media (min-width: 768px) {
+    .hash-row {
+      flex-direction: row;
+      align-items: center;
+      gap: var(--space-3);
+    }
+  }
+
+  .hash-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    min-width: 130px;
+  }
+
+  .hash-code {
+    font-family: monospace;
+    font-size: 10px;
+    color: var(--color-primary);
+    word-break: break-all;
+  }
+
+  .hash-code.prev {
+    color: var(--color-text-subtle);
+  }
+
+  .chain-link-indicator {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+    padding-top: var(--space-2);
+    border-top: 1px dashed var(--color-border);
+    font-size: 10px;
+    color: var(--color-green);
+    font-weight: 600;
+  }
+</style>

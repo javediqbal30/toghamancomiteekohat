@@ -1,0 +1,121 @@
+/* ==========================================================================
+   Togh Aman Committee Design Tokens
+   Official Palette: Deep Forest Green (#064D32), Mid Green (#087443), Gold (#D4A017)
+   Background: #F5F7F5, Surfaces: #FFFFFF, Text: #1F2937, Border: #DCE5DE
+   ========================================================================== */
+
+:root {
+  /* --- MANDATORY BRAND COLORS --- */
+  --color-primary: #064D32;       /* Deep Forest Green - Navbar, Footer, Primary Buttons */
+  --color-green: #087443;         /* Mid Green - Progress, Links, Secondary Elements */
+  --color-gold: #D4A017;          /* Golden Ochre - Key CTAs, Accents, Borders, Badges */
+  --color-white: #FFFFFF;         /* Pure White - Surfaces, Cards, High Contrast */
+  --color-background: #F5F7F5;    /* Soft Warm Off-White - Page Background */
+  --color-text: #1F2937;          /* Charcoal Slate - High Readability Body Copy */
+  --color-border: #DCE5DE;        /* Muted Green-Gray Border */
+
+  /* --- DERIVED COLOR TOKENS (Strict WCAG AA Validated) --- */
+  --color-primary-dark: #033622;
+  --color-primary-light: #0c6744;
+  --color-primary-soft: rgba(6, 77, 50, 0.08);
+  --color-primary-hover: #054029;
+
+  --color-green-light: #109457;
+  --color-green-soft: rgba(8, 116, 67, 0.1);
+
+  --color-gold-hover: #bc8e14;
+  --color-gold-dark: #9e750e;
+  --color-gold-soft: rgba(212, 160, 23, 0.12);
+  --color-gold-border: rgba(212, 160, 23, 0.4);
+  --color-gold-text: #123322;    /* Dark forest text on gold buttons for optimal contrast */
+
+  --color-surface: #FFFFFF;
+  --color-surface-raised: #FFFFFF;
+  --color-surface-subtle: #EDF3EE;
+
+  --color-text-muted: #4B5563;
+  --color-text-subtle: #6B7280;
+  --color-text-inverse: #FFFFFF;
+
+  /* Status Colors */
+  --color-danger: #B91C1C;
+  --color-danger-bg: #FEF2F2;
+  --color-danger-border: #FCA5A5;
+
+  --color-success: #047857;
+  --color-success-bg: #ECFDF5;
+  --color-success-border: #6EE7B7;
+
+  --color-warning: #B45309;
+  --color-warning-bg: #FFFBEB;
+  --color-warning-border: #FCD34D;
+
+  --color-info: #0369A1;
+  --color-info-bg: #F0F9FF;
+  --color-info-border: #BAE6FD;
+
+  /* --- TYPOGRAPHY FLUID SCALE (clamp) --- */
+  --font-heading: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-sans: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.8125rem);      /* 12-13px */
+  --text-sm: clamp(0.875rem, 0.825rem + 0.25vw, 0.9375rem);   /* 14-15px */
+  --text-base: clamp(1.0625rem, 1rem + 0.3vw, 1.125rem);      /* 17-18px for elders & mobile readability */
+  --text-lg: clamp(1.1875rem, 1.1rem + 0.45vw, 1.3125rem);    /* 19-21px */
+  --text-xl: clamp(1.375rem, 1.25rem + 0.6vw, 1.5625rem);     /* 22-25px */
+  --text-2xl: clamp(1.625rem, 1.45rem + 0.9vw, 1.875rem);     /* 26-30px */
+  --text-3xl: clamp(2rem, 1.75rem + 1.25vw, 2.375rem);        /* 32-38px */
+  --text-4xl: clamp(2.375rem, 2rem + 1.8vw, 3rem);            /* 38-48px */
+  --text-5xl: clamp(2.875rem, 2.35rem + 2.6vw, 3.75rem);      /* 46-60px */
+
+  --leading-tight: 1.2;
+  --leading-snug: 1.38;
+  --leading-normal: 1.65;
+  --leading-relaxed: 1.8;
+
+  /* --- SPACING SCALE --- */
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px */
+  --space-8: 2rem;      /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+  --space-20: 5rem;     /* 80px */
+  --space-24: 6rem;     /* 96px */
+
+  /* --- RADII --- */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 28px;
+  --radius-full: 9999px;
+
+  /* --- SHADOWS (Layered Soft Green-Tinted) --- */
+  --shadow-xs: 0 1px 2px rgba(6, 77, 50, 0.05);
+  --shadow-sm: 0 2px 4px rgba(6, 77, 50, 0.05), 0 1px 2px rgba(6, 77, 50, 0.03);
+  --shadow-md: 0 6px 12px -2px rgba(6, 77, 50, 0.07), 0 3px 6px -2px rgba(6, 77, 50, 0.04);
+  --shadow-lg: 0 12px 24px -4px rgba(6, 77, 50, 0.09), 0 4px 8px -3px rgba(6, 77, 50, 0.04);
+  --shadow-xl: 0 20px 32px -6px rgba(6, 77, 50, 0.12), 0 8px 16px -6px rgba(6, 77, 50, 0.06);
+  --shadow-gold: 0 4px 18px 0 rgba(212, 160, 23, 0.32);
+  --shadow-inner: inset 0 2px 4px 0 rgba(6, 77, 50, 0.06);
+
+  /* --- MOTION & EASING --- */
+  --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 180ms;
+  --duration-normal: 300ms;
+  --duration-slow: 600ms;
+
+  /* --- LAYOUT CONSTRAINTS --- */
+  --container-max: 1280px;
+  --container-doc: 860px;
+  --header-height: 76px;
+  --bottom-nav-height: 64px;
+}

@@ -1,0 +1,384 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Badge from '../../components/ui/Badge.astro';
+import Icon from '../../components/ui/Icon.astro';
+import ContactForm from '../../components/forms/ContactForm.astro';
+import { SECRETARIAT_ADDRESS, OFFICIAL_HOTLINES } from '../../data/contactInfo';
+---
+
+<BaseLayout
+  title="Contact Us | Togh Aman Committee"
+  description="Contact the official secretariat of Togh Aman Committee. Address: Haji Rafiullah Khan Marhoom Market, Main Pindi Road, Kohat. Hotlines: +92 333 9768022."
+>
+  <section class="page-header">
+    <div class="container text-center">
+      <Badge variant="gold">Secretariat Office</Badge>
+      <h1 class="page-title">Contact the Committee</h1>
+      <p class="page-subtitle">
+        We welcome communications from residents, government departments, overseas members, and community elders.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="contact-grid">
+        <!-- Secretariat Info Card -->
+        <div class="contact-info-wrap">
+          <div class="card card-gold-accent contact-details-card">
+            <span class="info-tag">Headquarters</span>
+            <h2>Secretariat Office</h2>
+            <p class="office-desc">
+              The formal office of the Togh Aman Committee serves as the central administrative hub for meetings, complaint registers, and community consultation.
+            </p>
+
+            <div class="contact-channel-list">
+              <!-- Physical Address -->
+              <div class="channel-item">
+                <div class="channel-icon">
+                  <Icon name="map-pin" size={20} />
+                </div>
+                <div class="channel-body">
+                  <strong>Physical Address</strong>
+                  <p class="address-highlight">{SECRETARIAT_ADDRESS.full}</p>
+                </div>
+              </div>
+
+              <!-- Hotlines & WhatsApp Loop -->
+              <div class="hotlines-group">
+                <div class="hotlines-group-label">
+                  <Icon name="phone" size={16} class="text-gold" />
+                  <span>Official Hotlines &amp; WhatsApp Desks</span>
+                </div>
+
+                <div class="hotlines-cards-list">
+                  {OFFICIAL_HOTLINES.map((hotline, idx) => (
+                    <div class="hotline-card-item">
+                      <div class="hotline-card-info">
+                        <span class="hotline-desk-badge">Line 0{idx + 1}: {hotline.label}</span>
+                        <a href={`tel:${hotline.raw}`} class="hotline-phone-num">
+                          {hotline.phone}
+                        </a>
+                      </div>
+                      <div class="hotline-actions">
+                        <a href={`tel:${hotline.raw}`} class="action-btn call-btn" title={`Call ${hotline.phone}`}>
+                          <Icon name="phone" size={14} />
+                          <span>Call</span>
+                        </a>
+                        <a href={hotline.whatsappUrl} target="_blank" rel="noopener noreferrer" class="action-btn wa-btn" title={`WhatsApp ${hotline.phone}`}>
+                          <Icon name="whatsapp" size={14} />
+                          <span>WhatsApp</span>
+                        </a>
+                      </div>
+                    </div>
+                  ))}
+
+                  <!-- Complaints Cell In-Charge Dedicated Channel -->
+                  <div class="hotline-card-item incharge-card-item">
+                    <div class="hotline-card-info">
+                      <span class="hotline-desk-badge text-gold">Complaints Cell In-Charge: Mr. Shafiq-ur-Rehman</span>
+                      <a href="tel:03338303485" class="hotline-phone-num">
+                        0333-8303485
+                      </a>
+                    </div>
+                    <div class="hotline-actions">
+                      <a href="tel:03338303485" class="action-btn call-btn" title="Call Mr. Shafiq-ur-Rehman">
+                        <Icon name="phone" size={14} />
+                        <span>Call</span>
+                      </a>
+                      <a href="https://wa.me/923338303485?text=Peace%20be%20upon%20you%20Mr.%20Shafiq-ur-Rehman,%20I%20have%20a%20grievance%20for%20the%20Complaints%20Cell." target="_blank" rel="noopener noreferrer" class="action-btn wa-btn" title="WhatsApp Complaints Cell In-Charge">
+                        <Icon name="whatsapp" size={14} />
+                        <span>WhatsApp</span>
+                      </a>
+                    </div>
+                  </div>
+
+                  <!-- Finance Secretary Channel -->
+                  <div class="hotline-card-item finance-card-item">
+                    <div class="hotline-card-info">
+                      <span class="hotline-desk-badge text-green">Finance Secretary: Waheed-ur-Rehman (Easypaisa)</span>
+                      <a href="tel:03348441095" class="hotline-phone-num">
+                        0334 8441095
+                      </a>
+                    </div>
+                    <div class="hotline-actions">
+                      <a href="tel:03348441095" class="action-btn call-btn" title="Call Waheed-ur-Rehman">
+                        <Icon name="phone" size={14} />
+                        <span>Call</span>
+                      </a>
+                      <a href="https://wa.me/923348441095?text=Peace%20be%20upon%20you%20Waheed-ur-Rehman%20Sahib,%20I%20am%20contacting%20regarding%20Togh%20Aman%20Committee%20finance." target="_blank" rel="noopener noreferrer" class="action-btn wa-btn" title="WhatsApp Finance Secretary">
+                        <Icon name="whatsapp" size={14} />
+                        <span>WhatsApp</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="leadership-notice">
+              <Icon name="shield" size={18} class="text-green" />
+              <p>
+                <strong>Leadership:</strong> Founder Hadayatullah Khan &bull; President Malik Ihsanullah &bull; Finance Sec. Waheed-ur-Rehman &bull; Complaints In-Charge Mr. Shafiq-ur-Rehman
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Inquiry Form -->
+        <div class="contact-form-wrap">
+          <ContactForm />
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-header {
+    background: linear-gradient(180deg, var(--color-surface-subtle) 0%, var(--color-background) 100%);
+    padding: var(--space-12) 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .page-title {
+    margin-top: var(--space-3);
+    margin-bottom: var(--space-2);
+  }
+
+  .page-subtitle {
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  @media (min-width: 992px) {
+    .contact-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .contact-details-card {
+    padding: var(--space-8);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .info-tag {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-gold);
+    display: block;
+    margin-bottom: var(--space-2);
+  }
+
+  .contact-details-card h2 {
+    font-size: var(--text-2xl);
+    color: var(--color-primary);
+    margin-bottom: var(--space-3);
+  }
+
+  .office-desc {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-normal);
+    margin-bottom: var(--space-6);
+  }
+
+  .contact-channel-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    margin-bottom: var(--space-6);
+  }
+
+  .channel-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    background: #F8FAF9;
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+  }
+
+  .channel-icon {
+    width: 44px;
+    height: 44px;
+    background: #FFFFFF;
+    color: var(--color-primary);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 1px solid var(--color-border);
+  }
+
+  .channel-body strong {
+    font-size: var(--text-sm);
+    color: var(--color-primary);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .address-highlight {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    margin-bottom: 0;
+    line-height: var(--leading-normal);
+    font-weight: 500;
+  }
+
+  /* Hotlines Group */
+  .hotlines-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .hotlines-group-label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-primary);
+  }
+
+  .hotlines-cards-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .hotline-card-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    background: #FFFFFF;
+    border: 1px solid var(--color-border);
+    border-left: 3px solid var(--color-gold);
+    border-radius: var(--radius-md);
+    padding: var(--space-3) var(--space-4);
+    transition: transform var(--duration-fast), box-shadow var(--duration-fast);
+  }
+
+  .hotline-card-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(6, 77, 50, 0.06);
+  }
+
+  .hotline-card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .hotline-desk-badge {
+    font-size: 11px;
+    color: var(--color-text-muted);
+    font-weight: 500;
+  }
+
+  .hotline-phone-num {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  .hotline-phone-num:hover {
+    color: var(--color-green);
+  }
+
+  .hotline-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-shrink: 0;
+  }
+
+  .action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 10px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all var(--duration-fast);
+  }
+
+  .call-btn {
+    background: #F4F8F5;
+    color: var(--color-primary);
+    border: 1px solid rgba(6, 77, 50, 0.15);
+  }
+
+  .call-btn:hover {
+    background: var(--color-primary);
+    color: #FFFFFF;
+  }
+
+  .wa-btn {
+    background: #E8F5E9;
+    color: #1B5E20;
+    border: 1px solid rgba(37, 211, 102, 0.4);
+  }
+
+  .wa-btn:hover {
+    background: #25D366;
+    color: #FFFFFF;
+    border-color: #25D366;
+  }
+
+  .leadership-notice {
+    margin-top: auto;
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+    color: var(--color-text-subtle);
+  }
+
+  .leadership-notice p {
+    margin-bottom: 0;
+  }
+
+  .text-center { text-align: center; }
+  .text-green { color: var(--color-green); }
+  .text-gold { color: var(--color-gold); }
+
+  @media (max-width: 576px) {
+    .hotline-card-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-2);
+    }
+    .hotline-actions {
+      width: 100%;
+      justify-content: flex-start;
+    }
+    .action-btn {
+      flex: 1;
+      justify-content: center;
+    }
+  }
+</style>

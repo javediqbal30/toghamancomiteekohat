@@ -1,0 +1,345 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/ui/Icon.astro';
+import Badge from '../../components/ui/Badge.astro';
+import Button from '../../components/ui/Button.astro';
+---
+
+<BaseLayout 
+  title="Overseas Community Wing | Togh Aman"
+  description="Connecting the Togh diaspora across the Gulf and worldwide with verified village welfare projects and transparent accountability."
+>
+  <div class="page-hero">
+    <div class="container text-center">
+      <Badge variant="gold" class="mb-3">
+        <Icon name="users" size={14} />
+        <span>Global Village Diaspora</span>
+      </Badge>
+      <h1 class="hero-title">Overseas Togh Community Wing</h1>
+      <p class="hero-subtitle">
+        Bridging expatriate villagers in the UAE, Saudi Arabia, UK, and worldwide with transparent development in Togh Bala and Togh Payan.
+      </p>
+    </div>
+  </div>
+
+  <section class="section-py bg-surface">
+    <div class="container">
+      <div class="overview-grid">
+        <div class="overview-content">
+          <Badge variant="green" class="mb-2">Chapter 15 Mandate</Badge>
+          <h2 class="section-title">A Trusted Bridge for Expatriates</h2>
+          <p class="section-desc">
+            Thousands of hardworking sons and daughters of Togh Bala and Togh Payan live abroad, supporting their families and investing in our homeland. The Togh Aman Committee provides an uncompromising, non-political framework to ensure your contributions directly benefit authentic village needs with 100% audited accountability.
+          </p>
+
+          <div class="pillars-checklist mt-4">
+            <div class="pillar-point">
+              <Icon name="check" size={18} class="text-green" />
+              <div>
+                <strong>Zero Political Intermediaries:</strong>
+                <span>Direct bank-to-project disbursements with audited online receipts.</span>
+              </div>
+            </div>
+            <div class="pillar-point mt-3">
+              <Icon name="check" size={18} class="text-green" />
+              <div>
+                <strong>Real-Time Milestone Tracking:</strong>
+                <span>Inspect progress photos, geo-tagged survey maps, and expenditure vouchers.</span>
+              </div>
+            </div>
+            <div class="pillar-point mt-3">
+              <Icon name="check" size={18} class="text-green" />
+              <div>
+                <strong>Ancestral Property Protection:</strong>
+                <span>Peaceful jirga facilitation to safeguard expatriate agricultural lands and residential plots from encroachment.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Official Bank Channel Card -->
+        <div class="bank-channel-card card">
+          <div class="card-badge">
+            <Badge variant="gold">Official Bank Account</Badge>
+          </div>
+          <h3 class="bank-title mt-3">Official Remittance Channel</h3>
+          <p class="bank-note">
+            Per Chapter 8, the Committee never accepts private personal account transfers. Use only the designated institutional account:
+          </p>
+
+          <div class="bank-details-box mt-4">
+            <div class="detail-row">
+              <span class="d-label">Account Title:</span>
+              <strong class="d-val">Togh Aman Committee</strong>
+            </div>
+            <div class="detail-row">
+              <span class="d-label">Bank:</span>
+              <strong class="d-val">National Bank of Pakistan (NBP)</strong>
+            </div>
+            <div class="detail-row">
+              <span class="d-label">Branch:</span>
+              <span class="d-val">Kohat Main Branch (Code: 0144)</span>
+            </div>
+            <div class="detail-row">
+              <span class="d-label">Account No:</span>
+              <code class="d-code">0144-002948-1</code>
+            </div>
+            <div class="detail-row">
+              <span class="d-label">IBAN:</span>
+              <code class="d-code">PK44NBPA0144000000029481</code>
+            </div>
+            <div class="detail-row">
+              <span class="d-label">Easypaisa:</span>
+              <strong class="d-val text-green">0334 8441095 (Finance Sec: Waheed-ur-Rehman)</strong>
+            </div>
+          </div>
+
+          <div class="card-actions mt-6">
+            <Button variant="accent" size="sm" href="https://wa.me/923339768022?text=Peace%20be%20upon%20you,%20I%20am%20an%20Overseas%20member%20inquiring%20about%20welfare%20projects." class="w-full">
+              <Icon name="whatsapp" size={16} />
+              <span>Contact Overseas Desk via WhatsApp</span>
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Diaspora Registration Form -->
+  <section class="section-py">
+    <div class="container max-w-2xl">
+      <div class="form-header text-center mb-6">
+        <h2 class="form-section-title">Overseas Member Registration</h2>
+        <p class="form-section-sub">
+          Register to receive verified monthly financial PDFs, council voting reports, and project invitations directly via WhatsApp or Email.
+        </p>
+      </div>
+
+      <form class="diaspora-form card" id="diaspora-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="overseas-name" class="input-label">Full Name</label>
+            <input type="text" id="overseas-name" required placeholder="e.g. Tariq Khan" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label for="ancestral-village" class="input-label">Ancestral Village / Mohallah</label>
+            <select id="ancestral-village" class="form-select" required>
+              <option value="Togh Bala">Togh Bala</option>
+              <option value="Togh Payan">Togh Payan</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row mt-4">
+          <div class="form-group">
+            <label for="current-country" class="input-label">Current Country of Residence</label>
+            <input type="text" id="current-country" required placeholder="e.g. UAE / Saudi Arabia / UK" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label for="overseas-phone" class="input-label">WhatsApp Number (with Country Code)</label>
+            <input type="tel" id="overseas-phone" required placeholder="+971 50 123 4567" class="form-input" />
+          </div>
+        </div>
+
+        <div class="form-group mt-4">
+          <label for="project-interest" class="input-label">Priority Development Interest</label>
+          <select id="project-interest" class="form-select">
+            <option value="water">Clean Drinking Water Pipelines</option>
+            <option value="health">Togho Bala Dispensary Upgrades</option>
+            <option value="youth">Youth Anti-Drug Sports Facilities</option>
+            <option value="general">General Village Welfare Trust</option>
+          </select>
+        </div>
+
+        <div class="form-submit mt-6">
+          <Button variant="primary" type="submit" class="w-full">
+            <span>Submit Overseas Registration</span>
+            <Icon name="arrow-right" size={16} />
+          </Button>
+        </div>
+      </form>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  function setupOverseasForm() {
+    const form = document.getElementById('diaspora-form');
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Thank you for registering. The Togh Aman Overseas Liaison team will contact you via WhatsApp with verified project dossiers.');
+        (form as HTMLFormElement).reset();
+      });
+    }
+  }
+
+  document.addEventListener('astro:page-load', setupOverseasForm);
+</script>
+
+<style>
+  .page-hero {
+    background: linear-gradient(180deg, var(--color-surface-subtle) 0%, var(--color-background) 100%);
+    padding: var(--space-12) 0 var(--space-8);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .hero-title {
+    font-size: var(--text-3xl);
+    font-weight: 800;
+    color: var(--color-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .hero-subtitle {
+    font-size: var(--text-base);
+    color: var(--color-text-muted);
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .overview-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    align-items: center;
+  }
+
+  @media (min-width: 900px) {
+    .overview-grid {
+      grid-template-columns: 1.2fr 1fr;
+    }
+  }
+
+  .section-title {
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    color: var(--color-primary);
+    margin: var(--space-1) 0 var(--space-3);
+  }
+
+  .section-desc {
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    line-height: 1.7;
+  }
+
+  .pillars-checklist {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pillar-point {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    font-size: var(--text-xs);
+    line-height: 1.5;
+  }
+
+  .bank-channel-card {
+    background: var(--color-white);
+    padding: var(--space-6);
+    border-radius: var(--radius-xl);
+    border: 2px solid var(--color-gold);
+    box-shadow: var(--shadow-md);
+  }
+
+  .bank-title {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-primary);
+    margin: 0;
+  }
+
+  .bank-note {
+    font-size: 11px;
+    color: var(--color-text-muted);
+    margin-top: 4px;
+  }
+
+  .bank-details-box {
+    background: var(--color-surface-subtle);
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+  }
+
+  .detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .d-label {
+    color: var(--color-text-muted);
+  }
+
+  .d-code {
+    font-family: monospace;
+    font-weight: 700;
+    color: var(--color-primary);
+    background: rgba(8, 116, 67, 0.08);
+    padding: 1px 6px;
+    border-radius: var(--radius-sm);
+  }
+
+  .form-section-title {
+    font-size: var(--text-xl);
+    font-weight: 800;
+    color: var(--color-primary);
+    margin-bottom: var(--space-1);
+  }
+
+  .form-section-sub {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .diaspora-form {
+    background: var(--color-white);
+    padding: var(--space-6);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 640px) {
+    .form-row {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .input-label {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .form-input,
+  .form-select {
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-size: var(--text-xs);
+    font-family: inherit;
+  }
+</style>

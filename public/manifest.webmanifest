@@ -1,0 +1,25 @@
+{
+  "name": "Togh Aman Committee",
+  "short_name": "Togh Aman",
+  "description": "Official portal of Togh Aman Committee. Promoting peace, transparency, rule of law, and community development in Togh Bala and Payan.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F5F7F5",
+  "theme_color": "#064D32",
+  "icons": [
+    {
+      "src": "/assets/brand/togh-aman-committee-emblem.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/brand/togh-aman-committee-emblem.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["government", "community", "social"]
+}

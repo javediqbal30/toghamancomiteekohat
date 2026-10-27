@@ -1,0 +1,493 @@
+---
+import Icon from '../components/ui/Icon.astro';
+import Badge from '../components/ui/Badge.astro';
+import ClientRouter from 'astro/components/ClientRouter.astro';
+import '../styles/tokens.css';
+import '../styles/base.css';
+import '../styles/layout.css';
+import '../styles/motion.css';
+
+interface Props {
+  title: string;
+  description: string;
+  activeNav?: 'dashboard' | 'meetings' | 'complaints' | 'finance' | 'audit';
+}
+
+const { 
+  title, 
+  description, 
+  activeNav = 'dashboard' 
+} = Astro.props;
+
+// Ensure strict SEO length enforcement
+const seoTitle = title.length > 55 ? `${title.slice(0, 52)}...` : title;
+const seoDescription = description.length > 155 ? `${description.slice(0, 152)}...` : description;
+
+const navItems = [
+  { id: 'dashboard', href: '/portal/dashboard', label: 'Executive Dashboard', icon: 'activity' as const },
+  { id: 'meetings', href: '/portal/meetings', label: 'Meetings & Quorum', icon: 'calendar' as const },
+  { id: 'complaints', href: '/portal/complaints', label: 'Complaints Triage', icon: 'shield' as const },
+  { id: 'finance', href: '/portal/finance', label: 'Finance & Vouchers', icon: 'balance' as const },
+  { id: 'audit', href: '/portal/audit', label: 'Hash Audit Logs', icon: 'key' as const },
+];
+---
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/assets/brand/togh-aman-committee-emblem.png" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{seoTitle}</title>
+    <meta name="title" content={seoTitle} />
+    <meta name="description" content={seoDescription} />
+    <meta name="robots" content="noindex, nofollow" />
+
+    <!-- Google Fonts Preconnect & Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link 
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" 
+      rel="stylesheet" 
+    />
+
+    <ClientRouter fallback="animate" />
+  </head>
+  <body class="portal-body">
+    <!-- Top Bar Navigation -->
+    <header class="portal-header">
+      <div class="portal-header-inner">
+        <div class="brand-group">
+          <a href="/portal/dashboard" class="portal-brand-link">
+            <img 
+              src="/assets/brand/togh-aman-committee-emblem.png" 
+              alt="Togh Aman Emblem" 
+              width="40" 
+              height="40" 
+              class="brand-logo"
+            />
+            <div class="brand-titles">
+              <span class="portal-title">Togh Aman Portal</span>
+              <span class="portal-subtitle">Governance & Administration</span>
+            </div>
+          </a>
+          <Badge variant="gold" class="security-badge">
+            <Icon name="lock" size={12} />
+            <span>2FA Authenticated</span>
+          </Badge>
+        </div>
+
+        <!-- Role Simulator & Switcher -->
+        <div class="header-right-actions">
+          <div class="role-selector-wrap">
+            <label for="persona-select" class="role-label">Active Role:</label>
+            <select id="persona-select" class="persona-select">
+              <option value="president" selected>Malik Ihsanullah (President)</option>
+              <option value="general_secretary">Engr. Tariq Khattak (General Secretary)</option>
+              <option value="finance_secretary">Haji Noor Muhammad (Finance Secretary)</option>
+              <option value="womens_wing">Bibi Maryam Khattak (Women’s Wing Lead)</option>
+            </select>
+          </div>
+
+          <a href="/" class="exit-link" title="Exit to Public Website">
+            <Icon name="logout" size={16} />
+            <span>Public Site</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Portal Main Layout Grid -->
+    <div class="portal-wrapper">
+      <!-- Sidebar Navigation -->
+      <aside class="portal-sidebar" aria-label="Portal Navigation">
+        <div class="sidebar-user-card">
+          <div class="user-avatar" id="portal-user-avatar">MI</div>
+          <div class="user-details">
+            <strong class="user-name" id="portal-user-name">Malik Ihsanullah</strong>
+            <span class="user-role" id="portal-user-role">President</span>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav">
+          {navItems.map((item) => (
+            <a 
+              href={item.href} 
+              class={`nav-item ${activeNav === item.id ? 'active' : ''}`}
+            >
+              <Icon name={item.icon} size={18} />
+              <span>{item.label}</span>
+            </a>
+          ))}
+        </nav>
+
+        <div class="sidebar-footer">
+          <div class="security-note">
+            <Icon name="shield" size={16} />
+            <div>
+              <p class="sec-title">Field Encrypted</p>
+              <p class="sec-sub">SHA-256 Chained Audits</p>
+            </div>
+          </div>
+          <a href="/portal/login" class="nav-item logout-item">
+            <Icon name="logout" size={16} />
+            <span>Lock / Sign Out</span>
+          </a>
+        </div>
+      </aside>
+
+      <!-- Main Portal Content -->
+      <main class="portal-main">
+        <slot />
+      </main>
+    </div>
+
+    <!-- Interactive Client Role Persistence Script -->
+    <script>
+      function initRolePersistence() {
+        const select = document.getElementById('persona-select') as HTMLSelectElement | null;
+        const avatar = document.getElementById('portal-user-avatar');
+        const nameEl = document.getElementById('portal-user-name');
+        const roleEl = document.getElementById('portal-user-role');
+
+        const personas: Record<string, { name: string; role: string; avatar: string }> = {
+          president: { name: 'Malik Ihsanullah', role: 'President & Executive Head', avatar: 'MI' },
+          general_secretary: { name: 'Engr. Tariq Khattak', role: 'General Secretary', avatar: 'TK' },
+          finance_secretary: { name: 'Haji Noor Muhammad', role: 'Finance Secretary & Treasurer', avatar: 'NM' },
+          womens_wing: { name: 'Bibi Maryam Khattak', role: 'Women’s Wing Coordinator', avatar: 'BM' },
+        };
+
+        if (!select) return;
+
+        // Restore saved role from session storage
+        const savedRole = sessionStorage.getItem('tac_active_role') || 'president';
+        if (personas[savedRole]) {
+          select.value = savedRole;
+          updateDisplay(savedRole);
+        }
+
+        select.addEventListener('change', (e) => {
+          const newRole = (e.target as HTMLSelectElement).value;
+          sessionStorage.setItem('tac_active_role', newRole);
+          updateDisplay(newRole);
+          // Dispatch custom event for child components to react to role changes
+          window.dispatchEvent(new CustomEvent('portal:role-changed', { detail: { role: newRole } }));
+        });
+
+        function updateDisplay(role: string) {
+          const p = personas[role];
+          if (p && avatar && nameEl && roleEl) {
+            avatar.textContent = p.avatar;
+            nameEl.textContent = p.name;
+            roleEl.textContent = p.role;
+          }
+        }
+      }
+
+      document.addEventListener('astro:page-load', initRolePersistence);
+    </script>
+
+    <style>
+      .portal-body {
+        background-color: var(--color-background);
+        color: var(--color-text);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .portal-header {
+        background-color: var(--color-primary);
+        color: var(--color-white);
+        border-bottom: 2px solid var(--color-gold);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .portal-header-inner {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: var(--space-3) var(--space-6);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-4);
+      }
+
+      .brand-group {
+        display: flex;
+        align-items: center;
+        gap: var(--space-4);
+      }
+
+      .portal-brand-link {
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
+        text-decoration: none;
+        color: var(--color-white);
+      }
+
+      .brand-logo {
+        border-radius: var(--radius-full);
+        background: var(--color-white);
+        padding: 2px;
+      }
+
+      .brand-titles {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .portal-title {
+        font-size: var(--text-base);
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        line-height: 1.2;
+      }
+
+      .portal-subtitle {
+        font-size: var(--text-xs);
+        color: rgba(255, 255, 255, 0.75);
+      }
+
+      .header-right-actions {
+        display: flex;
+        align-items: center;
+        gap: var(--space-4);
+      }
+
+      .role-selector-wrap {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+        background: rgba(0, 0, 0, 0.2);
+        padding: var(--space-1) var(--space-3);
+        border-radius: var(--radius-md);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+      }
+
+      .role-label {
+        font-size: var(--text-xs);
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: 500;
+        display: none;
+      }
+
+      @media (min-width: 768px) {
+        .role-label {
+          display: inline;
+        }
+      }
+
+      .persona-select {
+        background: transparent;
+        color: var(--color-white);
+        border: none;
+        font-size: var(--text-xs);
+        font-weight: 600;
+        cursor: pointer;
+        padding: var(--space-1) var(--space-2);
+        outline: none;
+      }
+
+      .persona-select option {
+        background: #064D32;
+        color: #FFFFFF;
+      }
+
+      .exit-link {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-2);
+        color: rgba(255, 255, 255, 0.85);
+        font-size: var(--text-xs);
+        font-weight: 500;
+        text-decoration: none;
+        padding: var(--space-2) var(--space-3);
+        border-radius: var(--radius-md);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all var(--duration-fast);
+      }
+
+      .exit-link:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--color-white);
+        border-color: var(--color-gold);
+      }
+
+      /* Layout Body Grid */
+      .portal-wrapper {
+        display: flex;
+        flex: 1;
+        max-width: 1400px;
+        width: 100%;
+        margin: 0 auto;
+      }
+
+      /* Sidebar */
+      .portal-sidebar {
+        width: 260px;
+        background: var(--color-white);
+        border-right: 1px solid var(--color-border);
+        display: flex;
+        flex-direction: column;
+        padding: var(--space-6) var(--space-4);
+        flex-shrink: 0;
+      }
+
+      @media (max-width: 900px) {
+        .portal-wrapper {
+          flex-direction: column;
+        }
+        .portal-sidebar {
+          width: 100%;
+          border-right: none;
+          border-bottom: 1px solid var(--color-border);
+          padding: var(--space-4);
+        }
+      }
+
+      .sidebar-user-card {
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
+        padding: var(--space-3);
+        background: var(--color-surface-subtle);
+        border-radius: var(--radius-lg);
+        margin-bottom: var(--space-6);
+        border: 1px solid var(--color-border);
+      }
+
+      .user-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: var(--radius-full);
+        background: var(--color-primary);
+        color: var(--color-gold);
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: var(--text-sm);
+        border: 2px solid var(--color-gold);
+      }
+
+      .user-details {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .user-name {
+        font-size: var(--text-sm);
+        font-weight: 700;
+        color: var(--color-text);
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+
+      .user-role {
+        font-size: var(--text-xs);
+        color: var(--color-green);
+        font-weight: 600;
+      }
+
+      .sidebar-nav {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-2);
+        flex: 1;
+      }
+
+      @media (max-width: 900px) {
+        .sidebar-nav {
+          flex-direction: row;
+          flex-wrap: wrap;
+        }
+      }
+
+      .nav-item {
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
+        padding: var(--space-3) var(--space-4);
+        border-radius: var(--radius-md);
+        font-size: var(--text-sm);
+        font-weight: 500;
+        color: var(--color-text);
+        text-decoration: none;
+        transition: all var(--duration-fast);
+      }
+
+      .nav-item:hover {
+        background: var(--color-surface-subtle);
+        color: var(--color-primary);
+      }
+
+      .nav-item.active {
+        background: var(--color-primary);
+        color: var(--color-white);
+        font-weight: 600;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .sidebar-footer {
+        margin-top: auto;
+        padding-top: var(--space-6);
+        border-top: 1px solid var(--color-border);
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-4);
+      }
+
+      .security-note {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-2);
+        padding: var(--space-3);
+        background: rgba(8, 116, 67, 0.08);
+        border-radius: var(--radius-md);
+        color: var(--color-green);
+      }
+
+      .sec-title {
+        font-size: var(--text-xs);
+        font-weight: 700;
+        margin: 0;
+      }
+
+      .sec-sub {
+        font-size: 10px;
+        color: var(--color-text-muted);
+        margin: 0;
+      }
+
+      .logout-item {
+        color: var(--color-danger);
+      }
+
+      .logout-item:hover {
+        background: rgba(220, 38, 38, 0.1);
+        color: var(--color-danger);
+      }
+
+      /* Main Content Area */
+      .portal-main {
+        flex: 1;
+        padding: var(--space-8);
+        overflow-y: auto;
+      }
+
+      @media (max-width: 768px) {
+        .portal-main {
+          padding: var(--space-4);
+        }
+      }
+    </style>
+  </body>
+</html>

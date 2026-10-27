@@ -1,0 +1,618 @@
+---
+import PortalLayout from '../../../layouts/PortalLayout.astro';
+import Icon from '../../../components/ui/Icon.astro';
+import Badge from '../../../components/ui/Badge.astro';
+import Button from '../../../components/ui/Button.astro';
+import Alert from '../../../components/ui/Alert.astro';
+import { MOCK_COMPLAINTS } from '../../../lib/portalMock';
+---
+
+<PortalLayout 
+  title="Complaints Triage Desk | Togh Aman"
+  description="Field-encrypted grievance management under Chapter 11. Triage public disputes, tribal mediations, and police referrals."
+  activeNav="complaints"
+>
+  <div class="page-top-bar">
+    <div>
+      <Badge variant="gold" class="mb-2">Chapter 11 Whistleblower &amp; Grievance Protocol</Badge>
+      <h1 class="page-title">Confidential Complaints &amp; Triage Desk</h1>
+      <p class="page-subtitle">
+        Protected handling of community disputes, land demarcations, and sensitive petitions.
+      </p>
+    </div>
+
+    <div class="security-shield-pill">
+      <Icon name="shield" size={16} />
+      <span>AES-256 Field Encrypted at Rest</span>
+    </div>
+  </div>
+
+  <Alert variant="warning" class="mb-6">
+    <strong>Confidentiality Directive (Chapter 11):</strong> Level 4 Whistleblower grievances strip complainant phone numbers and IP addresses automatically. Unauthorized dissemination of dispute files constitutes a constitutional breach under Article 18.
+  </Alert>
+
+  <!-- Filter & Search Toolbar -->
+  <div class="triage-toolbar card mb-6">
+    <div class="search-box">
+      <Icon name="search" size={18} class="search-icon" />
+      <input 
+        type="search" 
+        id="complaint-search" 
+        placeholder="Filter by Tracking Code, Mohallah, or keyword..." 
+        class="search-input"
+      />
+    </div>
+
+    <div class="filter-tabs">
+      <button type="button" class="filter-btn active" data-filter="all">All Cases ({MOCK_COMPLAINTS.length})</button>
+      <button type="button" class="filter-btn" data-filter="1">Level 1: Public</button>
+      <button type="button" class="filter-btn" data-filter="2">Level 2: Council</button>
+      <button type="button" class="filter-btn" data-filter="3">Level 3: Police</button>
+      <button type="button" class="filter-btn" data-filter="4">Level 4: Encrypted</button>
+    </div>
+  </div>
+
+  <!-- Complaints Table -->
+  <div class="complaints-list-card card">
+    <div class="table-responsive">
+      <table class="triage-table" id="triage-table">
+        <thead>
+          <tr>
+            <th>Tracking Code</th>
+            <th>Category</th>
+            <th>Location</th>
+            <th>Privacy Level</th>
+            <th>Status</th>
+            <th>Assigned Lead</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {MOCK_COMPLAINTS.map((c) => (
+            <tr class="triage-row" data-privacy={c.privacyLevel} data-code={c.trackingCode.toLowerCase()} data-summary={c.summary.toLowerCase()}>
+              <td>
+                <div class="code-col">
+                  <strong>{c.trackingCode}</strong>
+                  <span class="date-sub">{c.submittedAt}</span>
+                </div>
+              </td>
+              <td>
+                <span class="category-name">{c.categoryLabel}</span>
+              </td>
+              <td>
+                <span class="location-name">{c.location}</span>
+              </td>
+              <td>
+                {c.privacyLevel === 4 ? (
+                  <Badge variant="red">
+                    <Icon name="lock" size={12} />
+                    <span>Level 4: Encrypted</span>
+                  </Badge>
+                ) : c.privacyLevel === 3 ? (
+                  <Badge variant="gold">Level 3: Police</Badge>
+                ) : c.privacyLevel === 2 ? (
+                  <Badge variant="green">Level 2: Council</Badge>
+                ) : (
+                  <Badge variant="subtle">Level 1: Public</Badge>
+                )}
+              </td>
+              <td>
+                <span class={`status-badge ${c.status}`}>
+                  {c.statusLabel}
+                </span>
+              </td>
+              <td>
+                <span class="officer-name">{c.assignedOfficer}</span>
+              </td>
+              <td>
+                <button 
+                  type="button" 
+                  class="btn-inspect-case" 
+                  data-case-id={c.id}
+                  data-case-code={c.trackingCode}
+                  data-case-cat={c.categoryLabel}
+                  data-case-loc={c.location}
+                  data-case-status={c.statusLabel}
+                  data-case-privacy={c.privacyLabel}
+                  data-case-complainant={c.complainantName}
+                  data-case-phone={c.phone}
+                  data-case-summary={c.summary}
+                  data-case-officer={c.assignedOfficer}
+                  data-case-encrypted={c.isEncrypted.toString()}
+                >
+                  Inspect Case
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Interactive Case Inspection Modal -->
+  <div class="case-modal-backdrop hidden" id="case-modal-backdrop">
+    <div class="case-modal card">
+      <div class="modal-header">
+        <div>
+          <span class="modal-code" id="modal-case-code">TAC-WTR-8821</span>
+          <h2 class="modal-title" id="modal-case-cat">Case Dossier</h2>
+        </div>
+        <button type="button" class="btn-close-modal" id="btn-close-case-modal">
+          <Icon name="close" size={20} />
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-meta-grid">
+          <div class="meta-field">
+            <span class="field-label">Privacy Classification:</span>
+            <strong id="modal-case-privacy">Level 1: Public Welfare</strong>
+          </div>
+          <div class="meta-field">
+            <span class="field-label">Current Status:</span>
+            <strong id="modal-case-status">Investigating</strong>
+          </div>
+          <div class="meta-field">
+            <span class="field-label">Location:</span>
+            <span id="modal-case-loc">Togho Bala</span>
+          </div>
+          <div class="meta-field">
+            <span class="field-label">Assigned Lead:</span>
+            <span id="modal-case-officer">Engr. Tariq Khattak</span>
+          </div>
+        </div>
+
+        <div class="modal-complainant-box mt-4">
+          <h3 class="box-title">Complainant Information</h3>
+          <div class="complainant-details">
+            <p><strong>Name:</strong> <span id="modal-case-name">Fazal Rehman</span></p>
+            <p><strong>Phone:</strong> <span id="modal-case-phone">+92 334 5511223</span></p>
+          </div>
+        </div>
+
+        <div class="modal-summary-box mt-4">
+          <h3 class="box-title">Incident Description / Evidence Summary</h3>
+          <p class="summary-text" id="modal-case-summary">Loading summary...</p>
+        </div>
+
+        <div class="modal-actions-box mt-6">
+          <h3 class="box-title mb-2">Council Actions</h3>
+          <div class="action-buttons-row">
+            <Button variant="accent" size="sm" type="button" id="btn-action-police">
+              <Icon name="shield" size={16} />
+              <span>Refer to Police</span>
+            </Button>
+            <Button variant="primary" size="sm" type="button" id="btn-action-resolve">
+              <Icon name="check" size={16} />
+              <span>Mark Resolved</span>
+            </Button>
+            <Button variant="outline" size="sm" type="button" id="btn-action-subcommittee">
+              <span>Form Subcommittee</span>
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</PortalLayout>
+
+<script>
+  function setupComplaintsTriage() {
+    const searchInput = document.getElementById('complaint-search') as HTMLInputElement | null;
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const rows = document.querySelectorAll<HTMLTableRowElement>('.triage-row');
+    const inspectBtns = document.querySelectorAll('.btn-inspect-case');
+    const modalBackdrop = document.getElementById('case-modal-backdrop');
+    const btnCloseModal = document.getElementById('btn-close-case-modal');
+
+    // Filter Logic
+    let activeFilter = 'all';
+
+    function applyFilterAndSearch() {
+      const query = (searchInput?.value || '').toLowerCase().trim();
+
+      rows.forEach((row) => {
+        const privacy = row.getAttribute('data-privacy');
+        const code = row.getAttribute('data-code') || '';
+        const summary = row.getAttribute('data-summary') || '';
+
+        const matchesFilter = activeFilter === 'all' || privacy === activeFilter;
+        const matchesQuery = !query || code.includes(query) || summary.includes(query);
+
+        if (matchesFilter && matchesQuery) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener('input', applyFilterAndSearch);
+    }
+
+    filterBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeFilter = btn.getAttribute('data-filter') || 'all';
+        applyFilterAndSearch();
+      });
+    });
+
+    // Modal Inspection Logic
+    inspectBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const code = btn.getAttribute('data-case-code') || '';
+        const cat = btn.getAttribute('data-case-cat') || '';
+        const loc = btn.getAttribute('data-case-loc') || '';
+        const status = btn.getAttribute('data-case-status') || '';
+        const privacy = btn.getAttribute('data-case-privacy') || '';
+        const name = btn.getAttribute('data-case-complainant') || '';
+        const phone = btn.getAttribute('data-case-phone') || '';
+        const summary = btn.getAttribute('data-case-summary') || '';
+        const officer = btn.getAttribute('data-case-officer') || '';
+
+        const elCode = document.getElementById('modal-case-code');
+        const elCat = document.getElementById('modal-case-cat');
+        const elLoc = document.getElementById('modal-case-loc');
+        const elStatus = document.getElementById('modal-case-status');
+        const elPrivacy = document.getElementById('modal-case-privacy');
+        const elName = document.getElementById('modal-case-name');
+        const elPhone = document.getElementById('modal-case-phone');
+        const elSummary = document.getElementById('modal-case-summary');
+        const elOfficer = document.getElementById('modal-case-officer');
+
+        if (elCode) elCode.textContent = code;
+        if (elCat) elCat.textContent = cat;
+        if (elLoc) elLoc.textContent = loc;
+        if (elStatus) elStatus.textContent = status;
+        if (elPrivacy) elPrivacy.textContent = privacy;
+        if (elName) elName.textContent = name;
+        if (elPhone) elPhone.textContent = phone;
+        if (elSummary) elSummary.textContent = summary;
+        if (elOfficer) elOfficer.textContent = officer;
+
+        modalBackdrop?.classList.remove('hidden');
+      });
+    });
+
+    if (btnCloseModal && modalBackdrop) {
+      btnCloseModal.addEventListener('click', () => {
+        modalBackdrop.classList.add('hidden');
+      });
+      modalBackdrop.addEventListener('click', (e) => {
+        if (e.target === modalBackdrop) {
+          modalBackdrop.classList.add('hidden');
+        }
+      });
+    }
+
+    // Modal Action Buttons feedback
+    const btnPolice = document.getElementById('btn-action-police');
+    const btnResolve = document.getElementById('btn-action-resolve');
+
+    if (btnPolice) {
+      btnPolice.addEventListener('click', () => {
+        alert('Action Dispatched: Official referral intimation forwarded to DPO Kohat with stripped PII per Chapter 11.');
+        modalBackdrop?.classList.add('hidden');
+      });
+    }
+
+    if (btnResolve) {
+      btnResolve.addEventListener('click', () => {
+        alert('Grievance marked as Resolved. Settlement record logged with SHA-256 integrity token.');
+        modalBackdrop?.classList.add('hidden');
+      });
+    }
+  }
+
+  document.addEventListener('astro:page-load', setupComplaintsTriage);
+</script>
+
+<style>
+  .page-top-bar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .page-top-bar {
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+  }
+
+  .page-title {
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    color: var(--color-primary);
+    margin: 0;
+  }
+
+  .page-subtitle {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-top: var(--space-1);
+  }
+
+  .security-shield-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    background: rgba(8, 116, 67, 0.1);
+    color: var(--color-green);
+    border: 1px solid var(--color-green);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: 600;
+  }
+
+  /* Toolbar */
+  .triage-toolbar {
+    background: var(--color-white);
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .triage-toolbar {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .search-box {
+    position: relative;
+    flex: 1;
+    max-width: 440px;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: var(--space-3);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-text-muted);
+  }
+
+  .search-input {
+    width: 100%;
+    padding: var(--space-2) var(--space-3) var(--space-2) var(--space-9);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-size: var(--text-xs);
+    font-family: inherit;
+  }
+
+  .filter-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .filter-btn {
+    background: var(--color-surface-subtle);
+    border: 1px solid var(--color-border);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--color-text);
+    cursor: pointer;
+    transition: all var(--duration-fast);
+  }
+
+  .filter-btn:hover,
+  .filter-btn.active {
+    background: var(--color-primary);
+    color: var(--color-white);
+    border-color: var(--color-primary);
+  }
+
+  /* Table */
+  .complaints-list-card {
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  .triage-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-xs);
+  }
+
+  .triage-table th {
+    text-align: left;
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-surface-subtle);
+    color: var(--color-text-muted);
+    font-weight: 600;
+    border-bottom: 1px solid var(--color-border);
+    white-space: nowrap;
+  }
+
+  .triage-table td {
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: middle;
+  }
+
+  .code-col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .date-sub {
+    font-size: 10px;
+    color: var(--color-text-muted);
+  }
+
+  .status-badge {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    display: inline-block;
+  }
+
+  .status-badge.investigating {
+    background: rgba(8, 116, 67, 0.1);
+    color: var(--color-green);
+  }
+
+  .status-badge.council_review {
+    background: #FFFDF0;
+    color: #8C6B00;
+  }
+
+  .status-badge.referred_police {
+    background: rgba(220, 38, 38, 0.1);
+    color: var(--color-danger);
+  }
+
+  .status-badge.new {
+    background: rgba(6, 77, 50, 0.1);
+    color: var(--color-primary);
+  }
+
+  .btn-inspect-case {
+    background: var(--color-surface-subtle);
+    border: 1px solid var(--color-border);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-md);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--color-primary);
+    cursor: pointer;
+    transition: all var(--duration-fast);
+  }
+
+  .btn-inspect-case:hover {
+    background: var(--color-primary);
+    color: var(--color-white);
+  }
+
+  /* Modal */
+  .case-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-4);
+    z-index: 1000;
+  }
+
+  .case-modal {
+    background: var(--color-white);
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: var(--space-4);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .modal-code {
+    font-size: var(--text-xs);
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .modal-title {
+    font-size: var(--text-lg);
+    font-weight: 800;
+    color: var(--color-text);
+    margin: 2px 0 0;
+  }
+
+  .btn-close-modal {
+    background: none;
+    border: none;
+    color: var(--color-text-muted);
+    cursor: pointer;
+  }
+
+  .modal-meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+    font-size: var(--text-xs);
+  }
+
+  .field-label {
+    display: block;
+    color: var(--color-text-muted);
+    font-size: 10px;
+  }
+
+  .modal-complainant-box,
+  .modal-summary-box,
+  .modal-actions-box {
+    background: var(--color-surface-subtle);
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+  }
+
+  .box-title {
+    font-size: var(--text-xs);
+    font-weight: 700;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 var(--space-2);
+  }
+
+  .complainant-details p {
+    font-size: var(--text-xs);
+    margin: 2px 0;
+  }
+
+  .summary-text {
+    font-size: var(--text-xs);
+    color: var(--color-text);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .action-buttons-row {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+</style>

@@ -1,0 +1,1510 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Badge from '../../components/ui/Badge.astro';
+import Button from '../../components/ui/Button.astro';
+import Icon from '../../components/ui/Icon.astro';
+---
+
+<BaseLayout
+  title="The Historical Manifesto | Togh Aman Committee"
+  description="From the Qaumi Chagha to the Togh Peace Committee: A New Era of Collective Awakening. Official bilingual historical charter and ideological foundation of Togh Bala & Payan."
+>
+  <!-- Manifesto Hero Section -->
+  <section class="manifesto-hero" id="manifesto-hero">
+    <!-- Ambient Heritage Glow & Subtle Backdrop Grid -->
+    <div class="manifesto-hero-ambient" aria-hidden="true"></div>
+    <div class="manifesto-hero-grid" aria-hidden="true"></div>
+
+    <div class="container hero-container-centered">
+      <div class="manifesto-hero-inner reveal-on-scroll">
+        <!-- Centered Badge Cluster -->
+        <div class="hero-badge-cluster">
+          <Badge variant="gold">
+            <Icon name="document" size={13} />
+            <span>Official Historical Charter &bull; باضابطہ تاریخی منشور</span>
+          </Badge>
+          <span class="manifesto-status-pill">
+            <Icon name="shield" size={13} class="text-green" />
+            <span>Ideological Foundation &bull; فکری و نظریاتی اساس</span>
+          </span>
+          <span class="manifesto-ratified-pill">
+            <Icon name="balance" size={13} class="text-gold" />
+            <span>22-Member Cabinet Oath &bull; حلف بر قرآن پاک</span>
+          </span>
+        </div>
+
+        <!-- Monumental Headings (100% Center-Aligned) -->
+        <h1 class="manifesto-title en-text">
+          Togh Bala Kohat: From the <span class="highlight-gold">Qaumi Chagha</span> to the Togh Peace Committee
+        </h1>
+        <h2 class="manifesto-subtitle-ur urdu-text" dir="rtl">
+          توغ بالا کوہاٹ: قومی چیغہ سے توغ امن کمیٹی تک — اجتماعی بیداری کا ایک نیا دور
+        </h2>
+
+        <!-- Elegant Heritage Divider -->
+        <div class="hero-crest-divider" aria-hidden="true">
+          <span class="crest-line"></span>
+          <span class="crest-symbol">❖</span>
+          <span class="crest-line"></span>
+        </div>
+
+        <!-- Metadata Strip (Centered) -->
+        <div class="manifesto-lead-meta">
+          <span class="meta-item"><Icon name="calendar" size={14} class="text-green" /> Official Charter</span>
+          <span class="meta-dot">&bull;</span>
+          <span class="meta-item"><Icon name="document" size={14} class="text-gold" /> 14 Codified Chapters</span>
+          <span class="meta-dot">&bull;</span>
+          <span class="meta-item"><Icon name="balance" size={14} class="text-green" /> Unabridged Bilingual Document</span>
+        </div>
+
+        <!-- Interactive Language Switcher Bar (Centered) -->
+        <div class="lang-switch-box" id="lang-switcher">
+          <span class="lang-switch-label">Select Reading Mode &bull; پڑھنے کے انداز کا انتخاب:</span>
+          <div class="lang-btn-group" role="tablist">
+            <button type="button" class="lang-btn active" data-lang="dual" aria-selected="true">
+              <Icon name="check-circle" size={15} class="check-icon" />
+              <span>Bilingual Edition (English + اردو)</span>
+            </button>
+            <button type="button" class="lang-btn" data-lang="en" aria-selected="false">
+              <span>English Only</span>
+            </button>
+            <button type="button" class="lang-btn" data-lang="ur" aria-selected="false">
+              <span class="urdu-text" dir="rtl">صرف اردو ایڈیشن</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Layout (Table of Contents + Reader Body) -->
+  <section class="section manifesto-reader-section">
+    <div class="container manifesto-layout-grid">
+      <!-- Sticky Sidebar Table of Contents -->
+      <aside class="manifesto-toc-col">
+        <div class="manifesto-toc-card card">
+          <div class="toc-header">
+            <Icon name="document" size={18} class="text-gold" />
+            <h3>Index of Chapters &bull; فہرِست مضامین</h3>
+          </div>
+          <nav class="toc-nav" aria-label="Manifesto Chapters">
+            <a href="#ch1" class="toc-link active">
+              <span class="toc-num">01</span>
+              <span class="toc-title">Identity &amp; Qaumi Chagha &bull; قومی چیغہ</span>
+            </a>
+            <a href="#ch2" class="toc-link">
+              <span class="toc-num">02</span>
+              <span class="toc-title">Dark Shift &amp; Drug Infiltration &bull; منشیات کا بحران</span>
+            </a>
+            <a href="#ch3" class="toc-link">
+              <span class="toc-num">03</span>
+              <span class="toc-title">The Spark of Awakening &bull; امن کمیٹی کا ظہور</span>
+            </a>
+            <a href="#ch4" class="toc-link toc-highlight">
+              <span class="toc-num">04</span>
+              <span class="toc-title">Pledge on Holy Quran &bull; قرآن پاک پر حلف</span>
+            </a>
+            <a href="#ch5" class="toc-link">
+              <span class="toc-num">05</span>
+              <span class="toc-title">Night Patrols &amp; Police Action &bull; رات کے گشت</span>
+            </a>
+            <a href="#ch6" class="toc-link">
+              <span class="toc-num">06</span>
+              <span class="toc-title">Revenge vs Reform &amp; Rehab &bull; اصلاح و بحالی</span>
+            </a>
+            <a href="#ch7" class="toc-link">
+              <span class="toc-num">07</span>
+              <span class="toc-title">Standing Against Immoral Gatherings &bull; فائرنگ کا مقابلہ</span>
+            </a>
+            <a href="#ch8" class="toc-link">
+              <span class="toc-num">08</span>
+              <span class="toc-title">Jirga &amp; Siding with Oppressed &bull; جرگہ اور مظلوم</span>
+            </a>
+            <a href="#ch9" class="toc-link">
+              <span class="toc-num">09</span>
+              <span class="toc-title">Root Financiers &amp; Patrons &bull; اصل سرپرستوں کا احتساب</span>
+            </a>
+            <a href="#ch10" class="toc-link">
+              <span class="toc-num">10</span>
+              <span class="toc-title">Shamilat Lands &amp; Common Rights &bull; شاملات اراضی</span>
+            </a>
+            <a href="#ch11" class="toc-link">
+              <span class="toc-num">11</span>
+              <span class="toc-title">Supporting Scholars &amp; Youth &bull; علماء اور تعلیم</span>
+            </a>
+            <a href="#ch12" class="toc-link">
+              <span class="toc-num">12</span>
+              <span class="toc-title">Awakening of Whole Community &bull; قوم کی بیداری</span>
+            </a>
+            <a href="#ch13" class="toc-link">
+              <span class="toc-num">13</span>
+              <span class="toc-title">Universal Call to Action &bull; عوامی حمایت کی پکار</span>
+            </a>
+            <a href="#ch14" class="toc-link">
+              <span class="toc-num">14</span>
+              <span class="toc-title">Restoring True Identity &bull; حقیقی وقار کی بحالی</span>
+            </a>
+          </nav>
+
+          <div class="toc-footer">
+            <a href="/about" class="toc-back-link">
+              <Icon name="arrow-right" size={14} class="flip-icon" />
+              <span>Back to About Portal</span>
+            </a>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Reader Column -->
+      <article class="manifesto-article-col" id="manifesto-reader">
+
+        <!-- Chapter 1 -->
+        <section class="manifesto-chapter card" id="ch1">
+          <div class="chapter-meta-tag">
+            <span class="chapter-badge">Chapter 01</span>
+            <span class="chapter-tag-ur urdu-text" dir="rtl">باب اول: تاریخی تشخص اور روایات</span>
+          </div>
+
+          <div class="bilingual-block">
+            <div class="lang-col en-col">
+              <h2 class="chapter-title">Historical Identity and the Heritage of the Qaumi Chagha</h2>
+              <p>
+                Togh Bala Kohat is not merely a village or a geographical area. It is a land with a distinct historical identity, rich traditions, and a strong collective spirit.
+              </p>
+              <p>
+                The area has long been known for its hospitality, peaceful nature, hard work, agriculture, masonry, skilled craftsmanship, education, moral upbringing, sincerity, and collective unity. The greatest strength of its people has always been their mutual bonds and sense of national solidarity.
+              </p>
+              <p>
+                One of the most beautiful symbols of this historical identity has been the <em>Qaumi Chagha</em>. In Pashtun society, the Chagha is not merely a call, a cry, or a traditional garment; it has also represented unity, solidarity, mutual belonging, and collective strength. This spirit of togetherness once influenced the surrounding areas and established Togh Bala as a powerful example of communal unity and cooperation.
+              </p>
+            </div>
+
+            <div class="lang-col ur-col" dir="rtl">
+              <h2 class="chapter-title urdu-text">تاریخی تشخص، روایات اور قومی چیغہ کی روح</h2>
+              <p class="urdu-text">
+                توغ بالا کوہاٹ محض ایک گاؤں یا جغرافیائی خطے کا نام نہیں، بلکہ یہ ایک منفرد تاریخی تشخص، شاندار روایات اور بے مثال اجتماعی شعور کی زرخیز سرزمین ہے۔
+              </p>
+              <p class="urdu-text">
+                یہ خطہ ہمیشہ سے اپنی مہمان نوازی، امن پسندی، محنت کشی، زراعت، راج گیری (مستری کے ہنر)، کاریگری، تعلیم و تربیت، خلوص اور باہمی اتفاق و اتحاد کے لیے پہچانا جاتا رہا ہے۔ یہاں کے باسیوں کی سب سے بڑی طاقت ان کا باہمی اخوت کا رشتہ اور قومی یکجہتی تھی۔
+              </p>
+              <p class="urdu-text">
+                اس تاریخی تشخص کی خوبصورت ترین علامت ”قومی چیغہ“ رہی ہے۔ پشتون معاشرے میں چیغہ محض ایک پکار، صدا یا روایتی پٹکا نہیں تھا، بلکہ یہ اتحاد، یکجہتی، باہمی یگانگت اور اجتماعی طاقت کا مظہر تھا۔ اس یکجہتی کی روح نے گرد و نواح کے علاقوں کو بھی متاثر کیا اور توغ بالا کو باہمی تعاون کی ایک روشن مثال بنا دیا۔
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Chapter 2 -->
+        <section class="manifesto-chapter card" id="ch2">
+          <div class="chapter-meta-tag">
+            <span class="chapter-badge">Chapter 02</span>
+            <span class="chapter-tag-ur urdu-text" dir="rtl">باب دوم: تاریکی کا آغاز اور منشیات کا ناسور</span>
+          </div>
+
+          <div class="bilingual-block">
+            <div class="lang-col en-col">
+              <h2 class="chapter-title">The Onset of Darkness and Social Degradation</h2>
+              <p>
+                But then, the course of time began to change circumstances.
+              </p>
+              <p>
+                Gradually, the area that had once been recognized for peace, dignity, hard work, and collective awareness became increasingly affected by various social evils. The situation deteriorated to the point where individuals from surrounding areas notorious for criminal activities began coming here and becoming involved in drug consumption and trafficking.
+              </p>
+              <p>
+                Ice (crystal methamphetamine), heroin, cannabis, narcotic medications, and other drugs began sounding an alarm for the younger generation and the future of the community. Land mafias, criminal groups, and networks of individuals operating unlawfully began establishing their influence. This happened because one crime often grows and flourishes through its connection with other crimes.
+              </p>
+            </div>
+
+            <div class="lang-col ur-col" dir="rtl">
+              <h2 class="chapter-title urdu-text">حالات کی تبدیلی، سماجی برائیاں اور منشیات کا زہر</h2>
+              <p class="urdu-text">
+                لیکن پھر وقت کی گردش نے حالات کا رخ بدلنا شروع کر دیا۔
+              </p>
+              <p class="urdu-text">
+                رفتہ رفتہ وہ پرامن خطہ جو عزت، محنت اور اجتماعی بیداری کی علامت تھا، مختلف سماجی برائیوں کی لپیٹ میں آنے لگا۔ صورتحال اس نہج تک جا پہنچی کہ گرد و نواح کے جرائم پیشہ علاقوں سے بدنام عناصر یہاں آ کر ڈیرے جمانے لگے اور منشیات کے استعمال و اسمگلنگ میں ملوث ہو گئے۔
+              </p>
+              <p class="urdu-text">
+                آئس (کرسٹل میتھ)، ہیروئن، چرس، نشہ آور گولیاں اور دیگر زہریلی منشیات نے نوجوان نسل اور مستقبل کے لیے خطرے کی گھنٹی بجا دی۔ لینڈ مافیا، جرائم پیشہ گروہ اور غیر قانونی نیٹ ورکس نے اپنے پنجے گاڑنا شروع کر دیے۔ کیونکہ ایک جرم ہمیشہ دوسرے جرائم کے سہارے پروان چڑھتا ہے۔
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Chapter 3 -->
+        <section class="manifesto-chapter card" id="ch3">
+          <div class="chapter-meta-tag">
+            <span class="chapter-badge">Chapter 03</span>
+            <span class="chapter-tag-ur urdu-text" dir="rtl">باب سوم: بیداری کی چنگاری اور تحریک کا قیام</span>
+          </div>
+
+          <div class="bilingual-block">
+            <div class="lang-col en-col">
+              <h2 class="chapter-title">The Spark of Awakening: The Togh Peace Committee</h2>
+              <p>
+                Yet history teaches us that when a nation's collective consciousness remains alive, darkness cannot prevail forever.
+              </p>
+              <p>
+                A spark emerged in the midst of that darkness. And that spark took the form of the <strong>Togh Peace Committee</strong>.
+              </p>
+              <p>
+                This was not a movement belonging to one individual, one family, one political party, or one particular group. Social workers, people with different political affiliations, religious scholars, students, young people, and individuals from various walks of life came together on a common platform.
+              </p>
+              <div class="mandate-callout">
+                <strong>Their objective was clear:</strong>
+                To rid their area of crime, drugs, insecurity, land mafias, and social evils; to challenge groups allegedly monopolizing the area's fundamental rights; and to place collective interests above personal gain.
+              </div>
+            </div>
+
+            <div class="lang-col ur-col" dir="rtl">
+              <h2 class="chapter-title urdu-text">تاریکی میں امید کی کرن — توغ امن کمیٹی کا ظہور</h2>
+              <p class="urdu-text">
+                مگر تاریخ گواہ ہے کہ جب کسی قوم کا اجتماعی ضمیر زندہ ہو، تو تاریکی کبھی ہمیشہ نہیں رہ سکتی۔
+              </p>
+              <p class="urdu-text">
+                اسی گھٹن اور اندھیرے میں سے ایک چنگاری پھوٹی۔ اور وہ چنگاری <strong>”توغ امن کمیٹی“</strong> کی صورت میں نمودار ہوئی۔
+              </p>
+              <p class="urdu-text">
+                یہ کسی ایک فرد، ایک خاندان، ایک سیاسی جماعت یا کسی مخصوص گروہ کی تحریک نہیں تھی۔ سماجی کارکنان، مختلف سیاسی وابستگی رکھنے والے افراد، علمائے کرام، طلباء، نوجوان اور مختلف مکاتبِ فکر کے لوگ ایک مشترکہ پلیٹ فارم پر متحد ہو گئے۔
+              </p>
+              <div class="mandate-callout urdu-text">
+                <strong>ان کا ہدف بالکل واضح اور دوٹوک تھا:</strong>
+                اپنے علاقے کو جرائم، منشیات، بدامنی، قبضہ مافیا اور سماجی برائیوں سے پاک کرنا؛ علاقے کے بنیادی حقوق پر مبینہ اجارہ داری قائم کرنے والوں کو للکارنا؛ اور ذاتی مفادات پر اجتماعی مفادات کو فوقیت دینا۔
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Chapter 4: Sacred Oath Monument -->
+        <section class="manifesto-chapter card card-gold-accent oath-chapter" id="ch4">
+          <div class="chapter-meta-tag">
+            <span class="chapter-badge gold-badge">Chapter 04 &bull; Sacred Mandate</span>
+            <span class="chapter-tag-ur urdu-text" dir="rtl">باب چہارم: قرآنِ پاک پر حلف کا مقدس عہد</span>
+          </div>
+
+          <div class="oath-monument-banner">
+            <Icon name="balance" size={32} class="text-gold" />
+            <h2 class="oath-heading">A Pledge Taken with the Holy Quran</h2>
+            <h3 class="oath-heading-ur urdu-text" dir="rtl">قرآنِ پاک پر حلف — باضابطہ اور اٹوٹ عہد</h3>
+          </div>
+
+          <div class="bilingual-block">
+            <div class="lang-col en-col">
+              <p>
+                The 22-member cabinet of the Togh Peace Committee took an oath with their hands on the Holy Quran, pledging before Allah Almighty, with the teachings of the Holy Prophet Muhammad (peace be upon him) as their guiding principles, that they would never betray the interests of the Togh community or its people.
+              </p>
+              <blockquote class="oath-quote">
+                "This pledge was more than a collection of words. It was a commitment to work sincerely for the collective good, rise above personal interests, refuse to remain silent in the face of injustice, and never abandon a fellow member during difficult times."
+              </blockquote>
+              <p>
+                Every member understood that if anyone attempted to harm a fellow committee member, the entire committee would stand beside that person, support them collectively, and pursue lawful means of protection and defense. No member would be left to face such circumstances alone.
+              </p>
+            </div>
+
+            <div class="lang-col ur-col" dir="rtl">
+              <p class="urdu-text">
+                توغ امن کمیٹی کی 22 رکنی کابینہ نے قرآنِ پاک پر ہاتھ رکھ کر اللہ تعالیٰ کو گواہ بنا کر اور نبی کریم ﷺ کے اسوۂ حسنہ کو مشعلِ راہ بناتے ہوئے حلف اٹھایا کہ وہ کبھی توغ کے عوام اور علاقے کے حقوق سے خیانت نہیں کریں گے۔
+              </p>
+              <blockquote class="oath-quote urdu-text">
+                ”یہ حلف محض الفاظ کا مجموعہ نہیں تھا۔ یہ اجتماعی مفاد کے لیے مخلصانہ کام کرنے، ذاتی غرض سے بالاتر ہونے، ظلم کے سامنے خاموش نہ رہنے، اور مشکل وقت میں اپنے کسی ساتھی کو تنہا نہ چھوڑنے کا فولادی عہد تھا۔“
+              </blockquote>
+              <p class="urdu-text">
+                ہر رکن یہ جانتا تھا کہ اگر کسی نے کمیٹی کے کسی ساتھی کو نقصان پہنچانے کی کوشش کی، تو پوری کمیٹی اس کے شانہ بشانہ کھڑی ہوگی، اجتماعی دفاع کرے گی، اور قانونی ذرائع سے تحفظ فراہم کرے گی۔ کسی کو تنہا نہیں چھوڑا جائے گا۔
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Chapter 5 -->
+        <section class="manifesto-chapter card" id="ch5">
+          <div class="chapter-meta-tag">
+            <span class="chapter-badge">Chapter 05</span>
+            <span class="chapter-tag-ur urdu-text" dir="rtl">باب پنجم: رات کے گشت اور قانون کی عملداری</span>
+          </div>
+
+          <div class="bilingual-block">
+            <div class="lang-col en-col">
+              <h2 class="chapter-title">Night Patrols and a Practical Fight Against Drugs</h2>
+              <p>
+                After taking the oath, the committee did not limit its work to speeches and promises.
+              </p>
+              <p>
+                Young members of the Togh Peace Committee began conducting night patrols. Individuals suspected of drug trafficking were identified, evidence was collected with due care, and arrested individuals were handed over to the police.
+              </p>
+              <p>
+                Whenever concerns arose that a suspected drug dealer might allegedly be receiving local protection or patronage, the committee chose not to remain silent. Instead, it contacted senior officials, other police stations, and relevant authorities.
+              </p>
+              <p>
+                The objective was not to confront institutions but to ensure that the law was set in motion. As a result, cases were registered against several individuals, arrests were made, and suspects were taken to jail on the basis of evidence.
+              </p>
+              <p>
+                This work was far from easy. The members faced hostility, resistance, threats, and serious risks. Yet these courageous young people did not retreat. Instead, they continued moving forward with growing determination, courage, and confidence.
+              </p>
+            </div>
+
+            <div class="lang-col ur-col" dir="rtl">
+              <h2 class="chapter-title urdu-text">رات کے گشت اور منشیات کے خلاف عملی جدوجہد</h2>
+              <p class="urdu-text">
+                حلف اٹھانے کے بعد کمیٹی نے خود کو بیانات اور کھوکھلے وعدوں تک محدود نہیں رکھا۔
+              </p>
+              <p class="urdu-text">
+                توغ امن کمیٹی کے نڈر نوجوانوں نے راتوں کو گشت شروع کیا۔ منشیات فروشی کے مشتبہ عناصر کی نشاندہی کی گئی، ٹھوس شواہد اکٹھے کیے گئے، اور ملزمان کو پکڑ کر قانون اور پولیس کے حوالے کیا گیا۔
+              </p>
+              <p class="urdu-text">
+                جب کبھی یہ خدشہ پیدا ہوا کہ کسی منشیات فروش کو مبینہ طور پر مقامی پشت پناہی حاصل ہے، تو کمیٹی خاموش نہیں بیٹھی، بلکہ اعلیٰ حکام، دیگر تھانوں اور متعلقہ مقتدر اداروں سے فوری رابطہ کیا۔
+              </p>
+              <p class="urdu-text">
+                مقصد اداروں سے تصادم نہیں، بلکہ قانون کو حرکت میں لانا تھا۔ نتیجتاً متعدد ملزمان کے خلاف مقدمات درج ہوئے، گرفتاریاں عمل میں آئیں، اور شواہد کی بنیاد پر ملزمان کو جیل کی سلاخوں کے پیچھے بھیجا گیا۔
+              </p>
+              <p class="urdu-text">
+                یہ سفر آسان نہیں تھا۔ راستے میں دھمکیاں، خطرات، عداوتیں اور سنگین رکاوٹیں آئیں، مگر ان نوجوانوں نے پیچھے ہٹنے کے بجائے مزید عزم اور ہمت کے ساتھ قدم آگے بڑھائے۔
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Chapter 6: Revenge vs Reform Matrix -->
+        <section class="manifesto-chapter card" id="ch6">
+          <div class="chapter-meta-tag">
+            <span class="chapter-badge">Chapter 06</span>
+            <span class="chapter-tag-ur urdu-text" dir="rtl">باب ششم: انتقام اور اصلاح میں فرق — بحالی و راشن</span>
+          </div>
+
+          <div class="bilingual-block">
+            <div class="lang-col en-col">
+              <h2 class="chapter-title">Drug Dealers Must Be Held Accountable, but People Suffering from Addiction Also Need Help</h2>
+              <p>
+                The Togh Peace Committee recognized an important distinction:
+              </p>
+              <p>
+                A person involved in drug trafficking commits a criminal act, whereas a person suffering from addiction may also be in need of medical treatment, rehabilitation, and social support.
+              </p>
+              <p>
+                Guided by this understanding, the committee helped arrange treatment for people struggling with drug addiction by coordinating with rehabilitation centers and relevant organizations in Kohat and Peshawar.
+              </p>
+              <p>
+                Some of these individuals had no parents or effective family support to look after them. Alongside their treatment, arrangements were made to deliver food supplies to their homes so that innocent family members would not have to suffer because of a loved one's illness.
+              </p>
+              <div class="reform-callout">
+                <strong>The Core Principle:</strong>
+                This is the difference between revenge and reform. It reflects an approach that seeks accountability for crime while preserving compassion for people who need help and rehabilitation.
+              </div>
+            </div>
+
+            <div class="lang-col ur-col" dir="rtl">
+              <h2 class="chapter-title urdu-text">منشیات فروشوں کا محاسبہ، مگر نشے کے شکار مریضوں کا علاج</h2>
+              <p class="urdu-text">
+                توغ امن کمیٹی نے ایک انتہائی اہم اور باریک فرق کو ملحوظ رکھا:
+              </p>
+              <p class="urdu-text">
+                منشیات بیچنے والا ایک مجرم ہے، جبکہ نشے کا شکار ہونے والا فرد علاج، بحالی اور ہمدردی کا مستحق مریض ہے۔
+              </p>
+              <p class="urdu-text">
+                اس بصیرت کے تحت کمیٹی نے کوہاٹ اور پشاور کے بحالی مراکز کے ساتھ مل کر نشے کے عادی افراد کے علاج و معالجے کا باضابطہ بندوبست کیا۔
+              </p>
+              <p class="urdu-text">
+                ان میں سے کئی افراد ایسے تھے جن کے والدین نہیں تھے یا گھر میں کوئی سہارا نہ تھا۔ علاج کے ساتھ ساتھ ان کے گھروں میں باقاعدہ راشن اور خوراک پہنچائی گئی تاکہ کسی کی بیماری اور مجبوری کی سزا اس کے معصوم اہل و عیال کو فاقہ کشی کی صورت میں نہ بھگتنی پڑے۔
+              </p>
+              <div class="reform-callout urdu-text">
+                <strong>بنیادی نظریہ:</strong>
+                یہی انتقام اور اصلاح کے درمیان حقیقی فرق ہے۔ ایک ایسا راستہ جو جرم کا سختی سے محاسبہ کرتا ہے مگر ساتھ ہی اصلاح، ہمدردی اور بحالی کے دروازے کھلے رکھتا ہے۔
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Chapter 7 -->
+        <section class="manifesto-chapter card" id="ch7">
+          <div class="chapter-meta-tag">
+            <span class="chapter-badge">Chapter 07</span>
+            <span class="chapter-tag-ur urdu-text" dir="rtl">باب ہفتم: غیر اخلاقی محافل کے خلاف آواز اور دھمکیوں کا مقابلہ</span>
+          </div>
+
+          <div class="bilingual-block">
+            <div class="lang-col en-col">
+              <h2 class="chapter-title">Raising a Voice Against Immoral Gatherings and Harmful Activities</h2>
+              <p>
+                During night patrols, another serious social concern came to light. The committee raised its voice against gatherings involving dancing and entertainment that it considered immoral, gambling, and other activities harmful to social values and the younger generation.
+              </p>
+              <p>
+                This issue proved even more challenging. Names and alleged involvement of influential families, powerful individuals, wealthy people, and those with various forms of political influence reportedly emerged in connection with such gatherings.
+              </p>
+              <p>
+                Resistance followed. Threats were made. There were even reports of life-threatening attacks and incidents of gunfire. Attempts to obtain police assistance also proved unsuccessful at times.
+              </p>
+              <blockquote class="bold-warning-quote">
+                "Power, wealth, and influence must never be considered greater than the law or the collective interests of the community."
+              </blockquote>
+            </div>
+
+            <div class="lang-col ur-col" dir="rtl">
+              <h2 class="chapter-title urdu-text">غیر اخلاقی محافل اور سماجی ناسوروں کے خلاف دوٹوک مؤقف</h2>
+              <p class="urdu-text">
+                رات کے گشت کے دوران ایک اور سنگین سماجی مسئلہ سامنے آیا۔ کمیٹی نے ناچ گانے کی غیر اخلاقی محافل، جوئے اور نوجوان نسل کے اخلاق کو تباہ کرنے والی سرگرمیوں کے خلاف بھرپور آواز اٹھائی۔
+              </p>
+              <p class="urdu-text">
+                یہ محاذ منشیات سے بھی زیادہ کٹھن ثابت ہوا۔ کیونکہ ایسی محافل کے پیچھے بااثر خاندانوں، صاحبِ ثروت افراد اور مختلف سیاسی تعلق رکھنے والوں کے نام سامنے آ رہے تھے۔
+              </p>
+              <p class="urdu-text">
+                شدید مزاحمت کا سامنا کرنا پڑا۔ دھمکیاں دی گئیں۔ یہاں تک کہ جان لیوا حملے اور فائرنگ کے واقعات بھی پیش آئے۔ جب بعض اوقات پولیس سے مدد مانگی گئی تو جواب نفی میں ملا۔
+              </p>
+              <blockquote class="bold-warning-quote urdu-text">
+                ”طاقت، دولت اور اثر و رسوخ کبھی بھی قانون اور قوم کے اجتماعی مفاد سے بالاتر نہیں ہو سکتے۔“
+              </blockquote>
+            </div>
+          </div>
+        </section>
+
+        <!-- Chapter 8 -->
+        <section class="manifesto-chapter card" id="ch8">
+          <div class="chapter-meta-tag">
+            <span class="chapter-badge">Chapter 08</span>
+            <span class="chapter-tag-ur urdu-text" dir="rtl">باب ہشتم: روایتی جرگہ، عدل و انصاف اور مظلوم کی داد رسی</span>
+          </div>
+
+          <div class="bilingual-block">
+            <div class="lang-col en-col">
+              <h2 class="chapter-title">Jirga, Justice, and Standing Beside the Oppressed</h2>
+              <p>
+                The Togh Peace Committee's mission is not limited to fighting drugs. Whenever disputes arise between people, the committee attempts to resolve them through the traditional <em>Jirga</em> system.
+              </p>
+              <p>
+                Whenever someone faces injustice, the committee seeks to stand beside the aggrieved person. Where necessary, legal proceedings through courts and other lawful channels are also pursued.
+              </p>
+              <p>
+                Funds have been collected, support has been provided to people in need, and the committee has maintained one fundamental principle:
+              </p>
+              <div class="principle-banner">
+                <strong>What is right must be called right, and silence must not become an option in the face of oppression and injustice.</strong>
+              </div>
+            </div>
+
+            <div class="lang-col ur-col" dir="rtl">
+              <h2 class="chapter-title urdu-text">جرگہ، انصاف اور مظلوم کا غیر مشروط ساتھ</h2>
+              <p class="urdu-text">
+                توغ امن کمیٹی کا دائرہ کار صرف منشیات تک محدود نہیں ہے۔ جب بھی عوام میں تنازعات پیدا ہوتے ہیں، کمیٹی روایتی پشتون جرگہ نظام کے ذریعے صلح اور عدل و انصاف کی کوشش کرتی ہے۔
+              </p>
+              <p class="urdu-text">
+                جب بھی کسی کے ساتھ ناانصافی یا ظلم ہوتا ہے، کمیٹی مظلوم کے ساتھ ڈٹ کر کھڑی ہوتی ہے۔ جہاں ضرورت پڑے، عدالتوں اور قانونی ذرائع کے ذریعے پیروی کی جاتی ہے۔
+              </p>
+              <p class="urdu-text">
+                فنڈز جمع کر کے مستحقین کی مدد کی جاتی ہے، اور کمیٹی کا ایک ہی بنیادی اصول ہے:
+              </p>
+              <div class="principle-banner urdu-text">
+                <strong>حق کو حق کہنا ہوگا، اور ظلم کے سامنے خاموشی اختیار کرنا کوئی آپشن نہیں۔</strong>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Chapter 9 -->
+        <section class="manifesto-chapter card" id="ch9">
+          <div class="chapter-meta-tag">
+            <span class="chapter-badge">Chapter 09</span>
+            <span class="chapter-tag-ur urdu-text" dir="rtl">باب نہم: اصل خوف کہاں سے ہے؟ پشت پناہوں کا محاسبہ</span>
+          </div>
+
+          <div class="bilingual-block">
+            <div class="lang-col en-col">
+              <h2 class="chapter-title">Where Is the Real Fear Coming From? Unmasking Root Financiers</h2>
+              <p>
+                Perhaps the greatest unease is being felt by those who move through society under the appearance of respectability but have faced allegations of serious financial and social irregularities.
+              </p>
+              <p>
+                The reality is that the person selling drugs may often be only the final link in a much larger chain.
+              </p>
+              <ul class="investigation-list">
+                <li>Who stands behind that person?</li>
+                <li>Who provides the money?</li>
+                <li>Who offers protection?</li>
+                <li>Who benefits financially from this business?</li>
+              </ul>
+              <p>
+                These are questions that both society and law enforcement must investigate and answer. The Togh Peace Committee's position is clear: if a powerful, political, business, or influential individual is involved behind a criminal operation, the law must reach that person as well.
+              </p>
+              <blockquote class="bold-warning-quote">
+                "Catching a minor participant while protecting the principal figures is not justice."
+              </blockquote>
+            </div>
+
+            <div class="lang-col ur-col" dir="rtl">
+              <h2 class="chapter-title urdu-text">اصل خوف کہاں سے آرہا ہے؟ پشت پناہ اور سرمایہ کاروں کا احتساب</h2>
+              <p class="urdu-text">
+                شاید سب سے زیادہ اضطراب اور بے چینی ان حلقوں میں پائی جاتی ہے جو شرافت کا لبادہ اوڑھ کر سنگین مالی و سماجی بے ضابطگیوں میں ملوث رہے ہیں۔
+              </p>
+              <p class="urdu-text">
+                حقیقت یہ ہے کہ سڑک پر نشہ بیچنے والا شخص تو محض اس زنجیر کی آخری کڑی ہوتا ہے۔
+              </p>
+              <ul class="investigation-list urdu-text">
+                <li>اس کے پیچھے اصل ہاتھ کس کا ہے؟</li>
+                <li>پیسہ کون فراہم کرتا ہے؟</li>
+                <li>پشت پناہی کون دیتا ہے؟</li>
+                <li>اس گھناؤنے کاروبار سے مالی فوائد کس کے تجوریوں میں جا رہے ہیں؟</li>
+              </ul>
+              <p class="urdu-text">
+                یہ وہ سوالات ہیں جن کی تفتیش ریاست اور قانون نافذ کرنے والے اداروں کو کرنی ہوگی۔ توغ امن کمیٹی کا مؤقف دوٹوک ہے: اگر کسی جرائم کے نیٹ ورک کے پیچھے کوئی طاقتور، سیاسی، کاروباری یا بااثر چہرہ ہے، تو قانون کا ہاتھ اس کے گریبان تک بھی پہنچنا چاہیے۔
+              </p>
+              <blockquote class="bold-warning-quote urdu-text">
+                ”چھوٹے مجرم کو پکڑنا اور اصل سرغنہ کو بچا لینا ہرگز انصاف نہیں ہے۔“
+              </blockquote>
+            </div>
+          </div>
+        </section>
+
+        <!-- Chapter 10 -->
+        <section class="manifesto-chapter card" id="ch10">
+          <div class="chapter-meta-tag">
+            <span class="chapter-badge">Chapter 10</span>
+            <span class="chapter-tag-ur urdu-text" dir="rtl">باب دہم: سفر ابھی باقی ہے — شاملات اراضی کا تحفظ</span>
+          </div>
+
+          <div class="bilingual-block">
+            <div class="lang-col en-col">
+              <h2 class="chapter-title">The Journey Is Far from Over: Communal Lands (Shamilat)</h2>
+              <p>
+                The Togh Peace Committee's struggle will not remain limited to drugs, controversial gatherings, and criminal activities. In the next phase, other issues affecting the collective interests of the community will also be brought forward.
+              </p>
+              <p>
+                These include land mafias, illegal occupation groups, unlawful encroachments on communal lands and <em>Shamilat</em>—shared community land—public resources, and matters concerning the community's collective interests.
+              </p>
+              <p>
+                Efforts will be made to bring cases of alleged illegal occupation of communal lands to light and pursue appropriate legal remedies. Those accused of depriving orphans, widows, vulnerable individuals, and ordinary residents of Togh Bala of their rightful entitlements must be held accountable through lawful and transparent processes.
+              </p>
+              <p>
+                Similarly, wherever public or collective interests are being harmed within federal or other government institutions, the committee intends to seek answers from the relevant authorities through constitutional and legal channels.
+              </p>
+              <div class="mandate-callout">
+                <strong>The Ultimate Objective:</strong> To ensure that every rightful claimant receives what is rightfully theirs.
+              </div>
+            </div>
+
+            <div class="lang-col ur-col" dir="rtl">
+              <h2 class="chapter-title urdu-text">سفر ابھی ختم نہیں ہوا — شاملات اراضی اور یتیموں کے حقوق</h2>
+              <p class="urdu-text">
+                توغ امن کمیٹی کی جدوجہد صرف منشیات اور محافل تک محدود نہیں رہے گی۔ اگلے مرحلے میں علاقے کے دیگر بڑے اجتماعی مسائل کو حل کیا جائے گا۔
+              </p>
+              <p class="urdu-text">
+                ان میں لینڈ مافیا، غیر قانونی قبضہ گروپس، اجتماعی اراضی اور ”شاملات“ پر ناجائز قبضے، سرکاری وسائل کی حفاظت، اور عوام کے غصب شدہ حقوق شامل ہیں۔
+              </p>
+              <p class="urdu-text">
+                یتیموں، بیواؤں، غریبوں اور توغ بالا کے عام باسیوں کے حقوق چھیننے والوں کا قانونی اور شفاف طریقے سے کڑا محاسبہ کیا جائے گا۔ ان کے معاملات کو برادری کے سامنے لایا جائے گا اور قانون کے مطابق جوابدہ بنایا جائے گا۔
+              </p>
+              <p class="urdu-text">
+                اسی طرح وفاقی اور صوبائی محکموں میں جہاں کہیں عوامی حقوق پر ڈاکہ ڈالا جا رہا ہے، کمیٹی باقاعدہ آئینی اور قانونی ذرائع سے متعلقہ مقتدر اداروں سے بازپرس کرے گی۔
+              </p>
+              <div class="mandate-callout urdu-text">
+                <strong>حتمی مقصد:</strong> ہر حقدار کو اس کا جائز اور آئینی حق ملنا چاہیے۔
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Chapter 11 -->
+        <section class="manifesto-chapter card" id="ch11">
+          <div class="chapter-meta-tag">
+            <span class="chapter-badge">Chapter 11</span>
+            <span class="chapter-tag-ur urdu-text" dir="rtl">باب یازدہم: علمائے کرام، مساجد اور نوجوانوں کا مستقبل</span>
+          </div>
+
+          <div class="bilingual-block">
+            <div class="lang-col en-col">
+              <h2 class="chapter-title">Supporting Religious Scholars, Educational Institutions, and Youth</h2>
+              <p>
+                The young members of the Togh Peace Committee do not take to the streets only to oppose crime.
+              </p>
+              <p>
+                They also provide security and organizational assistance to religious scholars, seminaries, and religious programmes. They are committed to supporting education and standing alongside students and young people who represent the future of the community.
+              </p>
+              <p>
+                Their purpose is not merely to oppose wrongdoing but to help build a safe, organized, peaceful, and responsible society.
+              </p>
+            </div>
+
+            <div class="lang-col ur-col" dir="rtl">
+              <h2 class="chapter-title urdu-text">علمائے کرام، دینی مدارس اور نوجوان نسل کی پشت پناہی</h2>
+              <p class="urdu-text">
+                توغ امن کمیٹی کے نوجوان صرف برائی اور جرائم کو روکنے کے لیے سڑکوں پر نہیں نکلتے۔
+              </p>
+              <p class="urdu-text">
+                بلکہ وہ علمائے کرام، مساجد، دینی مدارس اور مذہبی اجتماعات کو سیکورٹی اور انتظامی تعاون بھی فراہم کرتے ہیں۔ وہ تعلیم کے فروغ اور نوجوانوں کے روشن مستقبل کے لیے شانہ بشانہ کھڑے ہیں۔
+              </p>
+              <p class="urdu-text">
+                ان کا مقصد صرف نفی کی سیاست نہیں بلکہ ایک محفوظ، منظم، پرامن اور بیدار معاشرے کی تعمیر ہے۔
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Chapter 12 -->
+        <section class="manifesto-chapter card" id="ch12">
+          <div class="chapter-meta-tag">
+            <span class="chapter-badge">Chapter 12</span>
+            <span class="chapter-tag-ur urdu-text" dir="rtl">باب دوازدہم: پوری قوم کی بیداری کا دور</span>
+          </div>
+
+          <div class="bilingual-block">
+            <div class="lang-col en-col">
+              <h2 class="chapter-title">This Is Not One Person's Fight. It Is the Awakening of an Entire Community</h2>
+              <p>
+                Perhaps for the first time in Togh Bala's history, a collective movement has emerged that encourages young people to move beyond complaints and take practical responsibility for their society.
+              </p>
+              <ul class="movement-core-points">
+                <li>This movement is not an act of personal revenge against any individual.</li>
+                <li>It is not a war against any family.</li>
+                <li>It is not a campaign against any political party.</li>
+                <li>It is not a rebellion against any institution.</li>
+              </ul>
+              <p>
+                It is a principled voice calling for: the rule of law against crime, resistance against drug trafficking, a voice against injustice, solidarity with the oppressed, collective interests above personal gain, and the restoration of Togh Bala's identity as a community of peace, dignity, education, hard work, and unity.
+              </p>
+              <blockquote class="bold-warning-quote">
+                "We will not be bought. We will not bow to unlawful pressure. We will not betray our collective interests."
+              </blockquote>
+            </div>
+
+            <div class="lang-col ur-col" dir="rtl">
+              <h2 class="chapter-title urdu-text">یہ کسی ایک فرد کی جنگ نہیں، پوری قوم کی بیداری ہے</h2>
+              <p class="urdu-text">
+                شاید توغ بالا کی تاریخ میں پہلی بار ایک ایسی منظم تحریک کھڑی ہوئی ہے جس نے نوجوانوں کو گلے شکوؤں سے نکال کر اپنی دھرتی کی عملی ذمہ داری اٹھانے پر آمادہ کیا ہے۔
+              </p>
+              <ul class="movement-core-points urdu-text">
+                <li>یہ کسی فرد کے خلاف ذاتی انتقام نہیں۔</li>
+                <li>یہ کسی خاندان کے خلاف جنگ نہیں۔</li>
+                <li>یہ کسی سیاسی پارٹی کے خلاف مہم نہیں۔</li>
+                <li>یہ کسی ادارے کے خلاف بغاوت نہیں۔</li>
+              </ul>
+              <p class="urdu-text">
+                بلکہ یہ ایک اصولی آواز ہے: جرائم کے خلاف قانون کی بالادستی، منشیات کے ناسور کا خاتمہ، ناانصافی کے خلاف علمِ بغاوت، مظلوم کا ساتھ، ذاتی مفاد پر قومی مفاد کی فوقیت، اور توغ بالا کے امن، عزت، علم، محنت اور یکجہتی کے تاریخی وقار کی بحالی۔
+              </p>
+              <blockquote class="bold-warning-quote urdu-text">
+                ”ہم نہ بکیں گے، نہ جھکیں گے، اور نہ ہی اپنی قوم کے حقوق کا سودا کریں گے۔“
+              </blockquote>
+            </div>
+          </div>
+        </section>
+
+        <!-- Chapter 13 -->
+        <section class="manifesto-chapter card" id="ch13">
+          <div class="chapter-meta-tag">
+            <span class="chapter-badge">Chapter 13</span>
+            <span class="chapter-tag-ur urdu-text" dir="rtl">باب سیزدہم: ہر شہری اور اوورسیز بھائیوں کے لیے پکار</span>
+          </div>
+
+          <div class="bilingual-block">
+            <div class="lang-col en-col">
+              <h2 class="chapter-title">A Movement That Needs the Participation of Everyone</h2>
+              <p>
+                The members of this committee are human beings, not angels. They are not free from human limitations, and their actions are subject to scrutiny and careful observation. No individual or organization should be considered beyond accountability.
+              </p>
+              <p>
+                Nevertheless, the changes being witnessed amid the difficult circumstances of the village demonstrate the potential of genuine efforts toward peace and reform.
+              </p>
+              <p>
+                Now, every child, woman, elder, young person, employed resident, overseas resident, educated individual, influential person, resourceful citizen, and patriotic member of the Togh community must step forward and offer meaningful support.
+              </p>
+              <p>
+                If the community fails to stand firmly behind this movement, it may lose momentum and eventually fade away. If that happens, the few families and groups accused of exploiting the community's vulnerabilities may once again find themselves facing little collective resistance.
+              </p>
+              <div class="mandate-callout">
+                <strong>This is the moment to support this national and community movement on every possible platform.</strong>
+                People must contribute through practical action, lawful advocacy, and transparent community fundraising with proper records and receipts.
+              </div>
+            </div>
+
+            <div class="lang-col ur-col" dir="rtl">
+              <h2 class="chapter-title urdu-text">ہر فرد کی شرکت کا وقت — بزرگ، نوجوان، خواتین اور اوورسیز برادری</h2>
+              <p class="urdu-text">
+                اس کمیٹی کے ارکان انسان ہیں، فرشتے نہیں۔ وہ غلطیوں سے مبرا نہیں اور ان کا احتساب ہونا چاہیے۔ کوئی بھی فرد یا ادارہ جوابدہی سے بالاتر نہیں ہو سکتا۔
+              </p>
+              <p class="urdu-text">
+                مگر اس مشکل دور میں جو مثبت اور مخلصانہ تبدیلیاں سامنے آ رہی ہیں، وہ حقیقی اصلاحی جدوجہد کا جیتا جاگتا ثبوت ہیں۔
+              </p>
+              <p class="urdu-text">
+                اب وقت آ گیا ہے کہ ہر بچہ، خاتون، بزرگ، نوجوان، ملازم پیشہ فرد، سمندر پار مقیم اوورسیز پاکستانی، تعلیم یافتہ اور باوسیلہ شہری اس تحریک کی پشت پر کھڑا ہو۔
+              </p>
+              <p class="urdu-text">
+                اگر قوم نے اس بیداری کا ساتھ نہ دیا، تو یہ تحریک کمزور پڑ سکتی ہے، اور قابض ٹولے دوبارہ عوام کے حقوق پر مسلط ہو جائیں گے۔
+              </p>
+              <div class="mandate-callout urdu-text">
+                <strong>یہ ہر محاذ پر اس قومی و علاقائی تحریک کے ساتھ کھڑے ہونے کا لمحہ ہے۔</strong>
+                عوام کو عملی ساتھ، قانونی حمایت، اور باضابطہ رسیدوں والے شفاف فنڈز کے ذریعے اپنا حصہ ڈالنا ہوگا۔
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Chapter 14: Conclusion & Grand Oath -->
+        <section class="manifesto-chapter card card-gold-accent" id="ch14">
+          <div class="chapter-meta-tag">
+            <span class="chapter-badge gold-badge">Chapter 14 &bull; Resolution</span>
+            <span class="chapter-tag-ur urdu-text" dir="rtl">باب چہاردہم: توغ بالا کی حقیقی شناخت کی بحالی</span>
+          </div>
+
+          <div class="bilingual-block">
+            <div class="lang-col en-col">
+              <h2 class="chapter-title">Restoring the True Identity of Togh Bala</h2>
+              <p>
+                Nations change when their young people stop being silent spectators and begin carrying the responsibility of their society on their own shoulders.
+              </p>
+              <p>Togh Bala can once again return to the identity it has historically cherished:</p>
+              <ul class="identity-values-list">
+                <li>To hospitality</li>
+                <li>To peace</li>
+                <li>To education and moral development</li>
+                <li>To hard work and self-respect</li>
+                <li>And, above all, to unity, solidarity, and collective awareness.</li>
+              </ul>
+              <p>
+                This is our history. This is our commitment. And this is our responsibility to the generations that will follow us.
+              </p>
+              <div class="manifesto-final-declaration">
+                <h3>Togh Peace Committee Kohat</h3>
+                <p>More Than a Name: A Collective Commitment to Transforming Society.</p>
+              </div>
+            </div>
+
+            <div class="lang-col ur-col" dir="rtl">
+              <h2 class="chapter-title urdu-text">توغ بالا کے حقیقی وقار اور پہچان کی بحالی</h2>
+              <p class="urdu-text">
+                قومیں اس وقت بدلتی ہیں جب ان کے نوجوان محض تماشائی بننا چھوڑ دیں اور اپنے معاشرے کی ذمہ داری اپنے کندھوں پر اٹھا لیں۔
+              </p>
+              <p class="urdu-text">توغ بالا ایک بار پھر اپنے اسی تاریخی وقار کی طرف لوٹ سکتا ہے:</p>
+              <ul class="identity-values-list urdu-text">
+                <li>مہمان نوازی کی طرف</li>
+                <li>امن پسندی کی طرف</li>
+                <li>تعلیم و تربیت اور اخلاقیات کی طرف</li>
+                <li>محنت اور خودداری کی طرف</li>
+                <li>اور سب سے بڑھ کر، اتحاد، یکجہتی اور باہمی بیداری کی طرف۔</li>
+              </ul>
+              <p class="urdu-text">
+                یہ ہماری تاریخ ہے۔ یہ ہمارا باضابطہ عہد ہے۔ اور یہ آنے والی نسلوں کے لیے ہماری مقدس امانت ہے۔
+              </p>
+              <div class="manifesto-final-declaration urdu-text">
+                <h3 class="urdu-text">توغ امن کمیٹی کوہاٹ</h3>
+                <p class="urdu-text">محض ایک نام نہیں — بلکہ معاشرے کی کایا پلٹنے کا ایک باضابطہ اور اٹوٹ اجتماعی عہد۔</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Bottom Action CTA Banner -->
+        <div class="manifesto-action-tray card">
+          <div class="action-tray-content">
+            <Badge variant="gold">Join the Cause &bull; تحریک کا حصہ بنیں</Badge>
+            <h2>Stand with the Movement &bull; بیداری کی صف میں شامل ہوں</h2>
+            <p>
+              Read the Codified Constitution, report an issue with full whistleblower protection, or support transparent community development.
+            </p>
+            <div class="action-tray-buttons">
+              <Button variant="accent" size="md" href="/complaints">
+                <Icon name="alert" size={16} />
+                <span>Report an Issue (شکایت درج کریں)</span>
+              </Button>
+              <Button variant="primary" size="md" href="/transparency/constitution">
+                <Icon name="document" size={16} />
+                <span>Codified Constitution (18 Chapters)</span>
+              </Button>
+              <Button variant="outline" size="md" href="/about">
+                <Icon name="arrow-right" size={16} />
+                <span>Back to About Portal</span>
+              </Button>
+            </div>
+          </div>
+        </div>
+
+      </article>
+    </div>
+  </section>
+
+  <!-- Interactive Language Switcher Script -->
+  <script>
+    function initManifestoLangSwitcher() {
+      const switcher = document.getElementById('lang-switcher');
+      const reader = document.getElementById('manifesto-reader');
+      if (!switcher || !reader) return;
+
+      const buttons = switcher.querySelectorAll<HTMLButtonElement>('.lang-btn');
+
+      // Check saved preference or default to dual
+      const savedLang = localStorage.getItem('manifesto_lang_preference') || 'dual';
+      applyLang(savedLang);
+
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const lang = btn.dataset.lang || 'dual';
+          applyLang(lang);
+          localStorage.setItem('manifesto_lang_preference', lang);
+        });
+      });
+
+      function applyLang(lang: string) {
+        buttons.forEach(b => {
+          const isActive = b.dataset.lang === lang;
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+
+        // Set classes on reader
+        reader.classList.remove('mode-dual', 'mode-en', 'mode-ur');
+        reader.classList.add(`mode-${lang}`);
+      }
+
+      // Intersection Observer for active TOC links
+      const chapters = document.querySelectorAll<HTMLElement>('.manifesto-chapter');
+      const tocLinks = document.querySelectorAll<HTMLAnchorElement>('.toc-link');
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            tocLinks.forEach(link => {
+              const href = link.getAttribute('href');
+              if (href === `#${id}`) {
+                link.classList.add('active');
+              } else {
+                link.classList.remove('active');
+              }
+            });
+          }
+        });
+      }, { rootMargin: '-20% 0px -70% 0px' });
+
+      chapters.forEach(ch => observer.observe(ch));
+    }
+
+    document.addEventListener('astro:page-load', initManifestoLangSwitcher);
+    initManifestoLangSwitcher();
+  </script>
+</BaseLayout>
+
+<style>
+  /* Hero Styles (Monumental, Luxurious & Perfectly Centered) */
+  .manifesto-hero {
+    position: relative;
+    background: radial-gradient(circle at 50% 12%, #FFFFFF 0%, #F5F9F6 55%, var(--color-background) 100%);
+    padding-top: var(--space-16);
+    padding-bottom: var(--space-16);
+    border-bottom: 1px solid var(--color-border);
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .manifesto-hero-ambient {
+    position: absolute;
+    top: -25%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 850px;
+    height: 520px;
+    background: radial-gradient(circle, rgba(212, 160, 23, 0.12) 0%, rgba(6, 77, 50, 0.05) 50%, transparent 75%);
+    pointer-events: none;
+    z-index: 1;
+    filter: blur(45px);
+  }
+
+  .manifesto-hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(6, 77, 50, 0.06) 1px, transparent 1px);
+    background-size: 24px 24px;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .hero-container-centered {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .manifesto-hero-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    max-width: 1040px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .hero-badge-cluster {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 0 auto var(--space-5);
+    flex-wrap: wrap;
+    text-align: center;
+    width: 100%;
+  }
+
+  .manifesto-status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--color-primary);
+    background: rgba(6, 77, 50, 0.08);
+    padding: 4px 12px;
+    border-radius: 9999px;
+    border: 1px solid rgba(6, 77, 50, 0.15);
+  }
+
+  .manifesto-ratified-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #996B00;
+    background: #FFF9E6;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    border: 1px solid rgba(212, 160, 23, 0.35);
+  }
+
+  .manifesto-title {
+    font-size: clamp(2.1rem, 4.2vw, 3.4rem);
+    font-weight: 850;
+    color: var(--color-primary);
+    line-height: 1.18;
+    margin: 0 auto var(--space-3);
+    max-width: 980px;
+    text-align: center;
+    letter-spacing: -0.025em;
+    width: 100%;
+  }
+
+  .highlight-gold {
+    color: var(--color-gold);
+    background: linear-gradient(135deg, #064D32 0%, #D4A017 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .manifesto-subtitle-ur {
+    font-size: clamp(1.45rem, 2.7vw, 2.1rem);
+    font-weight: 700;
+    color: var(--color-green);
+    line-height: 1.65;
+    margin: 0 auto var(--space-4);
+    max-width: 920px;
+    text-align: center;
+    direction: rtl;
+    width: 100%;
+  }
+
+  /* Ornamental Divider */
+  .hero-crest-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 0 auto var(--space-4);
+    width: 100%;
+    max-width: 240px;
+  }
+
+  .crest-line {
+    height: 1.5px;
+    flex: 1;
+    background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+  }
+
+  .crest-symbol {
+    font-size: 13px;
+    color: var(--color-gold);
+    line-height: 1;
+  }
+
+  .manifesto-lead-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    font-size: 13.5px;
+    color: var(--color-text-muted);
+    font-weight: 600;
+    margin: 0 auto var(--space-6);
+    flex-wrap: wrap;
+    text-align: center;
+    width: 100%;
+  }
+
+  .meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .meta-dot {
+    color: var(--color-gold);
+    opacity: 0.7;
+  }
+
+  /* Language Switcher Bar */
+  .lang-switch-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: var(--space-2) auto 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  .lang-switch-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--color-text-subtle);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-align: center;
+  }
+
+  .lang-btn-group {
+    display: inline-flex;
+    background: #FFFFFF;
+    padding: 5px;
+    border-radius: 9999px;
+    border: 1.5px solid rgba(6, 77, 50, 0.2);
+    box-shadow: 0 8px 24px rgba(6, 77, 50, 0.08);
+    gap: 4px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .lang-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 9px 20px;
+    border-radius: 9999px;
+    border: none;
+    background: transparent;
+    color: var(--color-text);
+    font-size: 13.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .lang-btn:hover {
+    color: var(--color-primary);
+    background: rgba(6, 77, 50, 0.05);
+    transform: translateY(-1px);
+  }
+
+  .lang-btn.active {
+    background: var(--color-primary);
+    color: #FFFFFF;
+    box-shadow: 0 4px 14px rgba(6, 77, 50, 0.3);
+  }
+
+  .check-icon {
+    color: var(--color-gold);
+  }
+
+  /* Grid Layout (TOC + Content) */
+  .manifesto-layout-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    position: relative;
+    align-items: start;
+  }
+
+  @media (min-width: 1024px) {
+    .manifesto-layout-grid {
+      grid-template-columns: 320px 1fr;
+    }
+  }
+
+  /* Sticky TOC Sidebar */
+  .manifesto-toc-col {
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    .manifesto-toc-col {
+      display: block;
+      position: sticky;
+      top: 90px;
+      max-height: calc(100vh - 110px);
+      overflow-y: auto;
+    }
+  }
+
+  .manifesto-toc-card {
+    padding: var(--space-5);
+  }
+
+  .toc-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: var(--space-3);
+  }
+
+  .toc-header h3 {
+    font-size: 13.5px;
+    font-weight: 800;
+    color: var(--color-primary);
+    margin: 0;
+  }
+
+  .toc-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .toc-link {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 6px 10px;
+    border-radius: var(--radius-sm);
+    color: var(--color-text-muted);
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .toc-link:hover {
+    background: rgba(6, 77, 50, 0.05);
+    color: var(--color-primary);
+  }
+
+  .toc-link.active {
+    background: rgba(6, 77, 50, 0.1);
+    color: var(--color-primary);
+    font-weight: 800;
+    border-left: 3px solid var(--color-gold);
+  }
+
+  .toc-num {
+    font-size: 10.5px;
+    font-weight: 800;
+    color: var(--color-gold);
+    flex-shrink: 0;
+  }
+
+  .toc-title {
+    line-height: 1.35;
+  }
+
+  .toc-footer {
+    margin-top: var(--space-4);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .toc-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--color-green);
+    text-decoration: none;
+  }
+
+  .toc-back-link:hover {
+    text-decoration: underline;
+  }
+
+  .flip-icon {
+    transform: rotate(180deg);
+  }
+
+  /* Chapters / Article Body */
+  .manifesto-article-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .manifesto-chapter {
+    padding: var(--space-8);
+    position: relative;
+    scroll-margin-top: 100px;
+    border: 1px solid rgba(6, 77, 50, 0.1);
+  }
+
+  .chapter-meta-tag {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .chapter-badge {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-primary);
+    background: rgba(6, 77, 50, 0.08);
+    padding: 3px 8px;
+    border-radius: var(--radius-sm);
+  }
+
+  .gold-badge {
+    background: #FFF9E6;
+    color: #996B00;
+    border: 1px solid rgba(212, 160, 23, 0.3);
+  }
+
+  .chapter-tag-ur {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--color-green);
+  }
+
+  /* Bilingual Content Grid */
+  .bilingual-block {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .mode-dual .bilingual-block {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-8);
+    }
+  }
+
+  /* Mode Switching CSS Rules */
+  .mode-en .ur-col {
+    display: none !important;
+  }
+
+  .mode-ur .en-col {
+    display: none !important;
+  }
+
+  .mode-en .chapter-tag-ur {
+    display: none;
+  }
+
+  .mode-ur .chapter-badge {
+    display: none;
+  }
+
+  .lang-col {
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--color-text);
+  }
+
+  .chapter-title {
+    font-size: clamp(1.25rem, 2vw, 1.55rem);
+    font-weight: 800;
+    color: var(--color-primary);
+    margin-top: 0;
+    margin-bottom: var(--space-4);
+    line-height: 1.35;
+  }
+
+  /* Urdu Typography */
+  .urdu-text {
+    font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', 'Urdu Typesetting', serif;
+    line-height: 2.1;
+  }
+
+  .ur-col p {
+    font-size: 16px;
+    line-height: 2.1;
+    margin-bottom: 1em;
+  }
+
+  .ur-col .chapter-title {
+    font-size: 1.6rem;
+    line-height: 1.65;
+    margin-bottom: var(--space-3);
+  }
+
+  /* Callouts & Quotes */
+  .mandate-callout {
+    background: rgba(6, 77, 50, 0.04);
+    border-left: 4px solid var(--color-primary);
+    padding: 14px 16px;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    margin: var(--space-4) 0;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  [dir="rtl"] .mandate-callout {
+    border-left: none;
+    border-right: 4px solid var(--color-primary);
+    border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+  }
+
+  .reform-callout {
+    background: #EBF8EE;
+    border-left: 4px solid #2E7D32;
+    padding: 14px 16px;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    margin: var(--space-4) 0;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  [dir="rtl"] .reform-callout {
+    border-left: none;
+    border-right: 4px solid #2E7D32;
+    border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+  }
+
+  .oath-chapter {
+    background: linear-gradient(135deg, #FFFFFF 0%, #FFFDF8 100%);
+    border: 2px solid var(--color-gold);
+    box-shadow: 0 10px 30px rgba(212, 160, 23, 0.1);
+  }
+
+  .oath-monument-banner {
+    text-align: center;
+    padding-bottom: var(--space-6);
+    margin-bottom: var(--space-6);
+    border-bottom: 2px dashed rgba(212, 160, 23, 0.4);
+  }
+
+  .oath-heading {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    margin: 8px 0 4px;
+  }
+
+  .oath-heading-ur {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-green);
+    margin: 0;
+  }
+
+  .oath-quote {
+    background: rgba(212, 160, 23, 0.08);
+    border-left: 4px solid var(--color-gold);
+    padding: 14px 18px;
+    font-style: italic;
+    font-weight: 600;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    margin: var(--space-4) 0;
+    line-height: 1.65;
+  }
+
+  [dir="rtl"] .oath-quote {
+    border-left: none;
+    border-right: 4px solid var(--color-gold);
+    border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+  }
+
+  .bold-warning-quote {
+    background: rgba(220, 53, 69, 0.05);
+    border-left: 4px solid #DC3545;
+    padding: 14px 18px;
+    font-weight: 700;
+    color: #90111D;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    margin: var(--space-4) 0;
+  }
+
+  [dir="rtl"] .bold-warning-quote {
+    border-left: none;
+    border-right: 4px solid #DC3545;
+    border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+  }
+
+  .principle-banner {
+    background: rgba(6, 77, 50, 0.08);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    color: var(--color-primary);
+    font-size: 14.5px;
+    margin: var(--space-4) 0;
+  }
+
+  .investigation-list, .movement-core-points, .identity-values-list {
+    margin: var(--space-3) 0 var(--space-4) var(--space-4);
+    padding-left: var(--space-3);
+  }
+
+  [dir="rtl"] .investigation-list, [dir="rtl"] .movement-core-points, [dir="rtl"] .identity-values-list {
+    margin: var(--space-3) var(--space-4) var(--space-4) 0;
+    padding-left: 0;
+    padding-right: var(--space-3);
+  }
+
+  .investigation-list li, .movement-core-points li, .identity-values-list li {
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+
+  .manifesto-final-declaration {
+    margin-top: var(--space-6);
+    padding: var(--space-5);
+    background: var(--color-primary);
+    color: #FFFFFF;
+    border-radius: var(--radius-md);
+    text-align: center;
+  }
+
+  .manifesto-final-declaration h3 {
+    color: var(--color-gold);
+    font-size: 1.4rem;
+    margin: 0 0 6px;
+  }
+
+  .manifesto-final-declaration p {
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    font-size: 14px;
+  }
+
+  /* Bottom Action Tray */
+  .manifesto-action-tray {
+    background: linear-gradient(135deg, #FFFFFF 0%, #F5F9F6 100%);
+    padding: var(--space-8);
+    border: 2px solid rgba(6, 77, 50, 0.15);
+    text-align: center;
+  }
+
+  .action-tray-content {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .action-tray-content h2 {
+    margin: var(--space-3) 0 var(--space-2);
+    font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+  }
+
+  .action-tray-content p {
+    color: var(--color-text-muted);
+    font-size: 14px;
+    margin-bottom: var(--space-6);
+  }
+
+  .action-tray-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    justify-content: center;
+  }
+</style>

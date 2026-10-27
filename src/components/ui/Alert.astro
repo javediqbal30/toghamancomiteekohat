@@ -1,0 +1,94 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  variant?: 'info' | 'warning' | 'danger' | 'success';
+  title?: string;
+  icon?: boolean;
+  class?: string;
+}
+
+const {
+  variant = 'info',
+  title,
+  icon = true,
+  class: className = '',
+} = Astro.props;
+
+const iconName = variant === 'danger' || variant === 'warning' 
+  ? 'alert' 
+  : variant === 'success' 
+    ? 'check' 
+    : 'shield';
+---
+
+<div class={`alert alert-${variant} ${className}`} role="alert">
+  {icon && (
+    <div class="alert-icon-wrapper">
+      <Icon name={iconName} size={20} />
+    </div>
+  )}
+  <div class="alert-content">
+    {title && <strong class="alert-title">{title}</strong>}
+    <div class="alert-body">
+      <slot />
+    </div>
+  </div>
+</div>
+
+<style>
+  .alert {
+    display: flex;
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-5);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-4);
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+  }
+
+  .alert-icon-wrapper {
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .alert-content {
+    flex: 1;
+  }
+
+  .alert-title {
+    display: block;
+    margin-bottom: var(--space-1);
+    font-size: var(--text-base);
+    font-family: var(--font-sans);
+  }
+
+  .alert-body :global(p) {
+    margin-bottom: 0;
+    font-size: inherit;
+  }
+
+  .alert-info {
+    background-color: var(--color-info-bg);
+    color: var(--color-info);
+    border: 1px solid var(--color-info-border);
+  }
+
+  .alert-warning {
+    background-color: var(--color-warning-bg);
+    color: var(--color-warning);
+    border: 1px solid var(--color-warning-border);
+  }
+
+  .alert-danger {
+    background-color: var(--color-danger-bg);
+    color: var(--color-danger);
+    border: 1px solid var(--color-danger-border);
+  }
+
+  .alert-success {
+    background-color: var(--color-success-bg);
+    color: var(--color-success);
+    border: 1px solid var(--color-success-border);
+  }
+</style>

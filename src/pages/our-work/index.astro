@@ -1,0 +1,846 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Badge from '../../components/ui/Badge.astro';
+import Button from '../../components/ui/Button.astro';
+import Icon from '../../components/ui/Icon.astro';
+
+const allPillars = await getCollection('pillars');
+const sortedPillars = allPillars.sort((a, b) => a.data.number - b.data.number);
+---
+
+<BaseLayout
+  title="Our Work | 14 Manifesto Pillars"
+  description="Explore the 14 core manifesto pillars of Togh Aman Committee dedicated to peace, crime prevention, Shamilat land, and civic welfare."
+>
+  <!-- Enhanced Interactive Hero Section with Mouse Glow & Rising Floating Orbs -->
+  <section class="work-hero-section" id="work-hero">
+    <!-- 1. Interactive Mouse Spotlight Glow Layer -->
+    <div class="hero-mouse-spotlight" id="hero-mouse-glow" aria-hidden="true"></div>
+
+    <!-- 2. Geometric Dot Matrix Pattern -->
+    <div class="hero-matrix-grid" aria-hidden="true"></div>
+
+    <!-- 3. Rising Floating Glowing Orbs (Balls floating upward) -->
+    <div class="floating-orbs-layer" aria-hidden="true">
+      <span class="rising-orb orb-1"></span>
+      <span class="rising-orb orb-2"></span>
+      <span class="rising-orb orb-3"></span>
+      <span class="rising-orb orb-4"></span>
+      <span class="rising-orb orb-5"></span>
+      <span class="rising-orb orb-6"></span>
+      <span class="rising-orb orb-7"></span>
+      <span class="rising-orb orb-8"></span>
+      <span class="rising-orb orb-9"></span>
+      <span class="rising-orb orb-10"></span>
+      <span class="rising-orb orb-11"></span>
+      <span class="rising-orb orb-12"></span>
+      <span class="rising-orb orb-13"></span>
+      <span class="rising-orb orb-14"></span>
+    </div>
+
+    <!-- 4. Scenic Wave Contour Transition -->
+    <div class="hero-wave-transition" aria-hidden="true">
+      <svg viewBox="0 0 1440 160" fill="none" preserveAspectRatio="none" class="wave-svg">
+        <path d="M0,160 L0,110 Q360,50 720,95 Q1080,140 1440,80 L1440,160 Z" fill="rgba(6, 77, 50, 0.04)" />
+        <path d="M0,160 L0,130 Q360,85 720,120 Q1080,155 1440,105 L1440,160 Z" fill="rgba(212, 160, 23, 0.06)" />
+      </svg>
+    </div>
+
+    <div class="container hero-content-container text-center">
+      <div class="hero-badge-cluster">
+        <Badge variant="gold">14 Manifesto Pillars</Badge>
+        <span class="hero-status-pill">
+          <Icon name="shield" size={14} class="text-green" />
+          <span>Constitutional Charter &bull; 25 August 2026</span>
+        </span>
+      </div>
+
+      <h1 class="page-title">Our Work in Togh Bala &amp; Payan</h1>
+      <span class="urdu-hero-title" dir="rtl">توغ امن کمیٹی کے 14 بنیادی فلاحی و آئینی ستون</span>
+
+      <p class="page-subtitle">
+        Every initiative undertaken by the committee is rooted in our codified constitutional manifesto, 
+        ensuring our collective focus remains dedicated to lawful peace, youth empowerment, narcotics eradication, and community welfare.
+      </p>
+
+      <!-- Quick Metrics Strip -->
+      <div class="hero-metrics-strip">
+        <div class="metric-pill">
+          <strong class="metric-num">14</strong>
+          <span class="metric-txt">Codified Pillars</span>
+        </div>
+        <div class="metric-divider"></div>
+        <div class="metric-pill">
+          <strong class="metric-num">2</strong>
+          <span class="metric-txt">Unified Villages</span>
+        </div>
+        <div class="metric-divider"></div>
+        <div class="metric-pill">
+          <strong class="metric-num">100%</strong>
+          <span class="metric-txt">Audited Vouchers</span>
+        </div>
+        <div class="metric-divider"></div>
+        <div class="metric-pill">
+          <strong class="metric-num">24/7</strong>
+          <span class="metric-txt">Citizen Defense</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="hero-cta-group">
+        <a href="#pillar-1" class="btn-hero-explore">
+          <span>Explore All 14 Pillars</span>
+          <Icon name="arrow-right" size={15} />
+        </a>
+        <Button variant="outline" size="md" href="/complaints">
+          <Icon name="alert" size={16} />
+          <span>Report Related Issue</span>
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="pillars-list">
+        {sortedPillars.map((p) => {
+          const bodyParts = p.body ? p.body.split('<!-- urdu -->') : ['', ''];
+          const enText = bodyParts[0]?.trim() || '';
+          const urText = bodyParts[1]?.trim() || '';
+          return (
+            <article id={`pillar-${p.data.number}`} class="pillar-detail-card card reveal-on-scroll">
+              <div class="pillar-detail-sidebar">
+                <div class="pillar-badge-box">
+                  <Icon name={p.data.icon as any} size={28} />
+                  <span class="pillar-big-num">{p.data.number < 10 ? `0${p.data.number}` : p.data.number}</span>
+                </div>
+                <Badge variant="green" size="sm">{p.data.articleRef}</Badge>
+              </div>
+
+              <div class="pillar-detail-body">
+                <!-- Dual Language Title Header -->
+                <div class="pillar-header-row">
+                  <div class="pillar-header-titles">
+                    <h2 class="pillar-detail-title">{p.data.title}</h2>
+                    {p.data.urduTitle && (
+                      <span class="pillar-urdu-title urdu-text" dir="rtl">{p.data.urduTitle}</span>
+                    )}
+                  </div>
+                </div>
+
+                <!-- Dual Language Summaries -->
+                <div class="pillar-summaries-container">
+                  <div class="pillar-summary-en">
+                    <span class="summary-badge-en">Summary</span>
+                    <p class="summary-en-text">{p.data.summary}</p>
+                  </div>
+                  {p.data.urduSummary && (
+                    <div class="pillar-summary-ur" dir="rtl">
+                      <span class="summary-badge-ur urdu-text">خلاصہ برائے عوام</span>
+                      <p class="summary-ur-text urdu-text">{p.data.urduSummary}</p>
+                    </div>
+                  )}
+                </div>
+
+                <!-- Dual Language Detailed Mandate & Provisions -->
+                <div class="pillar-bilingual-details">
+                  <div class="detail-pane pane-en">
+                    <div class="pane-header">
+                      <span class="pane-flag">EN</span>
+                      <span class="pane-title">Constitutional Provision &amp; Mandate</span>
+                    </div>
+                    <p class="pane-content-en">{enText}</p>
+                  </div>
+
+                  {urText && (
+                    <div class="detail-pane pane-ur" dir="rtl">
+                      <div class="pane-header pane-header-ur">
+                        <span class="pane-flag">اردو</span>
+                        <span class="pane-title urdu-text">آئینی و فلاحی لائحہ عمل</span>
+                      </div>
+                      <p class="pane-content-ur urdu-text">{urText}</p>
+                    </div>
+                  )}
+                </div>
+
+                <!-- Card Footer & Action CTA -->
+                <div class="pillar-action-row">
+                  <span class="pillar-trust-mark">
+                    <Icon name="check" size={14} class="text-green" />
+                    <span>Mandated by Committee Constitution &bull; منظور شدہ عوامی آئین</span>
+                  </span>
+                  <Button variant="outline" size="sm" href="/complaints">
+                    <span>Report Issue / شکایت درج کریں</span>
+                    <Icon name="arrow-right" size={12} />
+                  </Button>
+                </div>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Work Hero Section with Interactive Spotlight & Rising Orbs */
+  .work-hero-section {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, #F3F7F4 0%, #FFFFFF 100%);
+    padding: var(--space-16) 0 var(--space-12);
+    border-bottom: 1px solid var(--color-border);
+    --mouse-x: 50%;
+    --mouse-y: 50%;
+  }
+
+  /* Interactive Mouse Spotlight Glow */
+  .hero-mouse-spotlight {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background: radial-gradient(
+      520px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(212, 160, 23, 0.22),
+      rgba(6, 77, 50, 0.12) 35%,
+      transparent 70%
+    );
+    transition: background 0.08s ease-out;
+  }
+
+  /* Dot Matrix Pattern */
+  .hero-matrix-grid {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.55;
+    background-image: radial-gradient(rgba(6, 77, 50, 0.15) 1.2px, transparent 1.2px);
+    background-size: 26px 26px;
+    mask-image: linear-gradient(180deg, #000 65%, transparent 100%);
+    -webkit-mask-image: linear-gradient(180deg, #000 65%, transparent 100%);
+  }
+
+  /* Rising Floating Orbs (Upward moving glowing balls) */
+  .floating-orbs-layer {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .rising-orb {
+    position: absolute;
+    bottom: -30px;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: floatUpward linear infinite;
+  }
+
+  @keyframes floatUpward {
+    0% {
+      bottom: -30px;
+      transform: translateX(0) scale(0.85);
+      opacity: 0;
+    }
+    20% {
+      opacity: 0.25;
+    }
+    50% {
+      transform: translateX(18px) scale(1.05);
+      opacity: 0.38;
+    }
+    80% {
+      opacity: 0.22;
+    }
+    100% {
+      bottom: 108%;
+      transform: translateX(-16px) scale(1.1);
+      opacity: 0;
+    }
+  }
+
+  /* 14 Individual Floating Delicate Orbs Configurations (Small & Low Opacity) */
+  .orb-1 {
+    width: 8px;
+    height: 8px;
+    left: 7%;
+    background: radial-gradient(circle at 35% 35%, #81C784, #064D32);
+    box-shadow: 0 0 6px rgba(6, 77, 50, 0.25);
+    animation-duration: 9s;
+    animation-delay: 0s;
+  }
+
+  .orb-2 {
+    width: 12px;
+    height: 12px;
+    left: 18%;
+    background: radial-gradient(circle at 35% 35%, #FDE047, #D4A017);
+    box-shadow: 0 0 8px rgba(212, 160, 23, 0.28);
+    animation-duration: 13s;
+    animation-delay: 2s;
+  }
+
+  .orb-3 {
+    width: 6px;
+    height: 6px;
+    left: 30%;
+    background: radial-gradient(circle at 35% 35%, #A7F3D0, #047857);
+    box-shadow: 0 0 5px rgba(4, 120, 87, 0.2);
+    animation-duration: 8s;
+    animation-delay: 4.5s;
+  }
+
+  .orb-4 {
+    width: 10px;
+    height: 10px;
+    left: 42%;
+    background: radial-gradient(circle at 35% 35%, #FEF08A, #CA8A04);
+    box-shadow: 0 0 7px rgba(202, 138, 4, 0.25);
+    animation-duration: 11s;
+    animation-delay: 1s;
+  }
+
+  .orb-5 {
+    width: 7px;
+    height: 7px;
+    left: 55%;
+    background: radial-gradient(circle at 35% 35%, #6EE7B7, #065F46);
+    box-shadow: 0 0 6px rgba(6, 95, 70, 0.2);
+    animation-duration: 10s;
+    animation-delay: 3s;
+  }
+
+  .orb-6 {
+    width: 13px;
+    height: 13px;
+    left: 68%;
+    background: radial-gradient(circle at 35% 35%, #FDE68A, #D4A017);
+    box-shadow: 0 0 8px rgba(212, 160, 23, 0.28);
+    animation-duration: 14s;
+    animation-delay: 0.5s;
+  }
+
+  .orb-7 {
+    width: 8px;
+    height: 8px;
+    left: 82%;
+    background: radial-gradient(circle at 35% 35%, #BBF7D0, #15803D);
+    box-shadow: 0 0 6px rgba(21, 128, 61, 0.22);
+    animation-duration: 8.5s;
+    animation-delay: 5s;
+  }
+
+  .orb-8 {
+    width: 11px;
+    height: 11px;
+    left: 12%;
+    background: radial-gradient(circle at 35% 35%, #FEF9C3, #B45309);
+    box-shadow: 0 0 7px rgba(180, 83, 9, 0.22);
+    animation-duration: 12s;
+    animation-delay: 6.5s;
+  }
+
+  .orb-9 {
+    width: 14px;
+    height: 14px;
+    left: 77%;
+    background: radial-gradient(circle at 35% 35%, #D9F99D, #064D32);
+    box-shadow: 0 0 9px rgba(6, 77, 50, 0.25);
+    animation-duration: 16s;
+    animation-delay: 3.5s;
+  }
+
+  .orb-10 {
+    width: 6px;
+    height: 6px;
+    left: 48%;
+    background: radial-gradient(circle at 35% 35%, #FFFBEB, #D4A017);
+    box-shadow: 0 0 5px rgba(212, 160, 23, 0.25);
+    animation-duration: 7s;
+    animation-delay: 2s;
+  }
+
+  .orb-11 {
+    width: 9px;
+    height: 9px;
+    left: 24%;
+    background: radial-gradient(circle at 35% 35%, #86EFAC, #166534);
+    box-shadow: 0 0 6px rgba(22, 101, 52, 0.22);
+    animation-duration: 10.5s;
+    animation-delay: 7s;
+  }
+
+  .orb-12 {
+    width: 12px;
+    height: 12px;
+    left: 90%;
+    background: radial-gradient(circle at 35% 35%, #FEF08A, #D4A017);
+    box-shadow: 0 0 8px rgba(212, 160, 23, 0.25);
+    animation-duration: 12.5s;
+    animation-delay: 4s;
+  }
+
+  .orb-13 {
+    width: 7px;
+    height: 7px;
+    left: 2%;
+    background: radial-gradient(circle at 35% 35%, #A7F3D0, #064D32);
+    box-shadow: 0 0 5px rgba(6, 77, 50, 0.2);
+    animation-duration: 9.5s;
+    animation-delay: 5.5s;
+  }
+
+  .orb-14 {
+    width: 10px;
+    height: 10px;
+    left: 62%;
+    background: radial-gradient(circle at 35% 35%, #FDE047, #CA8A04);
+    box-shadow: 0 0 7px rgba(202, 138, 4, 0.25);
+    animation-duration: 11.5s;
+    animation-delay: 1.5s;
+  }
+
+  /* Wave Transition */
+  .hero-wave-transition {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wave-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* Hero Content */
+  .hero-content-container {
+    position: relative;
+    z-index: 2;
+    max-width: 840px;
+  }
+
+  .hero-badge-cluster {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  .hero-status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #FFFFFF;
+    border: 1px solid rgba(6, 77, 50, 0.2);
+    padding: 3px 10px;
+    border-radius: var(--radius-full);
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--color-primary);
+    box-shadow: 0 2px 8px rgba(6, 77, 50, 0.06);
+  }
+
+  .page-title {
+    font-size: var(--text-4xl);
+    font-weight: 800;
+    color: var(--color-primary);
+    margin-top: 0;
+    margin-bottom: 6px;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  @media (min-width: 768px) {
+    .page-title {
+      font-size: 46px;
+    }
+  }
+
+  .urdu-hero-title {
+    display: block;
+    font-size: 19px;
+    font-weight: 700;
+    color: #064D32;
+    margin-bottom: var(--space-4);
+  }
+
+  .page-subtitle {
+    font-size: var(--text-base);
+    color: var(--color-text-muted);
+    max-width: 720px;
+    margin: 0 auto var(--space-6);
+    line-height: var(--leading-relaxed);
+  }
+
+  /* Metrics Strip */
+  .hero-metrics-strip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #FFFFFF;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    padding: var(--space-3) var(--space-6);
+    box-shadow: 0 8px 24px rgba(6, 77, 50, 0.08);
+    margin-bottom: var(--space-6);
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+
+  .metric-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .metric-num {
+    font-size: var(--text-lg);
+    font-weight: 800;
+    color: var(--color-primary);
+  }
+
+  .metric-txt {
+    font-size: 12px;
+    color: var(--color-text-muted);
+    font-weight: 500;
+  }
+
+  .metric-divider {
+    width: 1px;
+    height: 18px;
+    background: var(--color-border);
+  }
+
+  @media (max-width: 640px) {
+    .hero-metrics-strip {
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      gap: var(--space-3);
+    }
+    .metric-divider {
+      display: none;
+    }
+  }
+
+  /* CTA Group */
+  .hero-cta-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  .btn-hero-explore {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(180deg, #D4A017 0%, #B8860B 100%);
+    color: #123322;
+    padding: 12px 24px;
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(212, 160, 23, 0.35);
+    transition: all 0.2s ease;
+  }
+
+  .btn-hero-explore:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(212, 160, 23, 0.45);
+    filter: brightness(1.05);
+  }
+
+  .pillars-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .pillar-detail-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    padding: var(--space-8);
+    scroll-margin-top: calc(var(--header-height) + 24px);
+  }
+
+  @media (min-width: 768px) {
+    .pillar-detail-card {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+  }
+
+  .pillar-detail-sidebar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    min-width: 140px;
+  }
+
+  @media (min-width: 768px) {
+    .pillar-detail-sidebar {
+      flex-direction: column;
+      align-items: flex-start;
+      border-right: 1px solid var(--color-border);
+      padding-right: var(--space-6);
+    }
+  }
+
+  .pillar-badge-box {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--color-primary);
+  }
+
+  .pillar-big-num {
+    font-size: var(--text-3xl);
+    font-weight: 800;
+    color: var(--color-gold);
+    line-height: 1;
+  }
+
+  .pillar-detail-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  /* Dual Language Title Row */
+  .pillar-header-row {
+    border-bottom: 1px solid rgba(6, 77, 50, 0.1);
+    padding-bottom: var(--space-3);
+  }
+
+  .pillar-header-titles {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  @media (min-width: 768px) {
+    .pillar-header-titles {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+    }
+  }
+
+  .pillar-detail-title {
+    font-size: var(--text-2xl);
+    color: var(--color-primary);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .pillar-urdu-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--color-green);
+    line-height: 1.8;
+    background: rgba(6, 77, 50, 0.06);
+    padding: 3px 12px;
+    border-radius: var(--radius-sm);
+    border-right: 3px solid var(--color-green);
+    display: inline-block;
+  }
+
+  /* Dual Language Summaries */
+  .pillar-summaries-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 768px) {
+    .pillar-summaries-container {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .pillar-summary-en {
+    background: #F8FAF9;
+    border-left: 3px solid var(--color-primary);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .summary-badge-en {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-primary);
+  }
+
+  .summary-en-text {
+    font-size: 0.92rem;
+    color: var(--color-green);
+    font-weight: 600;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .pillar-summary-ur {
+    background: #FFFDF5;
+    border-right: 3px solid var(--color-gold);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .summary-badge-ur {
+    font-size: 12px;
+    font-weight: 700;
+    color: #9A7209;
+  }
+
+  .summary-ur-text {
+    font-size: 0.98rem;
+    color: #064D32;
+    font-weight: 600;
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  /* Dual Language Mandate & Implementation Panes */
+  .pillar-bilingual-details {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 900px) {
+    .pillar-bilingual-details {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .detail-pane {
+    background: #FAFCFA;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  }
+
+  .pane-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed rgba(6, 77, 50, 0.12);
+  }
+
+  .pane-flag {
+    font-size: 10px;
+    font-weight: 800;
+    padding: 2px 7px;
+    border-radius: 4px;
+    background: var(--color-primary);
+    color: #FFFFFF;
+    letter-spacing: 0.03em;
+  }
+
+  .pane-ur .pane-flag {
+    background: var(--color-green);
+  }
+
+  .pane-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-text-muted);
+  }
+
+  .pane-content-en {
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  .pane-content-ur {
+    font-size: 1rem;
+    line-height: 2;
+    color: #142E20;
+    margin: 0;
+    font-weight: 500;
+  }
+
+  .urdu-text {
+    font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', 'Urdu Typesetting', -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, sans-serif;
+  }
+
+  .pillar-action-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .pillar-trust-mark {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+    color: var(--color-text-subtle);
+  }
+
+  .text-center { text-align: center; }
+  .text-green { color: var(--color-green); }
+</style>
+
+<script>
+  function setupWorkHeroInteractive() {
+    const hero = document.getElementById('work-hero');
+    if (!hero) return;
+
+    hero.addEventListener('mousemove', (e) => {
+      const rect = hero.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      hero.style.setProperty('--mouse-x', `${x}px`);
+      hero.style.setProperty('--mouse-y', `${y}px`);
+    });
+
+    hero.addEventListener('mouseleave', () => {
+      hero.style.setProperty('--mouse-x', '50%');
+      hero.style.setProperty('--mouse-y', '50%');
+    });
+  }
+
+  setupWorkHeroInteractive();
+  document.addEventListener('astro:page-load', setupWorkHeroInteractive);
+</script>

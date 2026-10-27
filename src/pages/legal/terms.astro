@@ -1,0 +1,144 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Badge from '../../components/ui/Badge.astro';
+import Icon from '../../components/ui/Icon.astro';
+---
+
+<BaseLayout
+  title="Terms & Disclaimer | Togh Aman Committee"
+  description="Terms of use, legal boundaries, and non-sectarian disclaimers of the Togh Aman Committee."
+>
+  <section class="page-header">
+    <div class="container text-center">
+      <Badge variant="gold">Legal Framework & Mandate</Badge>
+      <h1 class="page-title">Terms of Use & Legal Disclaimer</h1>
+      <p class="page-subtitle">
+        Operating strictly within the constitutional boundaries of the Islamic Republic of Pakistan.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container legal-container">
+      <div class="card legal-card card-gold-accent">
+        <h2>1. Non-Law Enforcement Status (Important Disclaimer)</h2>
+        <p>
+          The Togh Aman Committee is a non-governmental, non-political, and non-sectarian community welfare and peace body. 
+          <strong>The Committee does not possess policing powers, judicial authority, or detention faculties.</strong> 
+          It does not substitute or supersede the Pakistan Police, the District Judiciary, or any municipal or state agency.
+        </p>
+
+        <h2>2. Non-Violence & Lawful Representation</h2>
+        <p>
+          Under Chapter 11 of the Constitution:
+        </p>
+        <ul>
+          <li>No member or affiliate of the committee shall ever take the law into their own hands.</li>
+          <li>The Committee will never issue threats, utilize physical force, or destroy private or government property.</li>
+          <li>All actions, disputes, and community matters are prosecuted solely via peaceful dialogue, documented petitions, and lawful representation before competent administrative authorities.</li>
+        </ul>
+
+        <h2>3. Strict Prohibition of Public Defamation</h2>
+        <p>
+          In accordance with the Policy principle of <em>"Proof Instead of Accusation"</em>, the committee platform will never be used for character assassination, rumor mongering, or unverified public naming-and-shaming. 
+          Evidence must be verified by the legal council prior to administrative petitioning.
+        </p>
+
+        <h2>4. Non-Political & Non-Sectarian Guarantee</h2>
+        <p>
+          Under Chapter 12 of the Constitution, the Committee is strictly prohibited from affiliating with any political party or sectarian movement. 
+          Its name, resources, and website shall never be used for electoral campaigning.
+        </p>
+
+        <div class="legal-contact-footer">
+          <Icon name="shield" size={20} class="text-gold" />
+          <p>
+            For legal and constitutional inquiries, contact our Legal Council via Secretariat: <a href="tel:923339768022">+92 333 9768022</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-header {
+    background: linear-gradient(180deg, var(--color-surface-subtle) 0%, var(--color-background) 100%);
+    padding: var(--space-12) 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .page-title {
+    margin-top: var(--space-3);
+    margin-bottom: var(--space-2);
+  }
+
+  .page-subtitle {
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .legal-container {
+    max-width: 820px;
+    margin: 0 auto;
+  }
+
+  .legal-card {
+    padding: var(--space-8);
+  }
+
+  .legal-card h2 {
+    font-size: var(--text-xl);
+    color: var(--color-primary);
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-3);
+    padding-bottom: var(--space-2);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .legal-card h2:first-child {
+    margin-top: 0;
+  }
+
+  .legal-card p {
+    font-size: var(--text-base);
+    color: var(--color-text);
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-4);
+  }
+
+  .legal-card ul {
+    margin-left: var(--space-6);
+    margin-bottom: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .legal-card li {
+    font-size: var(--text-base);
+    color: var(--color-text-muted);
+    line-height: var(--leading-normal);
+  }
+
+  .legal-contact-footer {
+    margin-top: var(--space-8);
+    padding: var(--space-4);
+    background: var(--color-surface-subtle);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    border-left: 3px solid var(--color-gold);
+  }
+
+  .legal-contact-footer p {
+    margin-bottom: 0;
+    font-size: var(--text-sm);
+  }
+
+  .text-center { text-align: center; }
+  .text-gold { color: var(--color-gold); }
+</style>

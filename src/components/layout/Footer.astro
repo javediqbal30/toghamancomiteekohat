@@ -1,0 +1,308 @@
+---
+import Icon from '../ui/Icon.astro';
+import { SECRETARIAT_ADDRESS, OFFICIAL_HOTLINES } from '../../data/contactInfo';
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <!-- Col 1: Identity & Principle -->
+      <div class="footer-col brand-col">
+        <div class="footer-brand">
+          <img 
+            src="/assets/brand/togh-aman-committee-emblem.png" 
+            alt="Togh Aman Committee" 
+            width="40" 
+            height="40"
+            class="footer-logo-img"
+            loading="lazy"
+          />
+          <div>
+            <h3 class="footer-brand-title">Togh Aman Committee</h3>
+            <span class="footer-brand-sub">Togh Bala & Payan, Kohat</span>
+          </div>
+        </div>
+
+        <p class="footer-principle">
+          "The Committee is not the property of any person. It is a sacred trust of the people."
+        </p>
+
+        <div class="footer-leaders-tag">
+          <p class="footer-leaders-text">
+            <strong>Founder:</strong> Hadayatullah Khan &bull; 
+            <strong>President:</strong> Malik Ihsanullah &bull;
+            <strong>Finance Sec:</strong> Waheed-ur-Rehman &bull;
+            <strong>Complaints In-Charge:</strong> Mr. Shafiq-ur-Rehman
+          </p>
+        </div>
+      </div>
+
+      <!-- Col 2: Navigation Links -->
+      <div class="footer-col">
+        <h4 class="footer-heading">Community Wings</h4>
+        <ul class="footer-links">
+          <li><a href="/about">About &amp; Story</a></li>
+          <li><a href="/about/history">Historical Manifesto &bull; تاریخی منشور</a></li>
+          <li><a href="/our-work">14 Manifesto Pillars</a></li>
+          <li><a href="/overseas">Overseas Diaspora</a></li>
+          <li><a href="/youth">Youth &amp; Sports Wing</a></li>
+          <li><a href="/womens-wing">Women’s Welfare Wing</a></li>
+          <li><a href="/news">Announcements &amp; News</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 3: Public Services -->
+      <div class="footer-col">
+        <h4 class="footer-heading">Public Help &amp; Trust</h4>
+        <ul class="footer-links">
+          <li><a href="/transparency">Transparency Centre</a></li>
+          <li><a href="/transparency/constitution">Constitution &amp; Rules</a></li>
+          <li><a href="/complaints">Report an Issue (Private)</a></li>
+          <li><a href="/emergency">Emergency Contacts</a></li>
+          <li><a href="/portal/login">Executive Member Portal</a></li>
+          <li><a href="/legal/privacy">Privacy &amp; Security Policy</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 4: Official Secretariat Contact -->
+      <div class="footer-col contact-col">
+        <h4 class="footer-heading">Secretariat Office</h4>
+        <div class="contact-item">
+          <Icon name="map-pin" size={18} class="text-gold" />
+          <span>{SECRETARIAT_ADDRESS.full}</span>
+        </div>
+
+        <div class="footer-hotlines-wrap mt-3">
+          <span class="hotlines-header">Verified Call &amp; WhatsApp Hotlines:</span>
+          {OFFICIAL_HOTLINES.map((channel) => (
+            <div class="contact-sub-item">
+              <div class="sub-number-row">
+                <a href={`tel:${channel.raw}`} class="phone-link">
+                  <Icon name="phone" size={14} class="text-gold" />
+                  <span>{channel.phone}</span>
+                </a>
+                <a href={channel.whatsappUrl} target="_blank" rel="noopener noreferrer" class="wa-icon-link" title={`WhatsApp: ${channel.phone}`}>
+                  <Icon name="whatsapp" size={14} />
+                </a>
+              </div>
+              <span class="sub-label">{channel.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- Mandatory Lawful Notice -->
+    <div class="footer-law-notice">
+      <Icon name="shield" size={20} class="text-gold" />
+      <p>
+        <strong>Legal & Operational Notice:</strong> This Committee is a non-political, non-sectarian public welfare platform and does not replace the police, courts, or any government department. In an emergency or crime in progress, call the police first.
+      </p>
+    </div>
+
+    <!-- Bottom Copyright -->
+    <div class="footer-bottom">
+      <p class="footer-copyright-text">&copy; {new Date().getFullYear()} Togh Aman Committee (Togh Bala &amp; Payan). All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="/legal/privacy">Privacy Policy</a> &bull; 
+        <a href="/legal/terms">Disclaimer</a> &bull; 
+        <a href="/transparency/constitution">Constitution</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+  }
+
+  .footer-logo-img {
+    border-radius: var(--radius-full);
+    background: var(--color-white);
+    padding: 2px;
+  }
+
+  .footer-brand-title {
+    font-size: var(--text-lg);
+    color: var(--color-white);
+    margin-bottom: 0;
+  }
+
+  .footer-brand-sub {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .footer-principle {
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: var(--text-sm);
+    border-left: 3px solid var(--color-gold);
+    padding-left: var(--space-3);
+    margin-bottom: var(--space-4);
+  }
+
+  .footer-leaders-tag {
+    font-size: var(--text-xs);
+    color: #FFFFFF;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    border-left: 2px solid var(--color-gold);
+  }
+
+  .footer-leaders-text {
+    color: #FFFFFF !important;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .footer-leaders-text strong {
+    color: #FFFFFF !important;
+    font-weight: 700;
+  }
+
+  .footer-heading {
+    color: var(--color-gold);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: 700;
+    margin-bottom: var(--space-4);
+    letter-spacing: 0.02em;
+  }
+
+  .footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .footer-links a {
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: var(--space-3);
+    line-height: var(--leading-snug);
+  }
+
+  .contact-item .text-gold {
+    color: var(--color-gold);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .footer-hotlines-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .hotlines-header {
+    font-size: var(--text-xs);
+    color: var(--color-gold);
+    font-weight: 600;
+  }
+
+  .contact-sub-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding-bottom: var(--space-2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .sub-number-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+  }
+
+  .phone-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--color-white);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .phone-link:hover {
+    color: var(--color-gold);
+  }
+
+  .wa-icon-link {
+    color: #25D366;
+    background: rgba(37, 211, 102, 0.15);
+    padding: 4px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+  }
+
+  .wa-icon-link:hover {
+    transform: scale(1.15);
+  }
+
+  .sub-label {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.65);
+    padding-left: var(--space-5);
+  }
+
+  .footer-law-notice {
+    margin-top: var(--space-10);
+    padding: var(--space-4) var(--space-5);
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(212, 160, 23, 0.3);
+    border-radius: var(--radius-md);
+    display: flex;
+    gap: var(--space-3);
+    align-items: flex-start;
+  }
+
+  .footer-law-notice p {
+    font-size: var(--text-xs);
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 0;
+  }
+
+  .footer-law-notice .text-gold {
+    color: var(--color-gold);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .footer-copyright-text {
+    color: #FFFFFF !important;
+    font-size: var(--text-sm);
+    margin: 0;
+    font-weight: 500;
+  }
+
+  .footer-bottom-links {
+    display: flex;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .footer-bottom-links a {
+    color: #FFFFFF !important;
+  }
+</style>

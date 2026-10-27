@@ -1,0 +1,1649 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/ui/Button.astro';
+import Badge from '../components/ui/Badge.astro';
+import Icon from '../components/ui/Icon.astro';
+import PillarCard from '../components/blocks/PillarCard.astro';
+import NewsCard from '../components/blocks/NewsCard.astro';
+import StatCounter from '../components/blocks/StatCounter.astro';
+
+// Fetch collection items
+const allNews = await getCollection('news');
+const latestNews = allNews.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()).slice(0, 3);
+
+const allPillars = await getCollection('pillars');
+const featuredPillars = allPillars.sort((a, b) => a.data.number - b.data.number).slice(0, 6);
+---
+
+<BaseLayout
+  title="Togh Aman Committee | Peace & Welfare"
+  description="Official portal of Togh Aman Committee. Dedicated to peace, transparent development, crime prevention, and community welfare in Togh Bala & Payan, Kohat."
+>
+  <!-- 1. Hero Section -->
+  <section class="hero-section" id="hero-section">
+    <!-- Interactive Ambient Glow & Dotted Matrix Layer -->
+    <div class="hero-ambient-glow" id="hero-ambient-glow" aria-hidden="true"></div>
+    <div class="hero-grid-pattern" aria-hidden="true"></div>
+
+    <!-- Mountain Ridge Silhouette Horizon -->
+    <div class="hero-mountain-backdrop" aria-hidden="true">
+      <svg viewBox="0 0 1440 220" fill="none" preserveAspectRatio="none" class="mountain-svg">
+        <path d="M0,220 L0,150 Q180,80 360,130 Q540,180 720,100 Q900,20 1080,110 Q1260,200 1440,140 L1440,220 Z" fill="rgba(8, 116, 67, 0.04)" />
+        <path d="M0,220 L0,175 Q240,115 480,155 Q720,195 960,125 Q1200,55 1440,165 L1440,220 Z" fill="rgba(6, 77, 50, 0.07)" />
+      </svg>
+    </div>
+
+    <div class="container hero-container-grid">
+      <!-- Left Column: Core Authority & Punchy Action -->
+      <div class="hero-content-col">
+        <!-- Live Status Pill with Pulsing Beacon -->
+        <div class="hero-live-pill reveal-on-scroll">
+          <span class="live-beacon">
+            <span class="beacon-dot"></span>
+            <span class="beacon-ring"></span>
+          </span>
+          <span class="pill-text">Constitutional Public Trust &bull; Togh Bala &amp; Payan</span>
+        </div>
+
+        <!-- Monumental Headline with Golden Accent -->
+        <h1 class="hero-main-title reveal-on-scroll delay-1">
+          A Sacred <span class="gold-accent-word">Trust</span><br />
+          of the People
+        </h1>
+
+        <!-- Constitutional Quote Card -->
+        <div class="hero-quote-box reveal-on-scroll delay-2">
+          <span class="quote-bar"></span>
+          <blockquote class="hero-quote">
+            "The Committee is not the property of any person. It is a trust of the people."
+          </blockquote>
+        </div>
+
+        <!-- Concise, Impactful Mission Paragraph -->
+        <p class="hero-lead-text reveal-on-scroll delay-3">
+          Dedicated to lawful peace, eradicating narcotics, youth empowerment, 100% audited public funds, and safeguarding shared communal lands (Shamilat) across <strong>Togh Bala &amp; Payan</strong>, Kohat.
+        </p>
+
+        <!-- Action Buttons with Enhanced Styling -->
+        <div class="hero-actions-group reveal-on-scroll delay-4">
+          <Button variant="accent" size="lg" href="/complaints" class="hero-btn-primary pulse-gold">
+            <Icon name="alert" size={20} />
+            <span>Report an Issue (Private)</span>
+          </Button>
+          <Button variant="outline" size="lg" href="/our-work" class="hero-btn-secondary">
+            <span>Explore 14 Pillars</span>
+            <Icon name="arrow-right" size={18} />
+          </Button>
+        </div>
+
+        <!-- Instant Trust Pillars Row -->
+        <div class="hero-trust-row reveal-on-scroll delay-4">
+          <div class="trust-pill">
+            <Icon name="check-circle" size={15} class="text-green" />
+            <span>Zero Retaliation</span>
+          </div>
+          <div class="trust-pill">
+            <Icon name="shield" size={15} class="text-green" />
+            <span>EXIF-Stripped Intake</span>
+          </div>
+          <div class="trust-pill">
+            <Icon name="balance" size={15} class="text-green" />
+            <span>100% Audited Treasury</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Interactive 3D Showcase & Floating Micro-Cards -->
+      <div class="hero-visual-col reveal-on-scroll delay-2">
+        <div class="interactive-emblem-card" id="interactive-card">
+          <!-- Golden Ambient Halo Background -->
+          <div class="emblem-halo"></div>
+
+          <!-- Central Emblem Presentation Box -->
+          <div class="emblem-inner-box">
+            <div class="emblem-wrapper">
+              <img 
+                src="/assets/brand/togh-aman-committee-emblem.png" 
+                alt="Official Emblem of Togh Aman Committee" 
+                width="170" 
+                height="170" 
+                class="hero-emblem-img"
+                loading="eager"
+              />
+              <div class="dove-glide-wrapper" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#D4A017" stroke-width="2" class="gliding-dove-svg">
+                  <path d="M12 4c-3 0-5 2-6 5-3 1-4 3-4 5 0 3 2 5 6 5h9c3 0 4-2 4-5 0-3-2-5-5-5-1-3-2-5-4-5z" />
+                  <path d="M14 9c.5.5 1 1.5 1 2.5" />
+                  <path d="M9 14l2-2" />
+                </svg>
+              </div>
+            </div>
+            
+            <h2 class="emblem-card-title">Togh Aman Committee</h2>
+            <span class="emblem-card-sub" dir="rtl">توغ امن کمیٹی کوہاٹ</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Live Announcement Ticker -->
+  <div class="ticker-bar" aria-label="Official Announcements Ticker">
+    <div class="container ticker-container">
+      <div class="ticker-label">
+        <Icon name="document" size={16} />
+        <span>LATEST:</span>
+      </div>
+      <div class="ticker-viewport">
+        <div class="ticker-track">
+          <span class="ticker-item">Alhamdulillah! Formal Opening of Togh Aman Committee held on 25 August 2026.</span>
+          <span class="ticker-item">&bull;</span>
+          <span class="ticker-item">Official Secretariat Hotlines & WhatsApp: +92 333 9768022 &bull; +92 333 9636226 &bull; +92 336 9498887.</span>
+          <span class="ticker-item">&bull;</span>
+          <span class="ticker-item">Confidential Whistleblower Intake Pipeline Active with Automated EXIF Privacy Shield.</span>
+          <span class="ticker-item">&bull;</span>
+          <span class="ticker-item">Constitution & Rules of Procedure published in full transparency.</span>
+          <span class="ticker-item">&bull;</span>
+          <span class="ticker-item">Secretariat: Haji Rafiullah Khan Marhoom Market, Main Pindi Road, Kohat.</span>
+          <span class="ticker-item">&bull;</span>
+          <span class="ticker-item">Official Hotlines: +92 333 9768022 | +92 333 9636226 | +92 336 9498887.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Principle & Trust Matrix (5-Second Trust Test) -->
+  <section class="trust-strip">
+    <div class="container">
+      <div class="trust-grid">
+        <div class="trust-item reveal-on-scroll">
+          <div class="trust-icon-box">
+            <Icon name="balance" size={24} />
+          </div>
+          <div class="trust-content">
+            <h4>Rule of Law & Merit</h4>
+            <p>We work in strict cooperation with state institutions and police. Zero violence, zero illegal vigilantism.</p>
+          </div>
+        </div>
+
+        <div class="trust-item reveal-on-scroll delay-1">
+          <div class="trust-icon-box">
+            <Icon name="document" size={24} />
+          </div>
+          <div class="trust-content">
+            <h4>Documented Decisions</h4>
+            <p>Every decision is codified in a numbered written resolution. Verbal decisions have zero legal standing.</p>
+          </div>
+        </div>
+
+        <div class="trust-item reveal-on-scroll delay-2">
+          <div class="trust-icon-box">
+            <Icon name="shield" size={24} />
+          </div>
+          <div class="trust-content">
+            <h4>Financial Integrity</h4>
+            <p>Compulsory numbered receipts for every donation, expense vouchers, and audited public accounts.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Key Metrics & Stat Counters -->
+  <section class="section metrics-section">
+    <div class="container">
+      <div class="stats-grid">
+        <StatCounter value="14" label="Manifesto Pillars" sublabel="Comprehensive community charter" />
+        <StatCounter value="2" label="Villages Unified" sublabel="Togh Bala & Togh Payan" />
+        <StatCounter value="100%" label="Documented Ledger" sublabel="Numbered receipts & vouchers" />
+        <StatCounter value="3 Lines" label="Public Hotlines" sublabel="+92 333 9768022 & WhatsApp" />
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Featured 14 Pillars Snapshot -->
+  <section class="section pillars-snapshot-section">
+    <div class="container">
+      <div class="section-title-wrap text-center reveal-on-scroll">
+        <Badge variant="green">Our Constitutional Mandate</Badge>
+        <h2>Our Work: 14 Manifesto Pillars</h2>
+        <p class="section-subtitle">
+          From anti-drugs action to common land protection, our work is bounded by written constitutional articles.
+        </p>
+      </div>
+
+      <div class="pillars-grid">
+        {featuredPillars.map((p) => (
+          <PillarCard
+            number={p.data.number}
+            title={p.data.title}
+            summary={p.data.summary}
+            icon={p.data.icon}
+            articleRef={p.data.articleRef}
+          />
+        ))}
+      </div>
+
+      <div class="text-center mt-10 reveal-on-scroll">
+        <Button variant="primary" size="md" href="/our-work">
+          <span>View All 14 Manifesto Pillars</span>
+          <Icon name="arrow-right" size={16} />
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Executive Leadership Section -->
+  <section class="section leadership-full-section" id="leadership">
+    <div class="container">
+      <div class="section-title-wrap text-center reveal-on-scroll">
+        <div class="leadership-badge-cluster">
+          <Badge variant="gold">Executive Governance</Badge>
+          <span class="leadership-mandate-chip">
+            <Icon name="shield" size={13} class="text-green" />
+            <span>Constitutional Mandate &bull; Democratic Accountability</span>
+          </span>
+        </div>
+        <h2 class="leadership-main-title">Custodian Leadership</h2>
+        <p class="section-subtitle">
+          "All office holders and members are not owners of power. They are representatives answerable to the people."
+        </p>
+      </div>
+
+      <div class="leaders-showcase-grid">
+        <!-- Founder Profile Card -->
+        <div class="card leader-profile-card reveal-on-scroll">
+          <div class="leader-card-top-bar">
+            <Badge variant="gold">Founder</Badge>
+            <span class="leader-role-tag">Chief Custodian</span>
+          </div>
+          <div class="leader-photo-wrap">
+            <img 
+              src="/assets/leaders/hadayatullah-khan.webp" 
+              alt="Hadayatullah Khan - Founder of Togh Aman Committee" 
+              class="profile-img"
+              width="400"
+              height="360"
+              loading="lazy"
+            />
+            <div class="photo-overlay-tag">
+              <Icon name="shield" size={12} class="text-gold" />
+              <span>Founding Custodian &bull; 2024–Present</span>
+            </div>
+          </div>
+          <div class="profile-content">
+            <h3 class="leader-name">Hadayatullah Khan</h3>
+            <span class="profile-tenure">
+              <Icon name="calendar" size={12} />
+              <span>Foundation Laid: July 2024 &bull; Strengthened: July 2026</span>
+            </span>
+            <blockquote class="leader-quote">
+              "Our homeland possesses historic dignity and peace. The committee was conceived to ensure that no individual's personal ambitions override the collective welfare, justice, and safety of our people."
+            </blockquote>
+            <div class="profile-card-footer">
+              <a href="/about#timeline" class="leader-card-action-btn">
+                <Icon name="arrow-right" size={14} />
+                <span>View Foundation Story</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- President Profile Card -->
+        <div class="card leader-profile-card reveal-on-scroll delay-1">
+          <div class="leader-card-top-bar">
+            <Badge variant="green">President</Badge>
+            <span class="leader-role-tag">Executive Head</span>
+          </div>
+          <div class="leader-photo-wrap">
+            <img 
+              src="/assets/leaders/malik-ihsanullah.webp" 
+              alt="Malik Ihsanullah - President of Togh Aman Committee" 
+              class="profile-img"
+              width="400"
+              height="360"
+              loading="lazy"
+            />
+            <div class="photo-overlay-tag">
+              <Icon name="balance" size={12} class="text-gold" />
+              <span>Executive Mandate &bull; 2026</span>
+            </div>
+          </div>
+          <div class="profile-content">
+            <h3 class="leader-name">Malik Ihsanullah</h3>
+            <span class="profile-tenure">
+              <Icon name="calendar" size={12} />
+              <span>Executive Leadership &bull; Formally Opened: 25 August 2026</span>
+            </span>
+            <blockquote class="leader-quote">
+              "We have pledged an uncompromising struggle against narcotics, theft, and illegal scrap yards. Everything we undertake will stand firmly within the law of Pakistan, in full cooperation with our state institutions."
+            </blockquote>
+            <div class="profile-card-footer">
+              <a href="/transparency/constitution#ch5" class="leader-card-action-btn">
+                <Icon name="document" size={14} />
+                <span>Chapter 5: Powers &amp; Quorum</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- In-Charge Complaints Cell Profile Card -->
+        <div class="card leader-profile-card reveal-on-scroll delay-2">
+          <div class="leader-card-top-bar">
+            <Badge variant="gold">In-Charge Complaints</Badge>
+            <span class="leader-role-tag">Dispute Resolution</span>
+          </div>
+          <div class="leader-photo-wrap">
+            <img 
+              src="/assets/leaders/Mr_Shafiq_ur_Rehman.webp" 
+              alt="Mr. Shafiq-ur-Rehman - In-Charge Complaints Cell of Togh Aman Committee" 
+              class="profile-img"
+              width="400"
+              height="360"
+              loading="lazy"
+            />
+            <div class="photo-overlay-tag">
+              <Icon name="phone" size={12} class="text-gold" />
+              <span>Direct Citizen Line: 0333-8303485</span>
+            </div>
+          </div>
+          <div class="profile-content">
+            <h3 class="leader-name">Mr. Shafiq-ur-Rehman</h3>
+            <span class="profile-tenure">
+              <Icon name="shield" size={12} />
+              <span>Public Grievances &bull; Strict Confidentiality</span>
+            </span>
+            <blockquote class="leader-quote">
+              "If any individual faces a complaint or issue, particularly concerning any member of the Aman Committee, they are requested to contact me directly. All complaints will be heard respectfully and reviewed appropriately."
+            </blockquote>
+            <div class="profile-card-footer">
+              <div class="leader-dual-actions">
+                <a href="tel:03338303485" class="leader-sub-btn call-sub-btn" aria-label="Call Complaints In-Charge">
+                  <Icon name="phone" size={13} />
+                  <span>0333-8303485</span>
+                </a>
+                <a href="https://wa.me/923338303485?text=Peace%20be%20upon%20you%20Mr.%20Shafiq-ur-Rehman,%20I%20have%20a%20grievance%20for%20the%20Complaints%20Cell." target="_blank" rel="noopener noreferrer" class="leader-sub-btn wa-sub-btn" aria-label="WhatsApp Complaints In-Charge">
+                  <Icon name="whatsapp" size={13} />
+                  <span>WhatsApp</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Finance Secretary Profile Card -->
+        <div class="card leader-profile-card reveal-on-scroll delay-3">
+          <div class="leader-card-top-bar">
+            <Badge variant="green">Finance Secretary</Badge>
+            <span class="leader-role-tag">Treasury &amp; Audit</span>
+          </div>
+          <div class="leader-photo-wrap">
+            <img 
+              src="/assets/leaders/Waheed_ur_Rehman.webp" 
+              alt="Waheed-ur-Rehman - Finance Secretary of Togh Aman Committee" 
+              class="profile-img"
+              width="400"
+              height="360"
+              loading="lazy"
+            />
+            <div class="photo-overlay-tag">
+              <Icon name="lock" size={12} class="text-gold" />
+              <span>Easypaisa Desk: 0334 8441095</span>
+            </div>
+          </div>
+          <div class="profile-content">
+            <h3 class="leader-name">Waheed-ur-Rehman</h3>
+            <span class="profile-tenure">
+              <Icon name="balance" size={12} />
+              <span>Treasury Custodian &bull; 100% Audited Accounts</span>
+            </span>
+            <blockquote class="leader-quote">
+              "Dedicated to 100% documented financial transparency under Chapter 8. Every community contribution is recorded with numbered receipts, and all expenses are strictly ratified for communal welfare."
+            </blockquote>
+            <div class="profile-card-footer">
+              <div class="ep-account-pill">
+                <span class="ep-tag">Official Easypaisa</span>
+                <strong class="ep-number">0334 8441095</strong>
+              </div>
+              <div class="leader-dual-actions mt-2">
+                <a href="tel:03348441095" class="leader-sub-btn call-sub-btn" aria-label="Call Finance Secretary">
+                  <Icon name="phone" size={13} />
+                  <span>0334 8441095</span>
+                </a>
+                <a href="https://wa.me/923348441095?text=Peace%20be%20upon%20you%20Waheed-ur-Rehman%20Sahib,%20I%20am%20contacting%20regarding%20Togh%20Aman%20Committee%20finance." target="_blank" rel="noopener noreferrer" class="leader-sub-btn wa-sub-btn" aria-label="WhatsApp Finance Secretary">
+                  <Icon name="whatsapp" size={13} />
+                  <span>WhatsApp Desk</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Latest News & Announcements -->
+  <section class="section news-section" id="official-announcements">
+    <div class="container">
+      <div class="news-section-header reveal-on-scroll">
+        <div class="news-header-titles">
+          <div class="news-badge-cluster">
+            <Badge variant="gold">Public Information</Badge>
+            <span class="news-status-pill">
+              <Icon name="shield" size={13} class="text-green" />
+              <span>Official Dispatches &bull; باضابطہ نوٹیفکیشنز</span>
+            </span>
+          </div>
+          <h2 class="news-main-heading">Official Announcements &amp; Public Notices</h2>
+          <span class="news-urdu-heading urdu-text" dir="rtl">توغ امن کمیٹی کے سرکاری اعلانات اور باضابطہ نوٹیفکیشنز</span>
+          <p class="news-header-desc">
+            Stay informed with verified notifications, appointments, and executive communiqués issued directly by the secretariat.
+          </p>
+        </div>
+
+        <div class="news-header-cta desktop-only-btn">
+          <a href="/news" class="btn-archive-link">
+            <span>View All Archives</span>
+            <Icon name="arrow-right" size={14} />
+          </a>
+        </div>
+      </div>
+
+      <div class="news-grid">
+        {latestNews.map((n) => (
+          <NewsCard
+            slug={n.id}
+            title={n.data.title}
+            description={n.data.description}
+            pubDate={n.data.pubDate}
+            category={n.data.category}
+            image={n.data.image}
+            pinned={n.data.pinned}
+          />
+        ))}
+      </div>
+
+      <div class="mobile-only-action text-center mt-6">
+        <Button variant="outline" size="md" href="/news" class="w-full">
+          <span>View All Announcements</span>
+          <Icon name="arrow-right" size={16} />
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Get Involved / Public Action CTA -->
+  <section class="section cta-section">
+    <div class="container">
+      <div class="cta-banner card card-gold-accent reveal-on-scroll">
+        <div class="cta-content">
+          <Badge variant="gold">Confidential Citizen Participation</Badge>
+          <h2>Have an Issue or Need Community Assistance?</h2>
+          <p>
+            Whether reporting narcotics activity, land encroaching on common grounds, or civic infrastructure neglect, submit your report safely. 
+            Anonymous whistleblower submissions are fully supported.
+          </p>
+          <div class="cta-buttons">
+            <Button variant="accent" size="lg" href="/complaints">
+              <Icon name="alert" size={18} />
+              <span>Report an Issue Now</span>
+            </Button>
+            <Button variant="outline" size="lg" href="/contact">
+              <Icon name="phone" size={18} />
+              <span>Contact Secretariat</span>
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Interactive Mouse Spotlight & 3D Tilt Script -->
+  <script>
+    function initHeroInteractivity() {
+      const heroSection = document.getElementById('hero-section');
+      const interactiveCard = document.getElementById('interactive-card');
+
+      if (!heroSection) return;
+
+      // Check if user device has a fine pointer (desktop mouse)
+      const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
+
+      if (hasFinePointer) {
+        heroSection.addEventListener('mousemove', (e) => {
+          const rect = heroSection.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+
+          // Update radial glow position
+          heroSection.style.setProperty('--mouse-x', `${x}px`);
+          heroSection.style.setProperty('--mouse-y', `${y}px`);
+
+          // 3D Tilt on card
+          if (interactiveCard) {
+            const cardRect = interactiveCard.getBoundingClientRect();
+            const cardCenterX = cardRect.left + cardRect.width / 2;
+            const cardCenterY = cardRect.top + cardRect.height / 2;
+
+            const deltaX = (e.clientX - cardCenterX) / (window.innerWidth / 2);
+            const deltaY = (e.clientY - cardCenterY) / (window.innerHeight / 2);
+
+            const rotateY = Math.max(-8, Math.min(8, deltaX * 8));
+            const rotateX = Math.max(-8, Math.min(8, -deltaY * 8));
+
+            interactiveCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+          }
+        });
+
+        heroSection.addEventListener('mouseleave', () => {
+          if (interactiveCard) {
+            interactiveCard.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+          }
+        });
+      }
+    }
+
+    document.addEventListener('astro:page-load', initHeroInteractivity);
+    initHeroInteractivity();
+  </script>
+</BaseLayout>
+
+<style>
+  /* Hero Redesign (World-Class 2-Column Responsive Layout) */
+  .hero-section {
+    position: relative;
+    background: radial-gradient(circle at 50% 0%, #FFFFFF 0%, var(--color-background) 100%);
+    padding-top: var(--space-12);
+    padding-bottom: var(--space-20);
+    border-bottom: 1px solid var(--color-border);
+    overflow: hidden;
+  }
+
+  @media (min-width: 992px) {
+    .hero-section {
+      padding-top: var(--space-16);
+      padding-bottom: var(--space-24);
+    }
+  }
+
+  /* Interactive Spotlight & Grid Pattern Backgrounds */
+  .hero-ambient-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 1;
+    background: radial-gradient(
+      650px circle at var(--mouse-x, 50%) var(--mouse-y, 30%),
+      rgba(8, 116, 67, 0.12),
+      rgba(212, 160, 23, 0.06) 40%,
+      transparent 70%
+    );
+    transition: opacity 0.5s ease;
+  }
+
+  .hero-grid-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.55;
+    background-image: radial-gradient(rgba(6, 77, 50, 0.15) 1px, transparent 1px);
+    background-size: 28px 28px;
+    mask-image: linear-gradient(180deg, #000 60%, transparent 100%);
+    -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent 100%);
+  }
+
+  .hero-mountain-backdrop {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 140px;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .mountain-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .hero-container-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+    align-items: center;
+  }
+
+  @media (min-width: 992px) {
+    .hero-container-grid {
+      grid-template-columns: 1.25fr 0.95fr;
+      gap: var(--space-10);
+    }
+  }
+
+  /* Left Column Styles */
+  .hero-content-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  @media (min-width: 992px) {
+    .hero-content-col {
+      align-items: flex-start;
+      text-align: left;
+    }
+  }
+
+  .hero-live-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    background: #FFFFFF;
+    border: 1px solid rgba(8, 116, 67, 0.25);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-full);
+    box-shadow: 0 2px 8px rgba(6, 77, 50, 0.06);
+    margin-bottom: var(--space-4);
+  }
+
+  .live-beacon {
+    position: relative;
+    display: inline-flex;
+    width: 10px;
+    height: 10px;
+  }
+
+  .beacon-dot {
+    position: relative;
+    width: 10px;
+    height: 10px;
+    border-radius: var(--radius-full);
+    background: var(--color-green);
+  }
+
+  .beacon-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 10px;
+    height: 10px;
+    border-radius: var(--radius-full);
+    background: var(--color-green);
+    opacity: 0.75;
+    animation: beacon-pulse 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  @keyframes beacon-pulse {
+    0% { transform: scale(1); opacity: 0.8; }
+    100% { transform: scale(2.8); opacity: 0; }
+  }
+
+  .pill-text {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--color-primary);
+    letter-spacing: 0.02em;
+  }
+
+  .hero-main-title {
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.12;
+    color: var(--color-primary);
+    margin: 0 0 var(--space-4);
+    letter-spacing: -0.025em;
+  }
+
+  .gold-accent-word {
+    color: #b3820a;
+    position: relative;
+    display: inline-block;
+  }
+
+  .gold-accent-word::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: rgba(212, 160, 23, 0.22);
+    border-radius: var(--radius-full);
+    z-index: -1;
+  }
+
+  .hero-quote-box {
+    display: flex;
+    align-items: stretch;
+    gap: var(--space-3);
+    background: rgba(8, 116, 67, 0.05);
+    border: 1px solid rgba(8, 116, 67, 0.15);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-4);
+    max-width: 620px;
+  }
+
+  .quote-bar {
+    width: 4px;
+    background: var(--color-gold);
+    border-radius: var(--radius-full);
+    flex-shrink: 0;
+  }
+
+  .hero-quote {
+    font-style: italic;
+    font-size: var(--text-sm);
+    color: var(--color-primary);
+    font-weight: 600;
+    line-height: 1.45;
+    margin: 0;
+    border: none;
+    padding: 0;
+  }
+
+  .hero-lead-text {
+    font-size: var(--text-base);
+    color: var(--color-text-muted);
+    line-height: 1.65;
+    margin-bottom: var(--space-6);
+    max-width: 620px;
+  }
+
+  .hero-actions-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--space-6);
+  }
+
+  @media (min-width: 992px) {
+    .hero-actions-group {
+      justify-content: flex-start;
+    }
+  }
+
+  .hero-btn-primary {
+    font-size: var(--text-sm) !important;
+    padding: var(--space-3) var(--space-6) !important;
+  }
+
+  .hero-btn-secondary {
+    font-size: var(--text-sm) !important;
+    padding: var(--space-3) var(--space-6) !important;
+  }
+
+  .hero-trust-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media (min-width: 992px) {
+    .hero-trust-row {
+      justify-content: flex-start;
+    }
+  }
+
+  .trust-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  /* Right Column: Interactive 3D Showcase Card */
+  .hero-visual-col {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    perspective: 1000px;
+  }
+
+  .interactive-emblem-card {
+    position: relative;
+    width: 100%;
+    max-width: 440px;
+    transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.4, 1);
+    transform-style: preserve-3d;
+  }
+
+  .emblem-halo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle, rgba(212, 160, 23, 0.2) 0%, rgba(8, 116, 67, 0.08) 50%, transparent 75%);
+    border-radius: var(--radius-full);
+    pointer-events: none;
+    z-index: 0;
+    filter: blur(20px);
+  }
+
+  .emblem-inner-box {
+    position: relative;
+    z-index: 1;
+    background: #FFFFFF;
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-8) var(--space-6);
+    box-shadow: 0 16px 36px -8px rgba(6, 77, 50, 0.12), 0 0 0 1px rgba(8, 116, 67, 0.05);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .emblem-wrapper {
+    position: relative;
+    margin-bottom: var(--space-4);
+  }
+
+  .hero-emblem-img {
+    border-radius: var(--radius-full);
+    box-shadow: 0 8px 24px rgba(6, 77, 50, 0.15);
+    border: 4px solid #FFFFFF;
+    outline: 2px solid var(--color-gold);
+    background: #FFFFFF;
+    transition: transform 0.4s ease;
+  }
+
+  .interactive-emblem-card:hover .hero-emblem-img {
+    transform: scale(1.04);
+  }
+
+  .dove-glide-wrapper {
+    position: absolute;
+    top: -12px;
+    right: -16px;
+    width: 36px;
+    height: 36px;
+    background: #FFFFFF;
+    border-radius: var(--radius-full);
+    padding: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--color-gold);
+    animation: dove-float 4s ease-in-out infinite alternate;
+  }
+
+  @keyframes dove-float {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(-8px) rotate(6deg); }
+  }
+
+  .gliding-dove-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .emblem-card-title {
+    font-size: var(--text-lg);
+    font-weight: 800;
+    color: var(--color-primary);
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .emblem-card-sub {
+    font-size: var(--text-base);
+    color: var(--color-green);
+    font-weight: 700;
+    margin-top: 6px;
+    letter-spacing: normal;
+  }
+
+  .emblem-card-divider {
+    width: 60px;
+    height: 2px;
+    background: var(--color-gold);
+    margin: var(--space-3) auto;
+    border-radius: var(--radius-full);
+  }
+
+  .emblem-card-meta {
+    font-size: 11px;
+    color: var(--color-text-muted);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .meta-heading {
+    font-weight: 600;
+    color: var(--color-text-muted);
+    font-size: 11px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .emblem-hotlines-row {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+  }
+
+  .hotline-chip-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: #F4F8F5;
+    border: 1px solid rgba(6, 77, 50, 0.15);
+    padding: 3px 8px;
+    border-radius: var(--radius-md);
+    color: var(--color-primary);
+    font-size: 11.5px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all var(--duration-fast);
+  }
+
+  .hotline-chip-link:hover {
+    background: #064D32;
+    color: #FFFFFF;
+    border-color: #064D32;
+    transform: translateY(-1px);
+  }
+
+  /* Floating Micro-Badges */
+  .floating-badge {
+    position: absolute;
+    background: #FFFFFF;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-2) var(--space-3);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    z-index: 3;
+    pointer-events: none;
+    transition: transform 0.3s ease;
+  }
+
+  .badge-icon-box {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .badge-text-box {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .badge-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--color-text);
+    line-height: 1.2;
+  }
+
+  .badge-sub {
+    font-size: 9px;
+    color: var(--color-text-muted);
+    font-weight: 600;
+  }
+
+  /* Specific Floating Positioning */
+  .badge-quorum {
+    top: 8%;
+    left: -12%;
+    animation: chip-float-1 5s ease-in-out infinite alternate;
+  }
+
+  .badge-privacy {
+    bottom: 12%;
+    left: -8%;
+    animation: chip-float-2 6s ease-in-out infinite alternate;
+  }
+
+  .badge-finance {
+    top: 42%;
+    right: -12%;
+    animation: chip-float-3 5.5s ease-in-out infinite alternate;
+  }
+
+  @keyframes chip-float-1 {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-6px); }
+  }
+
+  @keyframes chip-float-2 {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(8px); }
+  }
+
+  @keyframes chip-float-3 {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-7px); }
+  }
+
+  @media (max-width: 991px) {
+    .floating-badge {
+      display: none;
+    }
+  }
+
+  /* Ticker */
+  .ticker-bar {
+    background-color: var(--color-primary-dark);
+    color: var(--color-white);
+    padding: var(--space-2) 0;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(212, 160, 23, 0.3);
+  }
+
+  .ticker-container {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .ticker-label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--color-gold);
+    letter-spacing: 0.08em;
+    flex-shrink: 0;
+  }
+
+  .ticker-viewport {
+    overflow: hidden;
+    white-space: nowrap;
+    flex: 1;
+  }
+
+  .ticker-item {
+    font-size: var(--text-xs);
+    color: rgba(255, 255, 255, 0.9);
+    margin-right: var(--space-4);
+  }
+
+  /* Trust Strip */
+  .trust-strip {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    padding: var(--space-10) 0;
+    border-bottom: 3px solid var(--color-gold);
+  }
+
+  .trust-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  @media (min-width: 768px) {
+    .trust-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .trust-item {
+    display: flex;
+    gap: var(--space-4);
+    align-items: flex-start;
+  }
+
+  .trust-icon-box {
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--color-gold);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 1px solid rgba(212, 160, 23, 0.3);
+  }
+
+  .trust-content h4 {
+    color: var(--color-white);
+    font-size: var(--text-base);
+    margin-bottom: var(--space-1);
+  }
+
+  .trust-content p {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: var(--text-xs);
+    line-height: var(--leading-normal);
+    margin-bottom: 0;
+  }
+
+  /* Stats */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 992px) {
+    .stats-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-6);
+    }
+  }
+
+  /* Section Titles */
+  .section-title-wrap {
+    margin-bottom: var(--space-10);
+  }
+
+  .section-title-wrap h2 {
+    margin-top: var(--space-2);
+    margin-bottom: var(--space-2);
+  }
+
+  .section-subtitle {
+    font-size: var(--text-base);
+    color: var(--color-text-muted);
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+  }
+
+  .flex-between {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .desktop-only-btn {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .desktop-only-btn {
+      display: inline-flex;
+    }
+    .mobile-only-action {
+      display: none;
+    }
+  }
+
+  /* Pillars Grid */
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 640px) {
+    .pillars-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .pillars-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Executive Leadership Section */
+  .leadership-full-section {
+    background: linear-gradient(180deg, #FFFFFF 0%, #F5F9F6 50%, #FFFFFF 100%);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    position: relative;
+  }
+
+  .leadership-badge-cluster {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: var(--space-3);
+  }
+
+  .leadership-mandate-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--color-primary);
+    background: rgba(6, 77, 50, 0.08);
+    padding: 3px 12px;
+    border-radius: 9999px;
+    border: 1px solid rgba(6, 77, 50, 0.15);
+  }
+
+  .leadership-main-title {
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    color: var(--color-primary);
+    font-weight: 800;
+    margin: 0 0 var(--space-2);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  .leaders-showcase-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media (min-width: 640px) {
+    .leaders-showcase-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .leaders-showcase-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .leader-profile-card {
+    background: #FFFFFF;
+    border: 1px solid rgba(6, 77, 50, 0.12);
+    border-radius: var(--radius-xl);
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-shadow: 0 4px 20px rgba(6, 77, 50, 0.05);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .leader-profile-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 36px -4px rgba(6, 77, 50, 0.12);
+    border-color: var(--color-gold);
+  }
+
+  .leader-profile-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-gold));
+    opacity: 0.85;
+  }
+
+  .leader-card-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: var(--space-3);
+  }
+
+  .leader-role-tag {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--color-green);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    background: rgba(8, 116, 67, 0.07);
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(8, 116, 67, 0.18);
+  }
+
+  .leader-photo-wrap {
+    height: 270px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    position: relative;
+    margin-bottom: var(--space-4);
+    background-color: var(--color-surface-subtle);
+    border: 2px solid rgba(6, 77, 50, 0.08);
+  }
+
+  .profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    transition: transform 0.4s ease;
+  }
+
+  .leader-profile-card:hover .profile-img {
+    transform: scale(1.05);
+  }
+
+  .photo-overlay-tag {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    right: 8px;
+    background: rgba(6, 77, 50, 0.88);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    color: #FFFFFF;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: var(--radius-sm);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .profile-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .leader-name {
+    font-size: 1.18rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    margin: 0 0 2px;
+    line-height: 1.25;
+  }
+
+  .profile-tenure {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11.5px;
+    color: var(--color-text-subtle);
+    font-weight: 600;
+    margin-bottom: var(--space-3);
+    line-height: 1.35;
+  }
+
+  .leader-quote {
+    background: rgba(6, 77, 50, 0.03);
+    border-left: 3px solid var(--color-gold);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 10px 12px;
+    font-size: 12px;
+    color: var(--color-text-muted);
+    font-style: italic;
+    line-height: 1.5;
+    margin: 0 0 var(--space-4);
+    flex: 1;
+  }
+
+  .profile-card-footer {
+    margin-top: auto;
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .leader-card-action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 8px 12px;
+    background: var(--color-surface-subtle);
+    color: var(--color-primary);
+    border: 1px solid rgba(6, 77, 50, 0.15);
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all var(--duration-fast);
+  }
+
+  .leader-card-action-btn:hover {
+    background: var(--color-primary);
+    color: #FFFFFF;
+    border-color: var(--color-primary);
+  }
+
+  .ep-account-pill {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #EBF8EE;
+    border: 1px solid rgba(37, 211, 102, 0.4);
+    border-radius: var(--radius-sm);
+    padding: 5px 10px;
+    font-size: 11.5px;
+    margin-bottom: 6px;
+  }
+
+  .ep-tag {
+    color: #1B5E20;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 10.5px;
+    letter-spacing: 0.03em;
+  }
+
+  .ep-number {
+    color: #064D32;
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: 0.03em;
+  }
+
+  .leader-dual-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+
+  .leader-sub-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 7px 6px;
+    border-radius: var(--radius-sm);
+    font-size: 11px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all var(--duration-fast);
+  }
+
+  .call-sub-btn {
+    background: #FFFFFF;
+    color: var(--color-primary);
+    border: 1px solid var(--color-border);
+  }
+
+  .call-sub-btn:hover {
+    background: var(--color-primary);
+    color: #FFFFFF;
+  }
+
+  .wa-sub-btn {
+    background: #E8F5E9;
+    color: #1B5E20;
+    border: 1px solid rgba(37, 211, 102, 0.4);
+  }
+
+  .wa-sub-btn:hover {
+    background: #25D366;
+    color: #FFFFFF;
+    border-color: #25D366;
+  }
+
+  /* News Section Styling */
+  .news-section {
+    background: linear-gradient(180deg, #F9FAF9 0%, #FFFFFF 100%);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    position: relative;
+  }
+
+  .news-section-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    margin-bottom: var(--space-8);
+  }
+
+  @media (min-width: 768px) {
+    .news-section-header {
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+  }
+
+  .news-header-titles {
+    max-width: 680px;
+  }
+
+  .news-badge-cluster {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: var(--space-2);
+  }
+
+  .news-status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-primary);
+    background: rgba(6, 77, 50, 0.08);
+    padding: 3px 10px;
+    border-radius: 9999px;
+  }
+
+  .news-main-heading {
+    font-size: clamp(1.75rem, 3vw, 2.3rem);
+    color: var(--color-primary);
+    margin: 0 0 4px;
+    line-height: 1.25;
+  }
+
+  .news-urdu-heading {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-green);
+    line-height: 1.6;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .news-header-desc {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  .btn-archive-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #FFFFFF;
+    color: var(--color-primary);
+    border: 1px solid rgba(6, 77, 50, 0.2);
+    padding: 10px 18px;
+    border-radius: var(--radius-md);
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .btn-archive-link:hover {
+    background: var(--color-primary);
+    color: #FFFFFF;
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(6, 77, 50, 0.15);
+  }
+
+  /* News Grid */
+  .news-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  @media (min-width: 768px) {
+    .news-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* CTA Banner */
+  .cta-banner {
+    padding: var(--space-10) var(--space-8);
+    text-align: center;
+    background: linear-gradient(135deg, var(--color-white) 0%, var(--color-surface-subtle) 100%);
+  }
+
+  .cta-content {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .cta-content h2 {
+    margin-top: var(--space-3);
+    margin-bottom: var(--space-4);
+  }
+
+  .cta-content p {
+    font-size: var(--text-base);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-8);
+  }
+
+  .cta-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    justify-content: center;
+  }
+
+  .text-center { text-align: center; }
+  .text-gold { color: var(--color-gold); }
+  .text-green { color: var(--color-green); }
+  .mt-2 { margin-top: 6px; }
+  .mt-6 { margin-top: var(--space-6); }
+  .mt-10 { margin-top: var(--space-10); }
+</style>

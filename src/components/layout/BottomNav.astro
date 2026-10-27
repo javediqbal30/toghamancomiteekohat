@@ -1,0 +1,53 @@
+---
+import Icon from '../ui/Icon.astro';
+
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = '/' } = Astro.props;
+---
+
+<nav class="bottom-nav" aria-label="Mobile Navigation Bar">
+  <a href="/" class={`bottom-nav-item ${currentPath === '/' ? 'active' : ''}`}>
+    <Icon name="mountains" size={20} />
+    <span>Home</span>
+  </a>
+  <a href="/our-work" class={`bottom-nav-item ${currentPath === '/our-work' ? 'active' : ''}`}>
+    <Icon name="shield" size={20} />
+    <span>Our Work</span>
+  </a>
+  <a href="/transparency" class={`bottom-nav-item ${currentPath === '/transparency' ? 'active' : ''}`}>
+    <Icon name="balance" size={20} />
+    <span>Audits</span>
+  </a>
+  <a href="/complaints" class={`bottom-nav-item ${currentPath === '/complaints' ? 'active' : ''} report-item`}>
+    <div class="report-badge">
+      <Icon name="alert" size={20} />
+    </div>
+    <span>Report</span>
+  </a>
+  <a href="/contact" class={`bottom-nav-item ${currentPath === '/contact' ? 'active' : ''}`}>
+    <Icon name="phone" size={20} />
+    <span>Contact</span>
+  </a>
+</nav>
+
+<style>
+  .report-item {
+    color: var(--color-gold);
+    font-weight: 700;
+  }
+
+  .report-badge {
+    background-color: var(--color-gold);
+    color: var(--color-gold-text);
+    padding: 4px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -6px;
+    box-shadow: 0 2px 8px rgba(212, 160, 23, 0.4);
+  }
+</style>
